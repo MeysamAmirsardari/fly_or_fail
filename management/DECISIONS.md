@@ -78,3 +78,21 @@ _Each entry gives: context, decision, alternatives considered, consequences, sta
   - RED's minimum design (Tier A 80–120 neurons, 12 trials). Compute is not binding, so the full
     candidate set with 30 trials is pre-registered. This improves on RED's power estimates.
 - **Status.** Accepted (2026-11-03). The commit introducing v1.0 is the pre-registration timestamp.
+
+## D-009: Pre-screen analysis amendments (synthetic validation only; no outcome data seen)
+1. **Informativeness gate (§6.2)** is evaluated under the CV-selected model, not only under M_shift.
+   Reason: under shift-only, strong gain-loss curves were misclassed as uninformative in 72–100% of
+   synthetic cases.
+2. **Effect gate (§6.1)** applies a Holm correction across the λ levels within each neuron. Reason:
+   15–24% false positives on synthetic neurons with f = 0 and noisy counts.
+3. **P-A one-sided decision** uses the 5th percentile of Δρ; the 2.5th percentile is also reported.
+   **Variance floor:** 1 count².
+4. **GOF (§6.3)** is kept as written. On synthetic data it is conservative (size 0.014–0.036 at a
+   nominal 0.05), so collapse could pass more often than it should; this is disclosed as a limitation.
+5. **ANALYSIS's other readings of v1.0 are accepted as written:**
+   - Ô is clamped at the grid ends and flagged;
+   - O_max is taken from the monotone curve;
+   - CV removes the held-out seeds from the intact curve as well;
+   - Williams/Steiger uses n = number of cell types;
+   - S3 is dropped from Holm if there are fewer than 5 dominators.
+- **Status.** Accepted (2026-11-03), before any screen was run.

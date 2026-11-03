@@ -1,0 +1,19 @@
+{
+ "pagerank_power_iters": 145,
+ "pagerank_igraph_vs_power_subgraph20k_maxabs": 7.592320869220792e-14,
+ "pagerank_igraph_vs_power_subgraph20k_max_rel": 6.426484444882707e-11,
+ "betweenness": {
+  "k_per_replicate": 1000,
+  "batches": 10,
+  "seeds": [
+   20261103,
+   20261104
+  ],
+  "n": 138639,
+  "spearman_rep1_rep2_rows": 0.8903617696606031,
+  "spearman_rep1_rep2_all": 0.8903617696606031,
+  "median_rel_se_rows_nonzero": 0.2382242186373419,
+  "rel_var_rep_diff_rows": 0.04389035094223035
+ },
+ "wall_s": 399.8
+}
