@@ -98,3 +98,25 @@ _Append-only, newest entries at the bottom. Times are 2026-11-03 session times (
 - **Public bucket found by ENG.** `gs://lee-lab_brain-and-nerve-cord-fly-connectome/compiled_data/`
   holds BANC, male CNS and FAFB-783 compiled data. This enables cross-connectome work in the paper
   extension.
+
+## 2026-11-03: User inputs, push to main, Phase 3 and Phase 6 launched
+
+- **Pushed to `main`** at the user's request: a fast-forward from e8fd470 to 005dc97, under the user's identity.
+- **User answers:**
+  - compute: here first, then Colab, then MacBook Pro M5;
+  - finish by 2026-11-05;
+  - keep a small pair pilot;
+  - the user will upload full texts from the links provided (Shiu 2024, Jacobs 2024, Shiu 2022 and its
+    source data, the Edmond archive listing, An 2026, Chen 2025, arXiv 2610.33881, Towlson 2020,
+    male CNS 2026).
+- **Launched:**
+  - RED (Fable 5.1/high): adversarial review. Asked specifically about metabolic control analysis
+    (Kacser–Burns flux control coefficients) as possible prior art for f_k.
+  - SIM (Opus/high): batched numba simulator with common random numbers and exact network
+    reduction, validation gates G1–G5 against Brian2. The model choice is deliberate: an incorrect
+    simulator would invalidate every result.
+- **ENG timing.** The per-trial discrepancy (about 5 s vs about 42 s) is consistent with the
+  feasibility logs: first-touch memory allocation in this VM is slow (2–3 s per GB), and joblib loky
+  workers rebuild and compile per process. A persistent process costs about 5 s per trial
+  (stateupdate 1.9 s and threshold 0.6 s over 127k neurons). That makes network reduction the main
+  speed-up.

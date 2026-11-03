@@ -24,6 +24,7 @@ usage, and zero tolerance for mistakes._
 | ENG | Data and model feasibility: install, inspect FlyWire v783, run the Shiu baseline, benchmark, check other datasets | Sonnet 5.5 | high | 1 | `docs/research/feasibility_report.md`, `feasibility/` |
 | RED | Red team: novelty, circularity, confounds, statistics, feasibility | Fable 5.1 | high | 3 | `docs/research/redteam_review.md` |
 | CIT | Citation auditor: verify every reference in the final docs | Sonnet 5.5 | medium | 4 | `docs/research/citation_audit.md` |
+| SIM | Simulation engineer: batched numba replica of the Shiu LIF model with common random numbers, exact network reduction, validation against Brian2 | Opus 5.5 | high | 6 | `sim/`, `docs/research/sim_validation.md` |
 
 ### Why these choices
 
@@ -35,6 +36,7 @@ usage, and zero tolerance for mistakes._
   logged evidence, not raw reasoning depth.
 - **Red team on Fable 5.1/high.** One focused, high-value adversarial pass where the strongest
   reasoning pays for itself.
+- **Simulator on Opus/high.** Every result depends on this code. A subtle semantic error (update order, refractoriness, reset) would silently invalidate the whole study, which justifies the stronger model. Validation gates against Brian2 are mandatory.
 - **Citation audit on Sonnet/medium.** Matching metadata is a narrow task. Medium effort is enough
   when the rules are explicit, and Haiku is excluded under zero tolerance.
 
