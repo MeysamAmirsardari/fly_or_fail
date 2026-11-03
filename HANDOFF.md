@@ -41,3 +41,11 @@
   **Never average the two.**
 - PDFs: re-download via `docs/research/READING_LIST.md`. They are not committed.
 - Commits must use the user's identity only, with no attribution trailers (D-004).
+
+## Update: screens launched (2026-11-03)
+- The silencing λ grid is frozen in `analysis/out/frozen_grid_v783.json` (commit ab50c16).
+- `sim/run_screens.py` is running: 597 S_shiu conditions plus 11 S_pure type conditions, about 10 h,
+  with checkpoints in `sim/out/screens_ckpt/`. Progress: `sim/logs/run_screens.out`. To resume:
+  `cd sim && python run_screens.py 4`.
+- Outputs: `analysis/out/screen_single_shiu.parquet` and `screen_types_pure.parquet`.
+- **Then:** analysis (HANDOFF step 4).

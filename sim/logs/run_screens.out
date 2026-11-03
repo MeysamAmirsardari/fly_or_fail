@@ -1,0 +1,6 @@
+[02:45:02] S_shiu: |S|=20 active=595 candidates=573; grid sha a041d755bbd4f1d0d19ea1b1d071e859
+[02:45:05] zeroing check 720575940623888397: out-degree full 3082 in-closure 737 zeroed 737; counts identical=True
+[02:45:09] zeroing check 720575940625111223: out-degree full 150 in-closure 150 zeroed 150; counts identical=True
+[02:45:12] zeroing check 720575940626279742: out-degree full 119 in-closure 119 zeroed 119; counts identical=True
+[02:48:13] [reduce] boundary check fired in 4 job(s); 2 leaking spiking neuron(s); closure 20359 -> 21423
+[02:48:14] shiu: conds 3/90 (900 jobs, 182s, net 21423, exp 1)
