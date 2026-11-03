@@ -96,3 +96,15 @@ _Each entry gives: context, decision, alternatives considered, consequences, sta
    - Williams/Steiger uses n = number of cell types;
    - S3 is dropped from Holm if there are fewer than 5 dominators.
 - **Status.** Accepted (2026-11-03), before any screen was run.
+- **D-009 addendum (2026-11-03, before any screen result was viewed).** Accepted ANALYSIS's
+  implementation:
+  - the informativeness thresholds are relative to the selected model's own maximum: O_max for shift;
+    γ·O_max for gain; the fitted Hill at 400 Hz for free;
+  - the effect gate applies Holm across the λ levels with intact rate ≥ 5 Hz.
+
+  Synthetic results:
+  - gain (γ = 0.5) classified correctly 0.99–1.00 of the time;
+  - false positives at f = 0 fall to 3.5–7%.
+
+  Disclosed limitation: for the free model, the 0.9 criterion is met automatically when the grid ends
+  at 400 Hz.
