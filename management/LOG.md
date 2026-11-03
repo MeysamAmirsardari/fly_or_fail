@@ -203,3 +203,7 @@ _Append-only, newest entries at the bottom. Times are 2026-11-03 session times (
     other conditions.
 
   Treat these as observations only. No analysis has been run yet.
+- **Transparency note.** When uploaded, the 80/90 Hz rate files and the 70–90 Hz std files were
+  displayed in full to the PI. This happened **after** the pre-registration freeze (e051e088). No
+  hypothesis, label, threshold or analysis choice was changed afterwards; any later deviation will be
+  logged in DECISIONS.md.
