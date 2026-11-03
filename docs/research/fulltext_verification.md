@@ -92,3 +92,22 @@ this outcome as informative either way.
 
 - Shiu archive **Fig. 1F** silencing CSVs (`fig_1f_*_hz_rate.csv`). Only the Fig. 1E activation CSVs
   (50 and 175 Hz) were provided.
+
+## 8. Shiu & Sterne 2022 Fig. 1: the seven PER-eliciting second-order neurons (PI read of the figure text layer)
+
+| Neuron | Synapses from the 17 candidate sugar GRNs (Fig. 1A) `[V-full]` | GtACR1 at 50 mM (Fig. 1E) | GtACR1 at 100 mM (Fig. 1—S2C) `[V-full]` |
+|---|---|---|---|
+| Zorro | 325 | reduced (***) | no effect |
+| Clavicle | 210 | reduced (***) | no effect |
+| G2N-1 | 165 | mixed across two lines (* / ns): ambiguous in the text layer | no effect |
+| Rattle | 110 | reduced (***) | **reduced** |
+| Usnea | 75 | reduced (***) | **reduced** |
+| FMIn | 75 | mixed across two lines (*** / ns): ambiguous in the text layer | no effect |
+| Phantom | 65 | reduced (***) | no effect |
+
+- **Caveat.** The per-neuron significance at 50 mM was read from the PDF text layer. Where a neuron
+  was tested with two split-GAL4 lines, the marks are ambiguous. The text states "6 of 7". Read the
+  figure image or the source data before using the 50 mM labels per neuron. The 100 mM result is
+  stated in the legend text and is unambiguous.
+- **Note.** Ranking by direct GRN synapse count puts Rattle 4th and Usnea 5th–6th of 7, so the 100 mM
+  result is **not** explained by direct sensory input. That makes the f-ranking test non-trivial.
