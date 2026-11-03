@@ -1,0 +1,158 @@
+{
+ "version": "v783",
+ "exp_name": "sugarR_150Hz",
+ "rate_hz": 150.0,
+ "n_trials": 10,
+ "sugar_grn_ids": [
+  720575940624963786,
+  720575940630233916,
+  720575940637568838,
+  720575940638202345,
+  720575940617000768,
+  720575940630797113,
+  720575940632889389,
+  720575940621754367,
+  720575940621502051,
+  720575940640649691,
+  720575940639332736,
+  720575940616885538,
+  720575940639198653,
+  720575940617937543,
+  720575940632425919,
+  720575940633143833,
+  720575940612670570,
+  720575940628853239,
+  720575940629176663,
+  720575940611875570
+ ],
+ "silenced_ids": [],
+ "seed_rule": "brian2.seed(seed_offset + trial) immediately before each run_trial",
+ "seed_offset": 0,
+ "seeds": [
+  0,
+  1,
+  2,
+  3,
+  4,
+  5,
+  6,
+  7,
+  8,
+  9
+ ],
+ "params": {
+  "t_run": "1. s",
+  "n_run": "30",
+  "v_0": "-52. mV",
+  "v_rst": "-52. mV",
+  "v_th": "-45. mV",
+  "t_mbr": "20. ms",
+  "tau": "5. ms",
+  "t_rfc": "2.2 ms",
+  "t_dly": "1.8 ms",
+  "w_syn": "275. uV",
+  "r_poi": "150. Hz",
+  "r_poi2": "0. Hz",
+  "f_poi": "250",
+  "eq_th": "v > v_th",
+  "eq_rst": "v = v_rst; w = 0; g = 0 * mV"
+ },
+ "model_repo_head": "91bdd1e7dcf193f3e7ca5a8933497fcef63b7960",
+ "brian2": "2.11.0",
+ "numpy": "2.5.4",
+ "python": "3.13.18",
+ "trials": [
+  {
+   "trial": 0,
+   "seed": 0,
+   "wall_s": 22.16,
+   "n_active": 370,
+   "n_spikes": 12446,
+   "rss_mb": 668,
+   "peak_rss_mb": 2771
+  },
+  {
+   "trial": 1,
+   "seed": 1,
+   "wall_s": 26.08,
+   "n_active": 367,
+   "n_spikes": 12019,
+   "rss_mb": 654,
+   "peak_rss_mb": 2888
+  },
+  {
+   "trial": 2,
+   "seed": 2,
+   "wall_s": 25.46,
+   "n_active": 369,
+   "n_spikes": 13135,
+   "rss_mb": 647,
+   "peak_rss_mb": 2748
+  },
+  {
+   "trial": 3,
+   "seed": 3,
+   "wall_s": 24.97,
+   "n_active": 365,
+   "n_spikes": 12867,
+   "rss_mb": 626,
+   "peak_rss_mb": 2778
+  },
+  {
+   "trial": 4,
+   "seed": 4,
+   "wall_s": 15.51,
+   "n_active": 376,
+   "n_spikes": 12996,
+   "rss_mb": 668,
+   "peak_rss_mb": 2770
+  },
+  {
+   "trial": 5,
+   "seed": 5,
+   "wall_s": 17.6,
+   "n_active": 374,
+   "n_spikes": 13144,
+   "rss_mb": 670,
+   "peak_rss_mb": 2778
+  },
+  {
+   "trial": 6,
+   "seed": 6,
+   "wall_s": 16.69,
+   "n_active": 371,
+   "n_spikes": 12316,
+   "rss_mb": 664,
+   "peak_rss_mb": 2767
+  },
+  {
+   "trial": 7,
+   "seed": 7,
+   "wall_s": 19.74,
+   "n_active": 371,
+   "n_spikes": 12536,
+   "rss_mb": 663,
+   "peak_rss_mb": 2883
+  },
+  {
+   "trial": 8,
+   "seed": 8,
+   "wall_s": 24.04,
+   "n_active": 371,
+   "n_spikes": 13438,
+   "rss_mb": 669,
+   "peak_rss_mb": 2772
+  },
+  {
+   "trial": 9,
+   "seed": 9,
+   "wall_s": 23.32,
+   "n_active": 364,
+   "n_spikes": 12647,
+   "rss_mb": 664,
+   "peak_rss_mb": 2773
+  }
+ ],
+ "n_spike_rows": 127544,
+ "finished": "2026-11-03 02:12:55"
+}

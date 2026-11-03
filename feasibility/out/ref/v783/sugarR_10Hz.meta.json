@@ -1,0 +1,158 @@
+{
+ "version": "v783",
+ "exp_name": "sugarR_10Hz",
+ "rate_hz": 10.0,
+ "n_trials": 10,
+ "sugar_grn_ids": [
+  720575940624963786,
+  720575940630233916,
+  720575940637568838,
+  720575940638202345,
+  720575940617000768,
+  720575940630797113,
+  720575940632889389,
+  720575940621754367,
+  720575940621502051,
+  720575940640649691,
+  720575940639332736,
+  720575940616885538,
+  720575940639198653,
+  720575940617937543,
+  720575940632425919,
+  720575940633143833,
+  720575940612670570,
+  720575940628853239,
+  720575940629176663,
+  720575940611875570
+ ],
+ "silenced_ids": [],
+ "seed_rule": "brian2.seed(seed_offset + trial) immediately before each run_trial",
+ "seed_offset": 0,
+ "seeds": [
+  0,
+  1,
+  2,
+  3,
+  4,
+  5,
+  6,
+  7,
+  8,
+  9
+ ],
+ "params": {
+  "t_run": "1. s",
+  "n_run": "30",
+  "v_0": "-52. mV",
+  "v_rst": "-52. mV",
+  "v_th": "-45. mV",
+  "t_mbr": "20. ms",
+  "tau": "5. ms",
+  "t_rfc": "2.2 ms",
+  "t_dly": "1.8 ms",
+  "w_syn": "275. uV",
+  "r_poi": "10. Hz",
+  "r_poi2": "0. Hz",
+  "f_poi": "250",
+  "eq_th": "v > v_th",
+  "eq_rst": "v = v_rst; w = 0; g = 0 * mV"
+ },
+ "model_repo_head": "91bdd1e7dcf193f3e7ca5a8933497fcef63b7960",
+ "brian2": "2.11.0",
+ "numpy": "2.5.4",
+ "python": "3.13.18",
+ "trials": [
+  {
+   "trial": 0,
+   "seed": 0,
+   "wall_s": 8.1,
+   "n_active": 25,
+   "n_spikes": 243,
+   "rss_mb": 1862,
+   "peak_rss_mb": 2770
+  },
+  {
+   "trial": 1,
+   "seed": 1,
+   "wall_s": 8.56,
+   "n_active": 24,
+   "n_spikes": 205,
+   "rss_mb": 1884,
+   "peak_rss_mb": 2896
+  },
+  {
+   "trial": 2,
+   "seed": 2,
+   "wall_s": 6.26,
+   "n_active": 27,
+   "n_spikes": 239,
+   "rss_mb": 1881,
+   "peak_rss_mb": 2886
+  },
+  {
+   "trial": 3,
+   "seed": 3,
+   "wall_s": 6.04,
+   "n_active": 28,
+   "n_spikes": 221,
+   "rss_mb": 1887,
+   "peak_rss_mb": 2890
+  },
+  {
+   "trial": 4,
+   "seed": 4,
+   "wall_s": 6.91,
+   "n_active": 27,
+   "n_spikes": 229,
+   "rss_mb": 1878,
+   "peak_rss_mb": 2894
+  },
+  {
+   "trial": 5,
+   "seed": 5,
+   "wall_s": 6.52,
+   "n_active": 24,
+   "n_spikes": 224,
+   "rss_mb": 1889,
+   "peak_rss_mb": 2886
+  },
+  {
+   "trial": 6,
+   "seed": 6,
+   "wall_s": 5.42,
+   "n_active": 24,
+   "n_spikes": 216,
+   "rss_mb": 1872,
+   "peak_rss_mb": 2896
+  },
+  {
+   "trial": 7,
+   "seed": 7,
+   "wall_s": 5.14,
+   "n_active": 24,
+   "n_spikes": 241,
+   "rss_mb": 1880,
+   "peak_rss_mb": 2890
+  },
+  {
+   "trial": 8,
+   "seed": 8,
+   "wall_s": 6.16,
+   "n_active": 26,
+   "n_spikes": 190,
+   "rss_mb": 1875,
+   "peak_rss_mb": 2892
+  },
+  {
+   "trial": 9,
+   "seed": 9,
+   "wall_s": 7.09,
+   "n_active": 25,
+   "n_spikes": 229,
+   "rss_mb": 1897,
+   "peak_rss_mb": 2894
+  }
+ ],
+ "n_spike_rows": 2237,
+ "finished": "2026-11-03 01:49:50"
+}

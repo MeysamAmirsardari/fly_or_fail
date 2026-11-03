@@ -1,0 +1,261 @@
+{
+ "version": "v630",
+ "exp_name": "sugarR-720575940622695448_100Hz",
+ "rate_hz": 100.0,
+ "n_trials": 20,
+ "sugar_grn_ids": [
+  720575940624963786,
+  720575940630233916,
+  720575940637568838,
+  720575940638202345,
+  720575940617000768,
+  720575940630797113,
+  720575940632889389,
+  720575940621754367,
+  720575940621502051,
+  720575940640649691,
+  720575940639332736,
+  720575940616885538,
+  720575940639198653,
+  720575940620900446,
+  720575940617937543,
+  720575940632425919,
+  720575940633143833,
+  720575940612670570,
+  720575940628853239,
+  720575940629176663,
+  720575940611875570
+ ],
+ "silenced_ids": [
+  720575940622695448
+ ],
+ "seed_rule": "brian2.seed(seed_offset + trial) immediately before each run_trial",
+ "seed_offset": 0,
+ "seeds": [
+  0,
+  1,
+  2,
+  3,
+  4,
+  5,
+  6,
+  7,
+  8,
+  9,
+  10,
+  11,
+  12,
+  13,
+  14,
+  15,
+  16,
+  17,
+  18,
+  19
+ ],
+ "params": {
+  "t_run": "1. s",
+  "n_run": "30",
+  "v_0": "-52. mV",
+  "v_rst": "-52. mV",
+  "v_th": "-45. mV",
+  "t_mbr": "20. ms",
+  "tau": "5. ms",
+  "t_rfc": "2.2 ms",
+  "t_dly": "1.8 ms",
+  "w_syn": "275. uV",
+  "r_poi": "100. Hz",
+  "r_poi2": "0. Hz",
+  "f_poi": "250",
+  "eq_th": "v > v_th",
+  "eq_rst": "v = v_rst; w = 0; g = 0 * mV"
+ },
+ "model_repo_head": "91bdd1e7dcf193f3e7ca5a8933497fcef63b7960",
+ "brian2": "2.11.0",
+ "numpy": "2.5.4",
+ "python": "3.13.18",
+ "trials": [
+  {
+   "trial": 0,
+   "seed": 0,
+   "wall_s": 4.99,
+   "n_active": 371,
+   "n_spikes": 10761,
+   "rss_mb": 612,
+   "peak_rss_mb": 2689
+  },
+  {
+   "trial": 1,
+   "seed": 1,
+   "wall_s": 7.27,
+   "n_active": 367,
+   "n_spikes": 9766,
+   "rss_mb": 610,
+   "peak_rss_mb": 2689
+  },
+  {
+   "trial": 2,
+   "seed": 2,
+   "wall_s": 6.19,
+   "n_active": 359,
+   "n_spikes": 10160,
+   "rss_mb": 608,
+   "peak_rss_mb": 2687
+  },
+  {
+   "trial": 3,
+   "seed": 3,
+   "wall_s": 6.73,
+   "n_active": 358,
+   "n_spikes": 10230,
+   "rss_mb": 612,
+   "peak_rss_mb": 2709
+  },
+  {
+   "trial": 4,
+   "seed": 4,
+   "wall_s": 4.84,
+   "n_active": 369,
+   "n_spikes": 10038,
+   "rss_mb": 610,
+   "peak_rss_mb": 2689
+  },
+  {
+   "trial": 5,
+   "seed": 5,
+   "wall_s": 6.6,
+   "n_active": 364,
+   "n_spikes": 9455,
+   "rss_mb": 607,
+   "peak_rss_mb": 2689
+  },
+  {
+   "trial": 6,
+   "seed": 6,
+   "wall_s": 5.04,
+   "n_active": 350,
+   "n_spikes": 9438,
+   "rss_mb": 612,
+   "peak_rss_mb": 2727
+  },
+  {
+   "trial": 7,
+   "seed": 7,
+   "wall_s": 5.07,
+   "n_active": 359,
+   "n_spikes": 10026,
+   "rss_mb": 610,
+   "peak_rss_mb": 2689
+  },
+  {
+   "trial": 8,
+   "seed": 8,
+   "wall_s": 5.27,
+   "n_active": 378,
+   "n_spikes": 10167,
+   "rss_mb": 611,
+   "peak_rss_mb": 2691
+  },
+  {
+   "trial": 9,
+   "seed": 9,
+   "wall_s": 6.27,
+   "n_active": 346,
+   "n_spikes": 9831,
+   "rss_mb": 608,
+   "peak_rss_mb": 2687
+  },
+  {
+   "trial": 10,
+   "seed": 10,
+   "wall_s": 5.49,
+   "n_active": 377,
+   "n_spikes": 10497,
+   "rss_mb": 618,
+   "peak_rss_mb": 2707
+  },
+  {
+   "trial": 11,
+   "seed": 11,
+   "wall_s": 5.88,
+   "n_active": 362,
+   "n_spikes": 9387,
+   "rss_mb": 612,
+   "peak_rss_mb": 2707
+  },
+  {
+   "trial": 12,
+   "seed": 12,
+   "wall_s": 5.46,
+   "n_active": 359,
+   "n_spikes": 9739,
+   "rss_mb": 612,
+   "peak_rss_mb": 2711
+  },
+  {
+   "trial": 13,
+   "seed": 13,
+   "wall_s": 5.57,
+   "n_active": 350,
+   "n_spikes": 9451,
+   "rss_mb": 609,
+   "peak_rss_mb": 2689
+  },
+  {
+   "trial": 14,
+   "seed": 14,
+   "wall_s": 7.09,
+   "n_active": 359,
+   "n_spikes": 10030,
+   "rss_mb": 613,
+   "peak_rss_mb": 2691
+  },
+  {
+   "trial": 15,
+   "seed": 15,
+   "wall_s": 6.85,
+   "n_active": 354,
+   "n_spikes": 9785,
+   "rss_mb": 609,
+   "peak_rss_mb": 2711
+  },
+  {
+   "trial": 16,
+   "seed": 16,
+   "wall_s": 5.51,
+   "n_active": 358,
+   "n_spikes": 10130,
+   "rss_mb": 614,
+   "peak_rss_mb": 2713
+  },
+  {
+   "trial": 17,
+   "seed": 17,
+   "wall_s": 5.37,
+   "n_active": 357,
+   "n_spikes": 10243,
+   "rss_mb": 618,
+   "peak_rss_mb": 2709
+  },
+  {
+   "trial": 18,
+   "seed": 18,
+   "wall_s": 5.52,
+   "n_active": 357,
+   "n_spikes": 9978,
+   "rss_mb": 612,
+   "peak_rss_mb": 2712
+  },
+  {
+   "trial": 19,
+   "seed": 19,
+   "wall_s": 5.32,
+   "n_active": 365,
+   "n_spikes": 10079,
+   "rss_mb": 615,
+   "peak_rss_mb": 2713
+  }
+ ],
+ "n_spike_rows": 199191,
+ "finished": "2026-11-03 01:39:47"
+}

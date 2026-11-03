@@ -1,0 +1,2239 @@
+                                            Sensorimotor behaviour from an untrained brain-and-nerve-cord
+                                                                     connectome
+                                                  John R. Minnick1,2,* , Jesus Gonzalez-Ferrer2,4 , Jinghui Geng2,3 , Jason K. Eshraghian1 ,
+                                                     Mohammed A. Mostajo-Radji2 , David Haussler2,4 and Mircea Teodorescu1,2,4,*
+                                            1
+                                                Department of Electrical and Computer Engineering, University of California, Santa Cruz, CA, USA.
+                                             2
+                                                UC Santa Cruz Genomics Institute, University of California, Santa Cruz, CA, USA. 3 Department of
+                                                Computer Science and Engineering, University of California, Santa Cruz, CA, USA. 4 Department of
+                                                           Biomolecular Engineering, University of California, Santa Cruz, CA, USA.
+                                                                    *Correspondence: jrminnic@ucsc.edu, mteodore@ucsc.edu
+arXiv:2610.33881v1 [q-bio.NC] 24 Oct 2026
+
+
+
+
+                                            Abstract
+                                            Connectomes now map the neurons and synapses of an adult fly’s brain and nerve cord, but how
+                                            much of behaviour follows from the wiring is unknown. Here we turn one such connectome into
+                                            a spiking network of 172,433 neurons with a published brain model’s untuned parameters, and
+                                            run it alone and inside a simulated body. Two fixed rules join them: odours and looming objects
+                                            drive sensory neurons, and motor neurons move the legs. Alone, the network passes a signal to
+                                            the motor neurons it is known to drive when the pathway supplies about 2% or more of their
+                                            input. In the body, the fly navigates around obstacles to 95% of the odour sources. A rewiring
+                                            that keeps each neuron’s connection counts and signs reaches 18%, and the fly’s leg commands
+                                            replayed with the senses off reach almost none, so navigation needs the measured wiring and
+                                            sensory feedback. Dopamine-gated weakening of the mushroom body’s output synapses turns
+                                            approach to an odour into avoidance, which requires the pairing and is odour-specific once one
+                                            olfactory synapse class is scaled. An untrained connectome thus supports a behaviour and its
+                                            learned reversal, and the pathways it cannot drive mark what the diagram leaves out.
+
+
+                                            Introduction
+                                            Complete wiring diagrams exist for the nematode[1, 2] and for the brain of the fly larva[3].
+                                            Electron-microscopy volumes of the adult fly, and the reconstructions made from them, cover a
+                                            large part of the central brain[4], the whole brain[5, 6, 7] and the ventral nerve cord[8, 9, 10].
+                                            The descending and ascending neurons that join brain and nerve cord have been matched across
+                                            those datasets[11]. The wiring of the adult’s nervous system is now known at the resolution of
+                                            single synapses. Two connectomes now reconstruct the brain and the nerve cord of one animal
+                                            together: the Brain And Nerve Cord connectome (BANC) of a female[12] and a male’s[13]. In
+                                            them a path can be followed from a sensory neuron to a motor neuron within one dataset. A
+                                            connectome records which neurons are connected and by how many synapses, and each neuron’s
+                                            transmitter can be predicted from the images[14]. It does not record the dynamics of the neurons
+                                            or their modulation[15, 16].
+                                            How much of a nervous system’s function follows from its wiring is an open question[15, 17, 18, 19,
+                                            20]. A spiking model built from the catalogued cell types of the protocerebral bridge reproduced
+                                            the ring-attractor dynamics of the fly’s heading signal over a wide range of parameters[21]. A
+                                            leaky integrate-and-fire model of the fly brain, with its parameters fixed in advance and its
+                                            weights taken from the connectome, predicted which neurons drive feeding and grooming, and
+                                            experiments confirmed the predictions[22]. Simulations of the nerve cord’s connectome identified
+                                            a small circuit that generates the walking rhythm[23]. Networks that take their connectivity
+                                            from the optic-lobe connectome, with the remaining parameters optimised for a task, predict the
+
+
+                                                                                               1
+responses of identified visual neurons[19]. Other results set limits. A connectome often leaves
+the dynamics of a recurrent network under-determined when the properties of the neurons are
+unknown[24, 20], and in the nematode the measured propagation of signals departs from what
+the anatomy predicts[25]. One way to measure what the wiring explains is to fit nothing: run the
+connectome as it is read, and record where it reproduces known biology and where it fails. Many
+such tests are possible in the fly, because the behavioural roles of single cell types are known.
+Activating most descending neurons drives a stereotyped behaviour[26]. Particular descending
+neurons turn the walking fly[27, 28] or make it walk backward[29], looming detectors of the
+optic lobe drive the giant fibre that triggers the escape take-off[30, 31], and the mushroom body
+supports olfactory learning[32, 33] through depression of its output synapses[34].
+Behaviour adds a second requirement. An animal’s movements change what its senses receive, and
+behaviour emerges from the interaction of the nervous system, the body and the environment[35,
+36], so a nervous system can be tested as a controller only inside a body. An open project is
+building an integrative simulation of the whole nematode[37]. Physics-based models of the fly’s
+body exist[36, 38, 39]. Their controllers have been written by hand or trained by reinforcement
+learning[38, 39], including one that takes the brain connectome as its architecture and learns to
+control the body[40]. What the measured wiring of the brain and nerve cord contributes when it
+is run untrained in such a body, inside a closed sensorimotor loop, is the question we address.
+Here we build a spiking network of 172,433 neurons from the BANC connectome, with every
+parameter of the published brain model[22] kept at its published value, and test it in three settings.
+Outside the body, we drive 15 pathways whose behavioural role is known from experiments,
+under criteria written down before each test. A pathway conducts when it supplies about 2% or
+more of its target’s input, and the failures trace to features a wiring diagram lacks: an electrical
+synapse, the absence of ongoing activity. In the same setting the olfactory pathway as read
+gives a dense odour code, and scaling the output of one class of antennal-lobe neuron brings it
+into the range measured in the fly. In the NeuroMechFly body[38], coupled through two fixed
+rules, the network reaches 95% of 32 odour sources across nine arenas, where a network rewired
+to keep every neuron’s degrees and signs reaches 18%. Lesion and rescue experiments place
+the behavioural deficit at the output of the mushroom body, and replaying the same motor
+commands without sensory feedback reaches 2% of the sources, so the closed loop is required.
+Dopamine-gated depression of the mushroom-body output synapses while the fly forages shifts
+the balance of that output from approach to avoidance, and the trained fly turns away from the
+odour. The depression is associative when Kenyon-cell activity depends on the odour.
+
+
+Results
+
+The connectome as a spiking network inside a body
+
+We built a spiking model of the BANC connectome, the electron-microscopy reconstruction of an
+adult female’s brain and ventral nerve cord[12]: 172,433 neurons, 11.75 million connections and
+35.7 million synapses. Each neuron is a leaky integrate-and-fire unit with the parameters of Shiu
+et al.[22], and each connection is signed by its presynaptic neuron’s predicted transmitter[14]
+(Methods). Every parameter keeps its published value; none was fitted to our tests. The network
+runs inside the NeuroMechFly body[36, 38] under a fixed interface of two rules (Fig. 1a; Methods).
+The arena’s odour and looming set the rates of the olfactory receptor neurons and of the LC
+and LPLC visual projection neurons. The six leg motor-neuron pools set the gait, with the turn
+scaled by the output of the mushroom-body output neurons (MBONs) and by the DNa02 pair.
+We call the balance between the MBONs that drive approach and those that drive avoidance the
+valence, because in the fly the MBONs encode the valence of an odour[41, 42, 43]. The interface
+and its constants are the same in every experiment.
+
+
+                                                  2
+The 24 regions we read from follow the connectome’s labels (Fig. 1b, d; Methods). A 60 ms pulse
+of odour at the receptor neurons reaches the lateral horn and the descending neurons within
+12 ms of its onset, the mushroom body within 18 ms and the leg motor pools within 24 ms
+(Supplementary Fig. 1). A looming pulse at the visual projection neurons reaches the descending
+neurons within 6 ms and the leg pools within 18 ms. The order in which neurons first spike
+follows the order in which a traversal of the wiring from the stimulated neurons reaches them
+(Spearman ρ = 0.59 over the 6,775 neurons that spike after the odour pulse and 0.58 over the
+3,884 after the looming pulse; Supplementary Fig. 2), and those neurons are 4% and 2% of the
+ones the traversal reaches.
+Structure and function connect the regions with different densities. Of the 576 ordered pairs
+of the 24 regions (each region onto every region, itself included), 358 are joined by at least one
+synapse and 96 by more than 10,000 (Fig. 1c, e). The largest blocks lie within a region. The
+descending neurons make 1.53 million synapses, 0.65 million of them onto nerve-cord intrinsic
+neurons. Driving each region alone at 40 Hz and reading the spiking of every other region gives
+a sparser map: 139 of the 552 region pairs respond at 0.1 Hz per neuron or more (Fig. 1f). The
+strongest responses are olfactory input onto the mushroom body (33 Hz per neuron) and the
+lateral horn (22 Hz), other central-brain input onto the mushroom body (29 Hz) and fan-shaped
+body input onto the noduli (30 Hz). Seven regions evoke no response elsewhere. Three are the
+noduli, the protocerebral bridge and the rest of the central complex: 71 to 100% of their synapses
+onto other regions come from cells signed inhibitory, which lower nothing in a silent network. The
+other four are the motor groups, which supply no region with as much as 0.1% of its input. The
+map follows the excitatory-signed synapse counts between the regions at ρ = 0.65 over the 334
+region pairs with any synapse, and the counts regardless of sign at 0.56 (Supplementary Fig. 3);
+the strongest responses with no direct synapse, the receptors’ onto the mushroom body and the
+lateral horn, are relayed through the antennal lobe. Six regions are never reached (the optic lobe
+and five sensory groups, which receive almost no central input). The map is near-deterministic:
+the seed-to-seed coefficient of variation is 0 at the median and above 0.01 in 83 of the 576 cells.
+
+
+Pathways of known behavioural role conduct in the untrained network when
+they carry enough of their target’s input
+
+Before putting the network in a body we asked whether it reproduces pathways whose behavioural
+role is known from experiments (Fig. 2a, b; Methods). We drove each population outside the
+body and read an identified target, with the metric and threshold of every test written down
+before it ran. Every test has an undriven control and a twin on a rewired network that keeps
+each neuron’s degrees and signs and shuffles its partners, so a result counts only if it conducts
+and dies under the shuffle.
+Taste conducts and is suppressed[22]. MN9 is the motor neuron of the muscle that protracts the
+rostrum of the proboscis[44], and in the animal it is excited by sugar and inhibited by bitter
+compounds[45]. The labellar sugar receptor neurons supply 7.6% of MN9’s 4,608 input synapses
+through 38 relay neurons. Driving them fires MN9 at 1.9 Hz at 200 Hz drive and not at 100 Hz
+or below. The rewired twin gives 0 Hz at every rate (Fig. 2c). Adding bitter receptor drive at 100
+and 200 Hz lowers the response to 0.76 and 0.02 Hz, and Ir94e drive lowers it to 0 Hz at either
+rate. Water, the control, does not lower it (2.6 and 2.4 Hz). No tastant drives MN9 on its own,
+as in the animal[22]. Shuffling only the tastant’s outgoing connections lifts the suppression (1.93
+and 1.41 Hz at 100 Hz bitter and Ir94e; P = 0.0008 and 0.0002 over nine seeds) (Fig. 2g). We
+had registered the suppression as expected to fail, because the bitter path onto MN9 is mostly
+excitatory at one hop; it held.
+Escape follows the synapse counts onto the giant fibre, the descending neuron whose spike
+triggers the fast take-off[46]. LPLC2, which supplies 6.5% of the giant fibre’s input, drives it
+
+
+                                                3
+at 44.7 Hz, and LC4 with LPLC2 (8.7%) at 47.7 Hz, with the rewired twin at 0 Hz in both
+cases[30, 31, 47]. LC4 alone (2.2%) is silent at 40 Hz drive and conducts from 80 Hz (0.5, 9.6
+and 19.6 Hz above control at 80, 150 and 250 Hz; twin 0 Hz). LC6, LC15 and LPLC1 drive
+jumping in the animal[48] but make 0 to 2 synapses onto the giant fibre and do not drive it, nor
+does LC11, the control (Fig. 2d). The giant fibre’s own output onto the tergotrochanteral motor
+neuron is 13 chemical synapses, 0.5% of that neuron’s input, and it does not conduct. In the
+animal the motor neuron is coupled to the giant fibre by gap junctions[49] that accompany the
+chemical synapses[50]. The motor neuron follows the giant fibre once one connection is added by
+hand to stand for the electrical part: from 104 synapse equivalents (7.9% of its input, 19 Hz),
+and one for one from 208 (Fig. 2f). Every pathway tested onto an identified neuron conducts at
+some drive if it supplies at least 2% of that neuron’s input, and the seven supplying 0.03% or
+less do not (Fig. 2f).
+Descending control lateralises in the wiring alone. DNa02 turns the walking fly toward the side
+on which it is activated[27, 28]. Driving one DNa02 at 600 Hz, one cell per side, lateralises the
+leg-motor drive to the driven side (asymmetry +0.71 on the left, −1.00 on the right), and the
+rewired twin does not (Fig. 2e). PFL3, the central-complex steering output (8 and 17 cells per
+side)[51], lateralises the same way (+0.61, −0.39), and PFL1, the control, never reaches the
+cord. DNg12 (45 cells), the grooming command[52], recruits the front-leg pools (24.6 Hz against
+0.008 and 0.029 Hz in the middle and hind pools; twin 0.13 Hz). DNa01[49, 28] lateralises only
+from the left in the silent network (asymmetry +0.49; the right cell drives no leg motor neuron).
+MDN, the backward-walking command[29], drives about eight leg motor neurons, in the front
+pools and the right hind pool (330 spikes in 3 s; the twin 92 spikes in one neuron). The leg
+pools carry no direction, and the gait rule turns their rates into forward stepping, so whether the
+walking would be backward cannot be read in either setting. DNp09, which initiates forward
+walking[53, 54], gives two spikes of leg drive. LC16, whose retreat runs through MDN[55], gives
+no leg drive at 40, 600 or 1,500 Hz, and LC10a[56] conducts but survives the shuffle.
+A background shows what the silent network cannot. LPLC2 still drives the giant fibre with
+independent 2 to 10 Hz input to every neuron (24.5, 14.2 and 5.2 Hz above control at 2, 5 and
+10 Hz), and DNg12 still drives the front legs (9.8, 8.5 and 6.1 Hz, 94 to 100% of it in the front
+pools). The sugar response falls to 0.35 Hz at 2 Hz and no longer clears its guard. At 20 Hz only
+DNg12 still does (Fig. 2i). On that background the steering neurons act by suppression. At 2 Hz,
+DNa01 on the left lowers the drive to its own side by 1.91 Hz and raises the other side by 0.82
+Hz (twin 0.06 Hz). DNa02 on the left lowers its own side by 1.35 Hz and on the right by 1.30 Hz
+(twins 0.02 and 0.15 Hz); every seed falls below its control, but each misses the registered guard
+of three control standard deviations, 1.35 Hz, by 0.05 Hz or less. Bilateral DNa02 lowers the
+total by 2.27 Hz (twin +0.54). The animal shows the same sign: DNa02 shortens the strides of
+the legs on its own side, and its bilateral activation slows walking[27]. DNp09 clears its guard at
+2 Hz with suppression (2.21 Hz below control; twin −0.20), the opposite of the sign measured in
+the animal, and so does MDN (1.70 Hz below; twin +0.69). Of the 15 pathways, seven conduct,
+die under the shuffle and carry the sign measured in the animal: sugar, bitter, LPLC2, LC4 with
+LPLC2, DNa02, PFL3 and DNg12 (Fig. 2h). Three do so conditionally: the giant fibre’s output
+with the gap junction; DNa01 on a background, from the left; DNp09 on a background, with the
+wrong sign. One, MDN, conducts and dies under the shuffle but has no direction the model can
+read. Four fail the test: leg sugar, which supplies 0.02% of MN9’s input; LC4 alone at 40 Hz;
+LC16; LC10a.
+
+
+
+
+                                                4
+The antennal lobe as read is bistable, and one synapse class sets the Kenyon-cell
+code
+
+The 2,978 receptor neurons reach 616 of the 699 projection neurons through 203,937 synapses
+and the antennal lobe’s 429 local neurons through 172,141 (Fig. 3a). The projection neurons
+return 217,657 synapses onto the local neurons and send 168,315 onto the 4,504 Kenyon cells.
+The Kenyon cells’ 28,415 synapses onto the 104 MBONs are the ones the learning of Fig. 6
+changes. The local neurons are, by predicted transmitter, 161 glutamatergic, 146 GABAergic, 105
+cholinergic, 14 serotonergic and 3 octopaminergic (Fig. 3b). The cholinergic class makes the most
+synapses: a median of 3,029 output synapses per cell, against 456 for the GABAergic and 304
+for the glutamatergic cells. In the fly the local neurons are diverse in transmitter[57]: many are
+GABAergic[58], a third are glutamatergic and inhibit[59], and excitatory ones exist[60, 61]. The
+model has the APL neuron, the feedback that sparsens the Kenyon-cell code in the animal[62]:
+two cells, one of them without a label in the neuron table, with 22,926 synapses onto the Kenyon
+cells. Both are predicted cholinergic, so in the model they excite the Kenyon cells, although the
+APL is GABAergic in the fly[63] and GABA is the transmitter the connectome’s own annotation
+lists as verified for it (Methods). Silencing the labelled APL lowers the share of Kenyon cells
+active, as read, from 68% to 61%.
+The network as read gives a dense code. We presented two odours of five disjoint glomeruli each
+(Fig. 3c). Either odour fires 68% of the Kenyon cells, and the two codes’ 5% most active cells
+overlap by 0.90. The projection-neuron layer is already 74% active, with an overlap of 0.86,
+and the MBONs fire about 2,400 spikes per presentation whatever the odour. In the fly, 5 to
+10% of Kenyon cells respond to an odour[64, 65, 62]. The cholinergic local neurons’ output onto
+the projection neurons sets the density. Scaling it by a gain g from 1 to 0 lowers the share of
+Kenyon cells active through 43%, 15%, 6.1%, 3.4%, 2.7% and 2.3% to 1.8%, and the share of
+projection neurons active from 74% to 10% (Fig. 3d). The overlap falls from 0.90 to 0.24 at
+g = 0.1 before rising again in the near-silent code. At g = 0.15 and 0.1 the code lies in the
+fly’s window with an overlap under 0.5, and g = 0.15 is the matched variant used from here on.
+Signing every local neuron inhibitory instead gives 1.4% of the Kenyon cells active, below the
+window (Supplementary Table 4). Over eight odours the share of Kenyon cells active is 68 to
+70% as read and 4.9 to 17.2% in the matched variant, median 6.8% (Fig. 3e). The matched
+MBON output is 52 to 287 spikes per presentation, against 2,352 to 2,483 as read (Fig. 3f). Part
+of the matched output does not pass through the Kenyon cells. For the first odour pair, the 52
+spikes to odour A (the median over six seeds) all come from one MBON05 cell. The unlabelled
+APL cell drives that cell through 62 synapses, while the Kenyon cells supply 154 of its 468 input
+synapses, so depression of the Kenyon-cell synapses cannot remove that output.
+The dense code comes from the loop between the projection and local neurons. The as-read
+network fires 67% of its Kenyon cells after the warm-up with no receptor input at all, 68% at 5
+Hz and 77% at 120 Hz. It fires none when started from silence. Receptor input at 5 Hz switches
+it on, and it then stays on (67% once the input is removed). The matched variant follows its
+input: 4.2%, 8.3%, 43% and 68% at 0, 5, 40 and 120 Hz, and 4.2% again after (Fig. 3g). Its
+code stays sparse for odours of up to ten glomeruli (6.0%, 16% and 35% at 5, 10 and 20; as
+read 68%, 70% and 72%). Halving or quartering the odour drive leaves the density unchanged
+(matched 5.3% and 5.1%) and raises the matched overlap (0.55, 0.73) while lowering its output
+(Fig. 3k). We silenced the cholinergic types one at a time (Fig. 3i, j). Silencing lLN1_bc (34
+cells, 105,956 output synapses) lowers the share of Kenyon cells active from 68% to 50%, and
+the other ten types leave 66 to 68% active. The fall scales with the type’s output (Spearman
+ρ = 0.78, P = 0.0045, 11 types). Types silenced together do more than the sum of their single
+falls. The three largest together leave 25% of the Kenyon cells active where the sum of their
+single falls predicts 46%. All eleven leave 3% against a predicted 40%, and all 105 cells 2%.
+Training on odour A in the matched variant depresses A’s MBON output and, in part, the
+
+                                                5
+untrained odour’s. A’s output falls by 0.31 to 0.36 at training strength 1 for a drive-matched
+pair in which the untrained odour, B, shares k of A’s five glomeruli (Fig. 3h). B’s depression as
+a fraction of A’s is 0.13, 0.10, 0.49, 0.70 and 0.96 at k = 0 to 4 at strength 0.5, and 0.28, 0.19,
+0.86, 0.96 and 1.02 at strength 1, while the Kenyon-cell overlap rises from 0.26 to 0.72. As read,
+both odours fall by 0.18 to 0.19 whatever they share. Generalisation follows the overlap of the
+codes, as it does in the fly[66, 34], and is complete by three shared glomeruli; a disjoint odour
+takes on 0.13 to 0.28 of the depression.
+
+
+The connectome in the body navigates around obstacles to odour sources, and
+the navigation needs the connectome’s measured wiring
+
+Twenty flies, each a seed with its own input and initial conditions, walked nine arenas holding 32
+odour sources behind walls of increasing clutter, under three wirings: intact, rewired, and with
+the mushroom body lesioned (Fig. 4a to d). The intact fly reached 30.25 of the 32 sources per
+fly (95%). It reached every source of its arena in 161 of 180 runs and at least one in every run
+(Fig. 4f, g). The rewired fly reached 5.80 (18%; no source in 92 of its 180 runs, every source in 2)
+and the lesioned fly 3.45 (no source in 117 runs, every source in none). A correlated random
+walk at the fly’s own speed reached 2.20. No rewired fly reached as many sources as any intact
+fly (at most 11 against at least 27 of 32). The rewired fly reaches more than the lesioned one (1
+to 11 against 1 to 6 per fly; Mann–Whitney P = 0.0099, Cliff’s δ = +0.48, 95% interval +0.14
+to +0.76). Its MBONs still fire, 7.5 spikes per step against the intact fly’s 154, and 75 of the
+104 MBONs drive approach, so the balance reads a weak positive valence (0.11 against 1.41).
+For scale, a reference controller that is given the position of every source and walks straight to
+the nearest at the same speed reaches 29.00 if walls stop it and 32.00 if it slides along them
+(Supplementary Table 1). The intact fly’s misses are mostly in the two most cluttered arenas
+(17 of the 19 runs that miss a source). In the four-wall slalom 9 of 20 runs reach all five sources
+and 5 stop at the second; in the dense slalom 14 of 20 reach all four. Along a corridor the intact
+fly reached the first source in every run and, having reached one, the next 99.4% of the time
+(Fig. 4h). The rewired and lesioned flies reached the first in 35% and 28% of runs and went on
+to the next 28.4% and 9.5% of the time. Both manipulated flies keep walking (Fig. 4i to k). The
+median speed is 8.9, 12.8 and 11.8 mm/s for the intact, rewired and lesioned fly, with 97.2%,
+99.6% and 99.2% of time moving, and the straightness 0.61, 0.31 and 0.61. The rewired and
+lesioned flies leave the arena frame in 64% and 65% of samples. The olfactory input is the same
+in all three (5.92 spikes per receptor neuron per step, 99.7% of them active).
+The firing rates are the network’s own, measured during the runs (Fig. 4e, l, m). Every neuron’s
+spikes were recorded in one run per condition (arena i, seed 0). In that run the intact mushroom
+body fires 1.93 spikes per neuron per 50 ms step with 77% of its neurons active, and the lateral
+horn 1.30. The lesion removes the mushroom body and leaves the lateral horn at 1.30. The
+rewiring leaves the mushroom body silent (0.006 spikes per neuron, 2% active) and the lateral
+horn at 0.018 under the same receptor drive. The descending and leg-motor rates stay near
+intact in the lesioned fly and fall in the rewired one (front-leg motor 0.13, 0.03 and 0.13 spikes
+per neuron per step). The MBON output, logged in every run, shows the same across all 180
+runs per condition: 154 spikes per step in every intact run (153.7 to 154.9), 7.5 in the rewired fly
+(3.0 to 18.0) and none in the lesioned.
+
+
+The labels are causal, the deficit localises, and the loop is required
+
+In a forage arena with three sources behind a wall (Fig. 5a to d), the intact fly reaches all three
+in all 20 seeds (20 flies with their own input and initial conditions, as in the battery). With the
+mushroom body lesioned it reaches none in 20 of 20. Its leg motor-neuron rate (152 against 154
+Hz), wall avoidance (1.9 wall-contact steps) and path length (220 against 193 mm) are kept,
+
+                                                 6
+and its looming-driven DNa02 rate falls (0.81 against 1.99 spikes per step): a loss of approach
+with walking spared. The rewired fly reaches 0.10 of 3 (18 of 20 none) and loses more: DNa02
+drive 0.54 and leg motor rate 98 Hz (64% of intact). Pinning the valence scalar at 1.44, close to
+the intact fly’s 1.41, restores approach in both, to 3.00 and 2.55 of 3 (20 and 17 of 20 all three).
+It does not restore the rewired fly’s walking (103 Hz) or the lesioned fly’s DNa02 rate (0.77).
+The behavioural deficit of both manipulations therefore lies at the mushroom-body output. The
+rescue has a threshold below 0.7: pinning at 0.7 rescues the lesioned fly as fully as 1.44 does
+(3.00 of 3), and the intact fly pinned at 0 reaches nothing while walking normally (leg motor rate
+99% of intact). A random lesion of 4,608 neurons, the size of the mushroom-body set, leaves
+approach mostly intact: 2.55 of 3, with 3 of 20 seeds reaching nothing against the lesion’s 20 of
+20 (Fisher’s exact P = 2.6 × 10−8 ). It costs walking (leg motor rate 85% of intact). Cutting the
+visual loop, with the looming signal set to zero, abolishes wall avoidance (233 wall-contact steps,
+a nearest approach of 0.17 mm) and with it, in this walled arena, approach (0.30 of 3), while
+walking is kept (99%). Supplementary Table 2 gives every measure for every condition.
+Cutting the whole sensory loop abolishes navigation (Fig. 5e, g). Each closed-loop run’s own
+motor commands were replayed to the body from a start rotated by 30◦ , with the network’s
+output ignored. The replays reach 0.07 sources per run against 3.29 for the closed loop from the
+same rotated start (2.0% against 94.0% of the sources, per fly). Of the 180 replays, 169 reach
+nothing and none reaches every source, while 154 of 180 closed-loop runs reach every source. All
+20 flies, all nine arenas and all 180 pairs fall the same way (W = 0, P = 1.9 × 10−6 over flies).
+The rotation alone does not account for this: the rotated closed loop reaches 3.29 sources per
+run against 3.36 for the unrotated record (P = 0.13).
+Driving one descending neuron in the body, with no steering rule written for it, reproduces the
+sign measured in the animal where the wiring did (Fig. 5f; Supplementary Table 3). DNa01 turns
+the fly +116◦ from the left and −150◦ from the right against a no-drive baseline of −7◦ and +0.5
+mm/s over the 2 s of drive, a mirror the rewired twins lack (+55◦ and +36◦ ). The threat-response
+cluster slows it by 5.1 mm/s where, rewired, it speeds it up by 6.3. DNa02 turns the fly right
+when driven bilaterally (−38◦ ; twin −7◦ ) and, within the no-drive spread, from either side alone
+(−16◦ and −25◦ ). Its bilateral drive speeds the fly up (0.8 mm/s) where the animal slows[27].
+DNp09 turns left (+54◦ ) and slows (2.2 mm/s) where the animal walks forward[53]. DNp01 does
+nothing. DNg12 speeds the fly up by 1.8 mm/s, as does its twin (2.2), because the gait controller
+reads its front-leg drive as amplitude. The sign depends on a baseline (Fig. 5j). Every drive
+speeds the silent fly up with the receptor drive at 0 Hz, and the steering neurons turn it away
+from the driven side (DNa01 left −219◦ , DNa02 left −269◦ and right +219◦ ), the excitation-only
+regime of the silent wiring (Fig. 2). DNa01 turns the fly toward the driven side from both sides
+with 40 or 120 Hz of receptor drive (+86◦ and −167◦ at 40 Hz), and DNa02 does so from the
+right (−47◦ against +21◦ for no drive at 40 Hz). The threat cluster arrests the fly (5.2 and 5.1
+mm/s) where at 0 Hz it accelerated it (3.1). The speed increase reported for DNp09 appears
+only in the silent body (1.7 mm/s) and reverses on a baseline (−2.1 and −2.2 mm/s at 40 and
+120 Hz).
+Removing neurons at random degrades navigation gradually; removing them by traffic, those
+with the most synapses first, degrades it abruptly (Fig. 5h, i). Random removal of 5%, 10% and
+20% of the candidate neurons leaves 2.53, 2.20 and 2.50 of 3 sources, 30% leaves 1.30, 50% 0.30
+and 70% 0.18, with the leg motor rate falling from 123 to 4 Hz. Removing the 1% of neurons
+with the most synapses leaves no source reached, with the leg motor rate at 6 Hz, and so does
+removing 2%. At those two fractions 11 and 2 of 20 runs end in a physics fault, the partly driven
+body falling; none does once the legs stop (22 faults in 280 runs). Removing the top 1% within
+the central brain alone (312 neurons) leaves 0.78 of 3 with the leg rate at 15% of intact, and
+from 2% navigation is gone with the leg rate at zero. Ranking by traffic finds the premotor drive
+before any navigation-specific core, so this test separates none from walking.
+
+
+                                                 7
+Dopamine-gated depression in the loop turns approach into avoidance, associa-
+tively when the code depends on the odour
+
+We let the Kenyon-cell-to-MBON synapses of the aversive compartments depress under a
+reinforcement signal while the fly forages, with nothing else changed (Fig. 6a; Methods). The
+animal learns aversive olfactory associations by the same rule[34]: dopaminergic neurons deliver
+the reinforcement[67, 68], and the learned behaviour follows from a shift in the balance between
+the MBONs that drive approach and those that drive avoidance[41, 43]. Six training episodes with
+the odour paired with the reinforcement take the mean weight of the 8,377 plastic connections
+from 0.513 to 0.138 mV. The approach-driving MBONs fall from 103 to 37 spikes per step while
+the avoidance-driving MBONs stay at 50 (49 after training), so the valence goes from 1.41 to
+−0.33 (Fig. 6b, c). One training episode is enough to take it there. The behaviour changes with
+it. Before training every fly reaches the source. After training none of 20 does (Fig. 6d, e, g).
+The trained fly turns away from the odour, and its closest approach to the source is a median
+19.6 mm against 0.15 mm without plasticity (P = 6.8 × 10−8 , Cliff’s δ = +1.00 against no
+plasticity, on closest approach and on devaluation). The learning rate is a dose with a threshold.
+At η = 10−5 the valence after training is 0.44 and all 20 flies still reach the source; at 3 × 10−5 it
+is −0.21 and none does (Fig. 6b, f). From 10−4 to 0.08 it stays between −0.31 and −0.33 while
+the weights go on falling, from 0.233 to 0.134 mV. The valence levels off because the depression
+is confined to its targets. In the recorded seed the 41 approach-driving MBONs of the aversive
+compartments fall from 69 to 6 spikes per step. The 34 approach-driving MBONs of the other
+compartments (35 to 31) and the avoidance-driving MBONs (50 to 49) keep their output.
+In the network as read the depression is not associative. Reinforcement with the odour withheld
+depresses the synapses almost as much (weight 0.183 mV, valence −0.29). Those flies turn away
+as well: none of 20 reaches the source, and against the paired flies on closest approach P = 0.49,
+δ = +0.13, 95% interval −0.25 to +0.49. The as-read Kenyon cells fire without the odour: 67%
+of them at 0 Hz of receptor input, and 68% at the 5 Hz the arena supplies when the odour is
+withheld (Fig. 3g). The eligibility trace is present with or without the odour, and reinforcement
+alone depresses the same synapses. In the matched variant, whose Kenyon cells fire only with
+the odour (4.2% at 0 Hz, 8.3% at 5 Hz, 68% at 120 Hz), the same protocol is associative at the
+synapse and in the behaviour. Pairing takes the weight to 0.195 mV and the valence to −0.53,
+and none of 20 trained flies reaches the source (median closest approach 21.1 mm). Reinforcement
+alone leaves the weight at 0.508 mV and the valence at 1.38, and all 20 flies reach the source,
+as they do without plasticity (paired against reinforcement alone, P = 6.8 × 10−8 , δ = +1.00)
+(Fig. 6h, i). The registered tests, which are on the behaviour, read associative and expressed
+(Methods). Both codes are dense while the odour is present (77% as read, 68% matched, every
+receptor neuron driven), so the associativity of the depression follows from the code’s dependence
+on the odour and does not require a sparse code.
+The avoidance needs both the balance readout and the confined reinforcement; two further arms
+change one of the two at a time (Supplementary Fig. 4; Supplementary Table 7). A sum over
+every MBON cannot change sign. The same depression, with the valence read as the summed
+spike count of every MBON and every connection plastic, lowers it from 1.44 to a floor of 0.24,
+held by MBONs the Kenyon cells do not drive. Of 20 trained flies, 19 then still reach the source
+(Supplementary Discussion; Supplementary Table 6 sets the two readouts side by side). With
+the balance and the reinforcement in every compartment the trained fly walks past the source,
+steering neither toward it nor away (valence after pairing 0.03, −0.02 in the matched variant; 2
+and 1 of 20 flies reach the source). With the summed count and the confined reinforcement all
+20 flies still reach it.
+
+
+
+
+                                                  8
+Discussion
+We built a spiking network from a complete brain-and-nerve-cord connectome with every pa-
+rameter at its published value, tested it against pathways of known behavioural role, placed
+it in a body and perturbed it there. A pathway of known behavioural role conducts in the
+untrained network when it supplies about 2% or more of its target’s input; those that fail supply
+a hundredth of that or depend on something the wiring diagram does not record. In the body
+the intact wiring reaches 30 of 32 odour sources; a rewired network with the same degrees and
+signs reaches 5.8, and a random walk 2. The same motor commands replayed without sensory
+feedback reach 2% of the sources. Plasticity at one class of synapse, run inside the loop, turns
+the fly’s approach to an odour into avoidance, and whether the depression is associative depends
+on whether Kenyon-cell activity depends on the odour.
+Each outcome is a statement about the wiring, because every parameter keeps its published value.
+Other connectome-based models optimise the unknown neuron and synapse parameters against
+a task[69, 19], train a network against the behavioural effects of silencing identified neurons[70],
+or train the connectome as a controller by reinforcement learning[40]. The body models have
+been driven by controllers trained the same way[38, 39]. These approaches reach an accuracy
+that an untrained model does not attempt. A trained interface can make a network drive a body
+whatever its wiring: a worm connectome, read into a fly body through a decoder trained by
+reinforcement learning to imitate real flies, walks like a fly[71]. Here the input and the readout
+are fixed rules, and nothing between the network and the body is trained. With the same rules
+the rewired network, every degree and sign kept, finds few of the sources, so the navigation comes
+from the wiring. What fitting removes is the possibility of asking how much the wiring alone
+explains. That question is open[15, 19]: with the neuronal and synaptic properties unknown,
+a connectome often leaves the dynamics of a recurrent network under-determined[24, 20]. Our
+parameters are the ones Shiu et al. used for a brain without its nerve cord[22]: values from
+earlier models and recordings, with one weight set on a feeding response. Applied unchanged to
+a second animal, with its nerve cord, they reproduce that model’s taste results, sugar driving the
+proboscis motor neuron and bitter suppressing it, and they carry descending commands through
+the neck to the leg motor neurons.
+The misses have identifiable causes. In the animal the giant fibre is coupled to its motor neuron
+by gap junctions[49] that accompany the chemical synapses[50]. The connectome holds only the
+chemical part, and one connection added by hand restores the pathway. The steering neurons
+need ongoing activity to act on. In the walking fly DNa02 shortens the strides of the legs on its
+own side[27], and the steering signals of the two hemispheres change in opposite directions[28]. A
+silent network cannot lower a rate that is already zero, so it shows only excitation of the driven
+side, and a silent body turns away from that side. The driven side’s leg drive is suppressed in the
+network with 2 Hz of background, and DNa01 turns the fly toward the driven side from either
+side once the body has receptor drive. Command-like descending neurons also act in the animal
+by recruiting further descending neurons[72], which may be why one cell driven alone gives part
+of a behaviour. In C. elegans, measured signal propagation departs from what anatomy predicts,
+in part through extrasynaptic signalling[25]. The same should be expected in the fly, and the
+share of a target’s input that a pathway supplies indicates where anatomy is likely to be enough.
+The 2% boundary is an empirical result of this model, obtained with the synaptic weight and
+threshold of Shiu et al., not a value taken from the literature.
+Bates et al. describe the architecture of this connectome from a linear measure of influence:
+local loops from sensory to effector neurons, linked by ascending and descending neurons, with
+the regions for learning and navigation supervising them[12]. The spiking map of Fig. 1f is the
+dynamical counterpart of that analysis. It is sparser than the anatomy, 139 responding region
+pairs against 358 connected ones, because a spiking network passes on only the input that reaches
+
+
+                                                 9
+threshold. The embodied results agree with the supervisory reading. Removing the mushroom
+body removes approach and leaves walking and wall avoidance intact. A random lesion of the
+same size leaves approach mostly intact (2.55 of 3) at a cost to walking. Removing neurons in
+order of their synapse count stops the legs before any set of neurons specific to navigation can be
+identified.
+The body is coupled to the network by two hand-written rules with fixed constants, and they set
+the scope of the embodied claims. The turn toward or away from an odour is computed from the
+odour’s left-right difference and scaled by the valence, the balance between the MBONs that
+drive approach and those that drive avoidance. The battery, the lesion, the rewiring and the
+rescue test what the connectome supplies to that rule: the valence. That quantity reaches the
+MBONs through four layers of measured connectivity, and it falls to less than a tenth of its
+value when that connectivity is shuffled (0.11 against 1.41). Which MBONs the valence reads is
+part of the rule. A sum over every MBON gives the same lesion, rescue and replay results and a
+lower score for the rewired fly (3.5 of 32). The learning has no effect on the behaviour under
+that readout (Supplementary Discussion; Supplementary Table 6). The rescue locates the deficit
+of both manipulations at the mushroom-body output. It does not show that the connectome
+computes the turn. The receptor drive has a fixed total rate and only its left-right difference
+follows the plume, so the network is not asked to encode concentration. The gait is the body
+model’s, with amplitudes set by the leg motor pools. Driving a grooming neuron therefore speeds
+the fly up, and bilateral DNa02 drive, which lowers the leg drive in the wiring and slows the
+animal, does not slow the body.
+Three results are independent of the odour rule: the pathway tests outside the body, the
+descending-neuron drives in the body, for which no steering rule exists, and the replay experiment.
+Replay holds the motor commands fixed and removes only the feedback. Commands that reach
+94% of the sources in closed loop reach 2% when replayed from a start rotated by 30◦ , and the
+rotation alone does not lower the closed loop’s score. Navigation in this body depends on the
+sensorimotor loop, whatever the origin of the commands. Locomotor control in animals likewise
+combines feedforward commands with sensory feedback[73].
+The antennal lobe is where reading the connectome at face value departs furthest from the
+animal. The cholinergic local neurons exist in the fly[60]. Their excitation of projection neurons
+there passes through electrical synapses and survives a block of chemical transmission[74],
+although paired recordings also find a cholinergic component[61], and between glomeruli inhibition
+dominates over excitation[75]. The model has no electrical synapses and reads each chemical
+synapse of these cells as full-strength excitation. This closes a loop between projection and local
+neurons that sustains itself once started, and two thirds of the Kenyon cells then fire to every
+odour. Scaling that one class of synapse to 0.15 of its face value brings the Kenyon-cell code into
+the fly’s range. The APL neuron, whose feedback keeps the code sparse in the animal[62], is in
+the model with the wrong sign. The transmitter prediction makes both APL cells cholinergic, so
+they excite the Kenyon cells. In the animal the APL is GABAergic[63], and the connectome’s
+own annotation lists GABA as verified for it. We kept the prediction for every neuron rather than
+correct cells one at a time, because the model’s claim is about the connectome as read; the APL
+is the one cell whose predicted sign we know is wrong and tested. The verified column disagrees
+with the prediction’s sign for 2,732 of the 60,448 neurons whose entry names one transmitter,
+1.5% of all synapses, 82% of them in the optic lobe. The two cells, signed GABAergic in an
+exploratory run (Methods), lower the share of Kenyon cells active, as read, from 68% to 42%,
+short of the fly’s range, and applying every verified sign in the table gives the same 42%. What
+the matched variant corrects is therefore the antennal lobe’s excitatory loop rather than the
+APL’s sign.
+The model’s prediction for learning is that depression of the Kenyon-cell output synapses is
+associative when Kenyon-cell activity depends on the odour. A network whose Kenyon cells fire
+
+
+                                                10
+without the odour is devalued by reinforcement alone, however dense its code is while the odour
+is present. Where the code does depend on the odour, generalisation between odours follows the
+overlap of their codes, as it does in the fly[66, 34]. In the loop the depression of the input to
+approach-driving MBONs tips the balance of MBON output toward avoidance, and the trained
+fly turns away from the odour, as aversively trained flies do[41, 43]. That holds when the valence
+is read as this balance. The same depression, read as a sum over every MBON, stops at a floor
+set by the MBONs the Kenyon cells do not drive, a fifth of the naive value, and the behaviour
+does not change (Supplementary Discussion).
+The model makes as few assumptions as a spiking network can: point neurons with one sign
+each, chemical synapses only, no neuromodulation, no spontaneous activity, one animal. Each
+omission is known to matter. Neuromodulators reconfigure what a fixed wiring diagram does[16],
+and the strength of a connection depends on the density and the location of its synapses as well
+as on their number[76]. The battery and the pathway tests are fixed, so each omission can be
+tested as one addition scored against the same measurements. Candidates are a background
+matched to the activity that walking evokes across the fly’s brain[77], electrical synapses as they
+are mapped, and synaptic weights that differ by transmitter. Another is a reinforcement signal
+produced by the network’s own dopaminergic neurons, whose inputs include feedback from the
+MBONs[78], in place of an imposed one. A causal model of the fly brain has been proposed that
+uses the connectome as a prior for perturbation data[79]; the input-share rule and the functional
+map indicate where that prior is already informative.
+Three predictions follow for experiments in the animal. A pathway should drive its target when
+it supplies a few per cent of the target’s input synapses and fail at a hundredth of that. Steering
+by DNa01 and DNa02 should depend on ongoing activity in the leg motor network, because it
+acts by lowering that activity on one side. A fly whose Kenyon cells are active without an odour
+should be devalued by reinforcement that is not paired with the odour.
+
+
+Methods
+
+The connectome and the network model
+
+We used the BANC connectome of the adult female Drosophila brain and ventral nerve cord[12]:
+its neuron table, its connection list (neuron pairs with their synapse counts) and its per-neuron
+transmitter prediction. Every neuron that appears in the connection list is simulated: 172,433
+neurons joined by 11,752,828 connections that carry 35,733,096 synapses. Of these, 6,404 carry a
+non-neuronal label in the table (6,281 glia, 83 trachea, 40 marked as not a neuron); they were left
+in as units like the rest, hold 0.07% of the output synapses, and fire 0.003% of the spikes of an
+embodied run. The connection list names each neuron by its identifier in the release it was built
+from. The neuron table carries that identifier beside a newer one from the latest release, which
+differs for 12,806 neurons whose segments changed between releases; the table is joined to the
+list on the build identifier. No neuron, connection or synapse was added, removed or reweighted
+except where a manipulation below says so. The list includes 156,311 connections from a neuron
+onto itself (1,422,866 synapses, 4.0% of all), which were left in; they do not act on a neuron that
+has a refractory period, because their input arrives 1.8 ms after the neuron’s own spike, inside
+the 2.2 ms period, when synaptic input is discarded.
+Each neuron is a leaky integrate-and-fire unit with the equations and parameters of the brain
+model of Shiu et al.[22], who took them from earlier fly models and recordings except the synaptic
+weight, their one free parameter, which they set so that sugar input drives the proboscis motor
+neuron and showed robust to a 30% change; we retuned none of them. The membrane potential
+
+
+
+
+                                                11
+v and the synaptic variable g of each neuron obey
+                                dv                      dg
+                              τm    = v0 − v + g,    τs    = −g,                          (1)
+                                 dt                     dt
+with v0 = −52 mV, τm = 20 ms and τs = 5 ms. A spike is emitted when v exceeds −45 mV; v is
+then reset to −52 mV, g to zero, and the neuron is refractory for 2.2 ms. A presynaptic spike
+adds to the postsynaptic g, 1.8 ms later,
+                                      ∆g = s n × 0.275 mV,                                      (2)
+where n is the number of synapses of the connection (synapse counts approximate synaptic
+contact area[80]) and s is the sign of the presynaptic neuron: +1 for acetylcholine, dopamine,
+serotonin, octopamine and tyramine, −1 for GABA, glutamate and histamine. Glutamate is
+signed as inhibitory, as in the brain model[22] and as measured in the fly’s antennal lobe[59].
+The prediction is the one distributed with the connectome; predictions of this kind come from a
+classifier trained on electron-microscopy images of synapses[14]. The 7,213 simulated neurons
+without a prediction have their 10,000 connections (29,865 synapses) signed +1. The network
+was simulated in Brian 2 (version 2.7.1)[81] at its default time step of 0.1 ms.
+Input is delivered as independent Poisson spike trains, one per driven neuron. Each event
+depolarises its target by 68.75 mV (250 × 0.275 mV), so the neuron fires at every event that
+does not fall in its refractory period. The olfactory receptor neurons and the LC and LPLC
+neurons, through which the body’s senses enter, have no refractory period and follow their drive
+spike for spike, as do the other sensory receptor neurons in the runs of Fig. 1 f and Fig. 2; their
+self-connections (66 synapses at most) stay below the roughly 160 synapses that fire a neuron
+on their own. Every other driven neuron keeps its refractory period, so a drive of rate r gives
+r/(1 + 0.0022 r) spikes per second: 259 at 600 Hz.
+Populations are selected by the connectome’s labels. Of the 2,978 olfactory receptor neurons,
+the 2,968 with a labelled nerve are driven, split by the side of the nerve they enter; the 4,192
+visual projection neurons of the LC and LPLC types are split by the position of their root point
+relative to the midline; the 104 mushroom-body output neurons (MBONs), the DNa02 pair and
+the descending neurons are selected by cell type; the 391 leg motor neurons form six pools by leg
+and side (63 to 70 neurons each). The mushroom-body set is the 4,504 Kenyon cells and the 104
+MBONs. A lesion sets to zero every synapse onto or from the set. The rewired null permutes
+the postsynaptic ends of all connections with a seeded random generator, so every neuron keeps
+its in-degree, its out-degree and the sign and synapse count of each of its connections while
+the identity of every partner is randomised; each trial seed gives a different permutation. A
+pathway-scoped shuffle (Fig. 2 g) permutes the postsynaptic ends of one population’s outgoing
+connections among themselves, leaving every other connection intact.
+The 24 regions of Fig. 1 come from 13 groups defined by the connectome’s super-class, cell-class
+and region labels (Supplementary Table 8 gives each group’s defining labels and neuron count;
+the antennal-lobe projection and local neurons and the 8,409 neurons matching no rule fall in the
+other central-brain group), then split the central complex by cell-type prefix into its neuropils,
+the sensory group by cell class and the leg motor neurons by segment.
+
+
+Stimulation outside the body
+
+For the functional influence map (Fig. 1 f), every neuron of one region received 40 Hz input for 3
+s with no other input, and spikes were counted in every neuron in 20 ms steps. The response
+of a region is its mean rate per neuron over the episode; each of the 24 regions was driven in
+turn, three seeds each. For display, each row was transformed as log(1 + rate) and divided
+by its maximum. Rows and columns of Fig. 1 e and f follow average-linkage clustering of the
+symmetrised log synapse counts.
+
+                                                12
+For the propagation snapshots (Supplementary Fig. 1) the network was run for 60 ms with no
+input, and spikes were then counted in 6 ms bins for 144 ms; from 18 to 78 ms of that record
+the receptor neurons of both sides received 400 Hz (odour) or every LC and LPLC neuron of
+both sides received 300 Hz (looming). The rows of the figure are the bins starting 0, 6, 12, 24
+and 60 ms after the onset, and a region’s colour is its rate in the bin, spikes per neuron per
+6 ms, on a logarithmic scale from 0.001 to the input layer’s peak, over a grey outline of every
+region. A region is reached in the first bin in which its spikes per neuron are at least one tenth of
+their mean over the pulse, and the time given is the end of that bin. For Supplementary Fig. 2
+the wiring was traversed from each pulse’s stimulated group with the information-flow model of
+Schlegel et al.[82], as applied to the FlyWire connectome[6]: in each round every untraversed
+neuron is traversed with probability min(1, r/0.3), r being the share of its input synapses that
+come from traversed neurons, and a neuron’s traversal distance is the round in which it was
+traversed, averaged over ten seeded traversals. A neuron’s first spike is the end of the first 6 ms
+bin after the onset in which it spikes; the stimulated neurons are left out. For Supplementary
+Fig. 3 the synapse counts between the 24 regions were split by the sign the model gives the
+presynaptic neuron, and the influence of Fig. 1f was compared with them per region pair by
+Spearman’s ρ over the pairs with any synapse. Fig. 1 a, b and d draw the connectome’s neuron
+skeletons.
+
+
+Validation against pathways of known behavioural role
+
+Each test of Fig. 2 drives a population with a known behavioural role and reads an identified
+target neuron or motor pool; the rows are those of Fig. 2 a, b and h, cited in the Results. LC
+and LPLC populations were driven at 40 Hz per neuron (LC4 also at 80, 150 and 250 Hz; LC16,
+LC10a and LC10d also at 600 and 1,500 Hz); descending neurons, singly or as a type, and the
+PFL3 and PFL1 populations at 600 Hz, which their refractory period turns into 259 spikes per
+second; and the taste receptor neurons over 10 to 200 Hz, with the two-tastant grids scored at
+200 Hz sugar. Each run lasted 3 s with spikes counted in 20 ms steps; the readout is the target’s
+mean rate over the run, and for the descending rows the rate of each leg-motor pool by side.
+Every driven condition was run with an undriven control at the same settings and with a twin
+on the rewired network whose permutation seed equals the run seed; each had nine seeds. The
+background ladder (Fig. 2 i) adds Poisson input to every neuron at 0, 2, 5, 10 or 20 Hz, and
+effects are measured against the control at the same background.
+A pathway conducts when the driven target’s rate exceeds its control’s by at least 0.10 Hz
+and by the row’s guard: half the control’s own rate, or three seed-to-seed standard deviations
+of the control for the sided rows. It is wiring-specific when the twin’s effect is under half the
+intact effect. A sided row must also carry the sign measured in the animal, and a side is not
+read when its total leg-motor drive is under 0.10 Hz. The outcome in Fig. 2 h is conducts,
+wiring-specific and sign together. The gap-junction row adds one connection from the giant fibre
+onto the tergotrochanteral motor neuron by hand, at 13 (the chemical count), 52, 104, 208 and
+416 synapse equivalents, the only hand-placed connection in the paper. A pathway’s share of its
+target’s input is its synapses onto the target over the target’s total input synapses.
+
+
+The odour probe
+
+The odour code (Fig. 3) was measured outside the body on the untrained network. The antennal
+receptor neurons were driven at 80 Hz for 0.5 s, then silenced. Before each presentation the
+network rested in silence for 1 s; an odour was then presented for 1 s by driving the receptor
+neurons of its five glomeruli at 150 Hz, and every neuron’s spikes were counted. The main pair is
+A = D, DA1, DA2, DA3 and DA4l against B = DA4m, DC1, DC2, DC3 and DC4; three further
+pairs continue through the alphabetical list of glomeruli, from DL1 to VL1. For generalisation
+
+                                                 13
+(Fig. 3 h), A = DL5 and DM1 to DM4, and B shares k of them, its other glomeruli drawn from
+DM5, DM6, DP1l, DP1m and V. A layer’s active fraction, the quantity on the figure axes, is the
+fraction of its neurons with at least one spike during the presentation, and the text gives it as
+a percentage, the share of the layer’s neurons active; the overlap of two odours is the fraction
+shared between the 5% most active Kenyon cells of each; the MBON output is the total of
+MBON spikes in the presentation, and an output under 5 spikes before training is treated as
+unmeasurable.
+The matched variant scales the output synapses of the 105 antennal-lobe local neurons predicted
+cholinergic by a gain g. The sweep used g = 1, 0.5, 0.25, 0.15, 0.1, 0.075, 0.05 and 0; the variant
+used through the paper takes the largest gain at which the share of Kenyon cells active lies in 3
+to 15% with an overlap of at most 0.5, a rule fixed before the sweep ran, which gives g = 0.15.
+Training on odour A depresses each Kenyon-cell-to-MBON synapse by a fraction 0.5 (or 1.0)
+of its Kenyon cell’s response to A normalised to the largest response, after which both odours
+are presented again; the depression of an odour is 1 minus the ratio of its MBON output after
+training to before. Silencing a type sets its output synapses to zero. The contingency test drives
+every receptor neuron at 0, 5, 40 or 120 Hz with no odour, after the warm-up or from silence;
+the breadth test builds odours of 5, 10 or 20 glomeruli; the drive test presents the odours at 0.5
+and 0.25 of the 150 Hz rate. Six seeds per condition went to the gain sweep and the contingency
+test, whose results set the matched gain and the bistability, and three to the other tests; the
+seed sets only the Poisson input, and the seed-to-seed standard deviation of the share of Kenyon
+cells active is 0.03 percentage points as read and 0.17 at the matched gain.
+One run tested the sign of the APL and was not pre-registered. The two APL cells, the typed
+right cell and the unlabelled left one, were signed inhibitory, as the table’s verified column
+has them, and the odour code was measured as above, with and without training on odour
+A, at gains of 1, 0.5, 0.25, 0.15 and 0.05 on the cholinergic local neurons’ output, three seeds
+each. Two further variants silenced the two cells, and gave every neuron with a single verified
+transmitter the sign of that transmitter, the unlabelled APL cell taking its twin’s. The run is in
+the reproducibility bundle beside the registered sweeps, marked as exploratory.
+
+
+The body and its coupling to the network
+
+The body is NeuroMechFly[36, 38], a MuJoCo model of the fly, stepped at 0.1 ms with leg
+adhesion on and contact sensors on the tibia and the five tarsal segments of every leg. Walking
+uses flygym’s hybrid controller (a central-pattern-generator network with its retraction and
+stumbling reflexes), changed only to take six amplitudes, one per leg.
+Every 50 ms the loop runs once. The arena’s odour intensity at the two sensors on each side
+of the head, antenna and maxillary palp, is combined as a weighted mean (weights 9 and 1);
+the asymmetry a = (L − R)/mean, clipped to ±1, sets the receptor drive of the left and right
+antennae to 120+80a and 120−80a Hz. From each eye’s ommatidia, 1 minus the mean brightness
+over the upper 45% of rows is the looming signal; each side’s LC and LPLC neurons receive 250
+times this value, capped at 150 Hz. The network then runs for 50 ms, and the spike counts of
+each leg-motor pool, of the MBONs and of the left and right DNa02 are read.
+The pool counts are smoothed by an exponential moving average with weight 0.15, and each
+leg’s amplitude is 1 + 0.8 (c − b)/s, where c is the smoothed count, b the pool’s baseline and s
+the mean baseline over pools, both measured over the last 17 of 25 calibration steps at 120 Hz
+receptor drive before the episode and floored at 1; amplitudes are clipped to between 0.3 and
+1.45. Steering scales the three legs of one side. The odour term is e = tanh(β 2 ) sign(β) with
+β = −500 (L − R)/mean. The valence v is the spike count of the approach-driving MBONs minus
+that of the avoidance-driving MBONs, divided by a fixed norm and clipped to between −1.5
+and 1.5. When v is positive the legs on the side of the stronger odour are scaled by 1 − 0.8 |e| v;
+
+
+                                                14
+when it is negative the legs on the other side are scaled by 1 − 0.8 |e| |v|, and the fly turns away.
+Each MBON type drives approach or avoidance according to its transmitter, after the finding
+that activating a glutamatergic MBON repels flies and activating a GABAergic or cholinergic
+one attracts them[41]: the transmitter is the table’s verified entry where the type has one, else
+the published one[78] (MBON26, 27, 30 and 32), else the majority of the per-neuron predictions.
+Of the 104 MBONs read, 75 drive approach, 25 avoidance and 4 are unsigned (MBON24 and
+MBON29; Supplementary Table 5). The norm, 37.35 as read and 25.22 for the matched variant,
+is the intact network’s mean balance over the calibration steps (53.78 and 36.32 spikes per step)
+divided by 1.44, the intact fly’s untrained valence under the summed readout, so that the turn
+rule has the same scale under both readouts. The summed readout reads v as the summed MBON
+count divided by 107, clipped to between 0 and 1.5; its results are reported in the Supplementary
+Discussion and Supplementary Tables 6 and 7. When the larger looming signal exceeds 0.05, a
+ramp r rises linearly to 1 at 0.28: the odour term is multiplied by 1 − r, and the legs opposite
+the stronger looming signal (or, when the two DNa02 counts differ, opposite the more active
+DNa02) are scaled by 1 − 2.2 r. Side scalings are clipped to between 0.3 and 1.
+Arenas are built on flygym’s odour arena[38], with one odour whose intensity falls with the
+inverse square of the distance from each source; a source is consumed and switched off when the
+fly’s centre comes within 2.5 mm of it (4 mm in the learning arena). Walls are boxes 1.2 mm
+thick and 3 mm high. The fly starts at the origin facing +x. The layouts are ours. The nine
+arenas are an open field, a single detour, two-, three- and four-wall slaloms, a wide gate, two
+one-sided walls, a long S-curve and a dense slalom, with 32 sources in all and a 20 s cap. The
+forage arena of Fig. 5 has three sources at (26, −6), (28, −9) and (24, −5) mm behind a wall at
+x = 15 mm spanning y = −4 to 6 mm, and a 16 s cap. The learning arena has one source, at
+(22, 11) mm for the model as read, and 6 s episodes. A seed sets the random generators of the
+Poisson input and of the physics reset and, in rewired runs, the permutation.
+
+
+The nine-arena battery
+
+Each of 20 seeds ran every arena under each of three wirings, intact, rewired and mushroom-body-
+lesioned: 180 runs per condition. The measures per run are the sources reached, the straightness
+(net displacement over path length), the median speed over 50 ms steps and the fraction of steps
+with speed above 1 mm/s. The chance level is a correlated random walk through the same nine
+geometries: a heading perturbed every step, the intact fly’s own speed (the mean over its runs of
+the median speed), reflection at walls, the 2.5 mm capture radius, the 20 s cap and 20 seeds. Two
+reference controllers with the same speed, capture radius, cap and seeds are given the position of
+every source and step straight toward the nearest one that remains; when a wall blocks a step,
+one stays where it is and the other steps along the wall (Supplementary Table 1). The recordings
+of Fig. 4 e, l and m are every neuron’s spike count in every 50 ms step of one run per condition
+(arena i, seed 0).
+
+
+Perturbations in the body
+
+The forage-arena conditions (Fig. 5 b to d) are intact; the mushroom body lesioned; rewired;
+the lesioned and the rewired fly with the valence pinned at 1.44, the intact fly’s mean under the
+summed readout (1.41 with the balance); the lesioned fly pinned at 0 and at 0.7 and the intact
+fly pinned at 0; a random lesion of 4,608 neurons, the size of the mushroom-body set; and the
+intact fly with the looming signal set to zero. Each has 20 completed runs, taken in seed order;
+runs that ended in a physics fault are excluded and counted, and extra seeds were run to fill the
+20, under a rule written before they ran. The six measures are the sources reached, the mean
+over sources of the closest approach, the mean DNa02 count per step, the number of steps within
+0.5 mm of the wall, the path length and the mean leg-motor-pool rate.
+
+                                                 15
+Motor replay (Fig. 5 e, g) ran each arena and seed three times. A closed-loop run from the
+standard start recorded its six amplitudes at every step. A second closed-loop run started with
+the heading rotated by 30◦ . An open-loop run from the same rotated start fed the recorded
+amplitudes to the body step by step while the network’s output was ignored.
+Descending-neuron drive (Fig. 5 f, j) took place in an open arena with the receptor neurons at
+120 Hz on both sides (also 40 and 0 Hz for j): after 1 s the target received 600 Hz for 2 s, then
+1 s more without it. The targets were DNa01 and DNa02 on each side, DNa02 on both sides,
+DNp09 on the left, the connectome’s threat-response cluster on both sides, DNg12 and DNp01
+on the left as non-locomotor controls, and no target as the baseline; 20 seeds each intact, and
+for the rewired rows three permutations with seven seeds each. Speed is path length over time,
+in the drive window against the settling window (0.2 to 1 s), and the net turn is the change in
+heading over the drive window.
+Graded removal (Fig. 5 h, i) zeroes every synapse of a fraction of the candidate neurons: all
+simulated neurons except the receptor, LC and LPLC, leg-motor, MBON and DNa02 sets that
+the loop drives or reads. Random removal draws the set with the seed, at 5 to 90%; targeted
+removal takes the neurons with the most synapses at 1 to 20%, over all candidates or over the
+central-brain intrinsic neurons only; 20 seeds each.
+
+
+Learning in the loop
+
+Of the 15,523 connections from Kenyon cells onto MBONs, the plastic ones are the 8,377 onto
+the MBONs of the compartments that the PPL1 dopamine neurons innervate, the compartments
+of aversive learning (types MBON11 to 14, 16 to 20, 23, 25, 28, 30 and 32 to 35, 50 cells, after
+the hemibrain compartment map[78]; mean weight 0.513 mV). The other 7,146 keep their weight.
+At every 50 ms step each plastic connection’s eligibility trace decays with a 200 ms time constant
+and gains its Kenyon cell’s spikes in the step. While the reinforcement signal is on, the connection
+accumulates a depression of η times its eligibility times its MBON’s spikes in the step; at the
+end of the episode the accumulated depression is subtracted from the weight, which is clipped to
+between 0 and its initial value. Under the summed readout with all 15,523 connections plastic
+(Supplementary Discussion) the learning lowers the valence in both conditions, but not below
+a floor set by MBONs the Kenyon cells do not drive, and 19 of 20 trained flies still reach the
+source. Two further arms change one of the two at a time (Supplementary Fig. 4; Supplementary
+Table 7): the balance readout with all 15,523 connections plastic, and the summed count (divided
+by 107 as read and by 81 in the matched variant, as in the Supplementary Discussion) with the
+8,377. Each ran the three conditions below with 20 seeds in both models, and its predictions
+were written down before it ran.
+A run is a naive test episode, six training episodes and a post-test episode, each 6 s from the
+same start, with the source switched on at the start and off at contact. In the paired condition
+the reinforcement is on throughout each training episode while the fly forages in the odour.
+In the unpaired condition the reinforcement is on but the odour is withheld, both antennae
+receiving 5 Hz, so the Kenyon cells are silent. In the no-plasticity condition η = 0. The main
+arm used η = 0.02 and 20 seeds per condition; the learning-rate ladder ran the paired condition
+at eleven values of η from 10−5 to 0.08, 20 seeds each. The measures are the mean weight of the
+plastic connections (0.513 to 0.138 mV after pairing as read; a mean over all 15,523 connections,
+which includes those that cannot change, reads 0.500 to 0.298 mV), the valence averaged over an
+episode, the closest approach to the source in the post test, and the devaluation, the fall from the
+naive to the post test in the fraction of the start distance closed. The matched variant (Fig. 6
+h, i) is the g = 0.15 network of Fig. 3. Its balance norm, 25.22, was set as above from its own
+intact runs, and its source was placed at (23, 8) mm by a rule fixed before the runs: the as-read
+source’s distance from the start, side and margin, transferred to the variant’s own path with the
+
+
+                                                16
+valence forced to zero. The registered tests of the variant are on the behaviour: the depression is
+associative when the paired and unpaired flies’ devaluation differ (P < 0.01, Cliff’s δ ≥ 0.5) with
+the unpaired valence at or above 0.7, and expressed when more than half of the trained flies miss
+the source by more than 4 mm while the unpaired and unplastic flies reach it.
+
+
+Statistics and reproducibility
+
+The unit of replication is the seed, one simulated fly with its own input and initial conditions;
+arenas are repeated measures on a fly. All tests are two-sided. The replay result (Fig. 5 g) is a
+paired Wilcoxon signed-rank test on each fly’s mean fraction of sources reached over the nine
+arenas, computed exactly (SciPy 1.17.1, exact method): W = 0, P = 1.9 × 10−6 for 20 flies.
+Group comparisons (Fig. 6 d, e, h, Supplementary Table 7, and the rewired against the lesioned
+fly in Fig. 4 f) use the Mann–Whitney U test with Cliff’s δ (the probability that a value from
+one group exceeds one from the other, minus the reverse) as the effect size, and 95% intervals
+from 5,000 percentile-bootstrap resamples, reported in the Results where the two groups overlap
+(at δ = ±1 every resample gives the same value). The power of a 20-versus-20 Mann–Whitney
+test at α = 0.05 against a normal shift whose δ is 0.2, 0.35, 0.5 or 0.65 is 0.19, 0.49, 0.83 and 0.97
+(2,000 simulations each). The correlation of Fig. 3 i is Spearman’s ρ over 11 types (ρ = 0.78,
+P = 0.0045); without the largest type it is 0.71 (P = 0.022), and leaving out any one type gives
+0.71 to 0.88. No correction for multiple comparisons was applied; a Bonferroni correction across
+the six learning tests changes no conclusion.
+Every sweep’s cells, metrics, thresholds and predictions were written down before it was launched,
+except the exploratory APL run above, which is marked as such where it is cited. Simulations
+ran in one container (Ubuntu 22.04, Python 3.10.12, Brian 2 2.7.1 with Cython 0.29.37, flygym
+1.2.1, MuJoCo 3.2.7[83], NumPy 2.0.2[84], SciPy 1.15.3[85]), one run per 2-core, 12 GiB pod
+on the National Research Platform’s Nautilus cluster; figures and statistics were built locally
+(Python 3.11, SciPy 1.17.1).
+
+
+References
+ [1] White, J. G., Southgate, E., Thomson, J. N. & Brenner, S. The structure of the nervous
+     system of the nematode Caenorhabditis elegans. Philosophical Transactions of the Royal
+     Society of London. B, Biological Sciences 314, 1–340 (1986).
+
+ [2] Cook, S. J. et al. Whole-animal connectomes of both Caenorhabditis elegans sexes. Nature
+     571, 63–71 (2019).
+
+ [3] Winding, M. et al. The connectome of an insect brain. Science 379, eadd9330 (2023).
+
+ [4] Scheffer, L. K. et al. A connectome and analysis of the adult Drosophila central brain. eLife
+     9, e57443 (2020).
+
+ [5] Zheng, Z. et al. A complete electron microscopy volume of the brain of adult Drosophila
+     melanogaster. Cell 174, 730–743.e22 (2018).
+
+ [6] Dorkenwald, S. et al. Neuronal wiring diagram of an adult brain. Nature 634, 124–138
+     (2024).
+
+ [7] Schlegel, P. et al. Whole-brain annotation and multi-connectome cell typing of Drosophila.
+     Nature 634, 139–152 (2024).
+
+ [8] Phelps, J. S. et al. Reconstruction of motor control circuits in adult Drosophila using
+     automated transmission electron microscopy. Cell 184, 759–774.e18 (2021).
+
+                                                 17
+ [9] Azevedo, A. et al. Connectomic reconstruction of a female Drosophila ventral nerve cord.
+     Nature 631, 360–368 (2024).
+
+[10] Takemura, S.-y. et al. A connectome of the male Drosophila ventral nerve cord. eLife (2024).
+     Preprint.
+
+[11] Stürner, T. et al. Comparative connectomics of Drosophila descending and ascending
+     neurons. Nature 643, 158–172 (2025).
+
+[12] Bates, A. S. et al. Distributed control circuits across a brain-and-cord connectome. Nature
+     656, 957–970 (2026).
+
+[13] Berg, S. et al. Sexual dimorphism in the complete connectome of the Drosophila male
+     central nervous system. bioRxiv (2025). Preprint.
+
+[14] Eckstein, N. et al. Neurotransmitter classification from electron microscopy images at
+     synaptic sites in Drosophila melanogaster. Cell 187, 2574–2594.e23 (2024).
+
+[15] Bargmann, C. I. & Marder, E. From the connectome to brain function. Nature Methods 10,
+     483–490 (2013).
+
+[16] Marder, E. Neuromodulation of neuronal circuits: Back to the future. Neuron 76, 1–11
+     (2012).
+
+[17] Lichtman, J. W. & Sanes, J. R. Ome sweet ome: what can the genome tell us about the
+     connectome? Current Opinion in Neurobiology 18, 346–353 (2008).
+
+[18] Zador, A. M. A critique of pure learning and what artificial neural networks can learn from
+     animal brains. Nature Communications 10, 3770 (2019).
+
+[19] Lappalainen, J. K. et al. Connectome-constrained networks predict neural activity across
+     the fly visual system. Nature 634, 1132–1140 (2024).
+
+[20] Beiran, M. & Litwin-Kumar, A. Prediction of neural activity in connectome-constrained
+     recurrent networks. Nature Neuroscience 28, 2561–2574 (2025).
+
+[21] Kakaria, K. S. & de Bivort, B. L. Ring attractor dynamics emerge from a spiking model of
+     the entire protocerebral bridge. Frontiers in Behavioral Neuroscience 11 (2017).
+
+[22] Shiu, P. K. et al. A Drosophila computational brain model reveals sensorimotor processing.
+     Nature 634, 210–219 (2024).
+
+[23] Pugliese, S. M. et al. Connectome simulations identify a central pattern generator circuit
+     for fly walking. bioRxiv (2025). Preprint.
+
+[24] Prinz, A. A., Bucher, D. & Marder, E. Similar network activity from disparate circuit
+     parameters. Nature Neuroscience 7, 1345–1352 (2004).
+
+[25] Randi, F., Sharma, A. K., Dvali, S. & Leifer, A. M. Neural signal propagation atlas of
+     Caenorhabditis elegans. Nature 623, 406–414 (2023).
+
+[26] Cande, J. et al. Optogenetic dissection of descending behavioral control in Drosophila. eLife
+     7, e34275 (2018).
+
+[27] Yang, H. H. et al. Fine-grained descending control of steering in walking Drosophila. Cell
+     187, 6290–6308.e27 (2024).
+
+[28] Rayshubskiy, A. et al. Neural circuit mechanisms for steering control in walking Drosophila.
+     eLife (2024). Preprint.
+
+                                               18
+[29] Bidaye, S. S., Machacek, C., Wu, Y. & Dickson, B. J. Neuronal control of Drosophila
+     walking direction. Science 344, 97–101 (2014).
+
+[30] von Reyn, C. R. et al. Feature integration drives probabilistic behavior in the Drosophila
+     escape response. Neuron 94, 1190–1204.e6 (2017).
+
+[31] Klapoetke, N. C. et al. Ultra-selective looming detection from radial motion opponency.
+     Nature 551, 237–241 (2017).
+
+[32] de Belle, J. S. & Heisenberg, M. Associative odor learning in Drosophila abolished by
+     chemical ablation of mushroom bodies. Science 263, 692–695 (1994).
+
+[33] Aso, Y. et al. The neuronal architecture of the mushroom body provides a logic for associative
+     learning. eLife 3, e04577 (2014).
+
+[34] Hige, T., Aso, Y., Modi, M. N., Rubin, G. M. & Turner, G. C. Heterosynaptic plasticity
+     underlies aversive olfactory learning in Drosophila. Neuron 88, 985–998 (2015).
+
+[35] Chiel, H. J. & Beer, R. D. The brain has a body: adaptive behavior emerges from interactions
+     of nervous system, body and environment. Trends in Neurosciences 20, 553–557 (1997).
+
+[36] Lobato-Rios, V. et al. NeuroMechFly, a neuromechanical model of adult Drosophila
+     melanogaster. Nature Methods 19, 620–627 (2022).
+
+[37] Sarma, G. P. et al. OpenWorm: overview and recent advances in integrative biological
+     simulation of Caenorhabditis elegans. Philosophical Transactions of the Royal Society B:
+     Biological Sciences 373, 20170382 (2018).
+
+[38] Wang-Chen, S. et al. NeuroMechFly v2: simulating embodied sensorimotor control in adult
+     Drosophila. Nature Methods 21, 2353–2362 (2024).
+
+[39] Vaxenburg, R. et al. Whole-body physics simulation of fruit fly locomotion. Nature 643,
+     1312–1320 (2025).
+
+[40] Jin, Z., Zhu, Y., Zhang, C. & Sui, Y. Whole-brain connectomic graph model enables whole-
+     body locomotion control in fruit fly (2026). URL https://arxiv.org/abs/2602.17997.
+
+[41] Aso, Y. et al. Mushroom body output neurons encode valence and guide memory-based
+     action selection in Drosophila. eLife 3, e04580 (2014).
+
+[42] Owald, D. et al. Activity of defined mushroom body output neurons underlies learned
+     olfactory behavior in Drosophila. Neuron 86, 417–427 (2015).
+
+[43] Owald, D. & Waddell, S. Olfactory learning skews mushroom body output pathways to
+     steer behavioral choice in Drosophila. Current Opinion in Neurobiology 35, 178–184 (2015).
+
+[44] McKellar, C. E., Siwanowicz, I., Dickson, B. J. & Simpson, J. H. Controlling motor neurons
+     of every muscle for fly proboscis reaching. eLife 9, e54978 (2020).
+
+[45] Gordon, M. D. & Scott, K. Motor control in a Drosophila taste circuit. Neuron 61, 373–384
+     (2009).
+
+[46] von Reyn, C. R. et al. A spike-timing mechanism for action selection. Nature Neuroscience
+     17, 962–970 (2014).
+
+[47] Ache, J. M. et al. Neural basis for looming size and velocity encoding in the Drosophila
+     giant fiber escape pathway. Current Biology 29, 1073–1081.e4 (2019).
+
+
+                                                19
+[48] Wu, M. et al. Visual projection neurons in the Drosophila lobula link feature detection to
+     distinct behavioral programs. eLife 5, e21022 (2016).
+
+[49] Namiki, S., Dickinson, M. H., Wong, A. M., Korff, W. & Card, G. M. The functional
+     organization of descending sensory-motor pathways in Drosophila. eLife 7, e34272 (2018).
+
+[50] Strausfeld, N. J. & Bassemir, U. K. Cobalt-coupled neurons of a giant fibre system in
+     Diptera. Journal of Neurocytology 12, 971–991 (1983).
+
+[51] Westeinde, E. A. et al. Transforming a head direction signal into a goal-oriented steering
+     command. Nature 626, 819–826 (2024).
+
+[52] Guo, L., Zhang, N. & Simpson, J. H. Descending neurons coordinate anterior grooming
+     behavior in Drosophila. Current Biology 32, 823–833.e4 (2022).
+
+[53] Bidaye, S. S. et al. Two brain pathways initiate distinct forward walking programs in
+     Drosophila. Neuron 108, 469–485.e8 (2020).
+
+[54] Zacarias, R., Namiki, S., Card, G. M., Vasconcelos, M. L. & Moita, M. A. Speed dependent
+     descending control of freezing behavior in Drosophila melanogaster. Nature Communications
+     9, 3697 (2018).
+
+[55] Sen, R. et al. Moonwalker descending neurons mediate visually evoked retreat in Drosophila.
+     Current Biology 27, 766–771 (2017).
+
+[56] Ribeiro, I. M. et al. Visual projection neurons mediating directed courtship in Drosophila.
+     Cell 174, 607–621.e18 (2018).
+
+[57] Chou, Y.-H. et al. Diversity and wiring variability of olfactory local interneurons in the
+     Drosophila antennal lobe. Nature Neuroscience 13, 439–449 (2010).
+
+[58] Wilson, R. I. & Laurent, G. Role of GABAergic inhibition in shaping odor-evoked spa-
+     tiotemporal patterns in the Drosophila antennal lobe. The Journal of Neuroscience 25,
+     9069–9079 (2005).
+
+[59] Liu, W. W. & Wilson, R. I. Glutamate is an inhibitory neurotransmitter in the Drosophila
+     olfactory system. Proceedings of the National Academy of Sciences 110, 10294–10299 (2013).
+
+[60] Shang, Y., Claridge-Chang, A., Sjulson, L., Pypaert, M. & Miesenböck, G. Excitatory local
+     circuits and their implications for olfactory processing in the fly antennal lobe. Cell 128,
+     601–612 (2007).
+
+[61] Huang, J., Zhang, W., Qiao, W., Hu, A. & Wang, Z. Functional connectivity and selective
+     odor responses of excitatory local interneurons in Drosophila antennal lobe. Neuron 67,
+     1021–1033 (2010).
+
+[62] Lin, A. C., Bygrave, A. M., de Calignon, A., Lee, T. & Miesenböck, G. Sparse, decorre-
+     lated odor coding in the mushroom body enhances learned odor discrimination. Nature
+     Neuroscience 17, 559–568 (2014).
+
+[63] Liu, X. & Davis, R. L. The GABAergic anterior paired lateral neuron suppresses and is
+     suppressed by olfactory learning. Nature Neuroscience 12, 53–59 (2009).
+
+[64] Turner, G. C., Bazhenov, M. & Laurent, G. Olfactory representations by Drosophila
+     mushroom body neurons. Journal of Neurophysiology 99, 734–746 (2008).
+
+
+
+
+                                               20
+[65] Honegger, K. S., Campbell, R. A. A. & Turner, G. C. Cellular-resolution population imaging
+     reveals robust sparse coding in the Drosophila mushroom body. The Journal of Neuroscience
+     31, 11772–11785 (2011).
+
+[66] Campbell, R. A. A. et al. Imaging a population code for odor identity in the Drosophila
+     mushroom body. Journal of Neuroscience 33, 10568–10581 (2013).
+
+[67] Schwaerzel, M. et al. Dopamine and octopamine differentiate between aversive and appetitive
+     olfactory memories in Drosophila. The Journal of Neuroscience 23, 10495–10502 (2003).
+
+[68] Claridge-Chang, A. et al. Writing memories with light-addressable reinforcement circuitry.
+     Cell 139, 405–415 (2009).
+
+[69] Eschbach, C. et al. Recurrent architecture for adaptive regulation of learning in the insect
+     brain. Nature Neuroscience 23, 544–555 (2020).
+
+[70] Cowley, B. R. et al. Mapping model units to visual neurons reveals population code for
+     social behaviour. Nature 629, 1100–1108 (2024).
+
+[71] Brunton, B. W., Abe, E. T., Hu, L. J. & Tuthill, J. C. The digital sphinx: Can a worm
+     brain control a fly body? bioRxiv (2026). Preprint.
+
+[72] Braun, J., Hurtak, F., Wang-Chen, S. & Ramdya, P. Descending networks transform
+     command signals into population motor control. Nature 630, 686–694 (2024).
+
+[73] Dickinson, M. H. et al. How animals move: An integrative view. Science 288, 100–106
+     (2000).
+
+[74] Yaksi, E. & Wilson, R. I. Electrical coupling between olfactory glomeruli. Neuron 67,
+     1034–1047 (2010).
+
+[75] Olsen, S. R. & Wilson, R. I. Lateral presynaptic inhibition mediates gain control in an
+     olfactory circuit. Nature 452, 956–960 (2008).
+
+[76] Liu, T. X., Davoudian, P. A., Lizbinski, K. M. & Jeanne, J. M. Connectomic features
+     underlying diverse synaptic connection strengths and subcellular computation. Current
+     Biology 32, 559–569.e5 (2022).
+
+[77] Brezovec, B. E. et al. Mapping the neural dynamics of locomotion across the Drosophila
+     brain. Current Biology 34, 710–726.e4 (2024).
+
+[78] Li, F. et al. The connectome of the adult Drosophila mushroom body provides insights into
+     function. eLife 9, e62576 (2020).
+
+[79] Pospisil, D. A. et al. The fly connectome reveals a path to the effectome. Nature 634,
+     201–209 (2024).
+
+[80] Barnes, C. L., Bonnéry, D. & Cardona, A. Synaptic counts approximate synaptic contact
+     area in Drosophila. PLOS ONE 17, e0266064 (2022).
+
+[81] Stimberg, M., Brette, R. & Goodman, D. F. Brian 2, an intuitive and efficient neural
+     simulator. eLife 8, e47314 (2019).
+
+[82] Schlegel, P. et al. Information flow, cell types and stereotypy in a full olfactory connectome.
+     eLife 10, e66018 (2021).
+
+
+
+
+                                                21
+[83] Todorov, E., Erez, T. & Tassa, Y. MuJoCo: A physics engine for model-based control.
+     In 2012 IEEE/RSJ International Conference on Intelligent Robots and Systems, 2012
+     IEEE/RSJ International Conference on Intelligent Robots and Systems, 5026–5033 (IEEE,
+     2012). URL http://dx.doi.org/10.1109/iros.2012.6386109.
+
+[84] Harris, C. R. et al. Array programming with NumPy. Nature 585, 357–362 (2020).
+
+[85] Virtanen, P. et al. SciPy 1.0: fundamental algorithms for scientific computing in Python.
+     Nature Methods 17, 261–272 (2020).
+
+
+Acknowledgements
+We thank the BANC-FlyWire Consortium and the wider Drosophila community for proofreading
+and annotating the BANC connectome, Bates et al. for the connectome and its transmitter
+predictions, and the FlyWire team for the tools through which it is distributed; FlyWire is
+supported by the NIH BRAIN Initiative (RF1 MH117815, RF1 MH129268 and U24 NS126935
+to M. Murthy and H. S. Seung). The simulations ran on the National Research Platform,
+which is supported in part by National Science Foundation awards CNS-1730158, ACI-1540112,
+ACI-1541349, OAC-1826967, OAC-2112167, CNS-2100237 and CNS-2120019.
+During the preparation of this work, the authors used the Claude large language model (Fable
+5.1, Opus 5) in order to generate portions of the source code, analysis figures, and in editing the
+text. After using these tools, the authors reviewed and edited the content as needed and take
+full responsibility for the content of the publication.
+
+
+Funding
+M.T. discloses support for the research of this work from Schmidt Futures (SF857), the National
+Human Genome Research Institute (RM1HG011543), the National Science Foundation (2134955,
+2034037 and 2515389), the California Institute for Regenerative Medicine (DISC4-16285) and
+the University of California Office of the President (M25PR9045). D.H. discloses support from
+Schmidt Futures (SF857), the National Human Genome Research Institute (RM1HG011543),
+the National Science Foundation (2134955 and 2515389), the National Institute of Mental Health
+(U24MH132628) and the National Institute of Neurological Disorders and Stroke (U24NS146314).
+M.A.M.-R. discloses support from the National Science Foundation (2515389), the National
+Institute of Mental Health (U24MH132628), the National Institute of Neurological Disorders
+and Stroke (U24NS146314), the California Institute for Regenerative Medicine (DISC4-16285,
+DISC4-16337 and DISC4-19334), the University of California Office of the President (M25PR9045)
+and the Brain and Behavior Research Foundation (33184). J.G.-F. discloses support from the
+QB3 Graduate Innovators Fellowship. J.R.M., J.G. and J.K.E. declare no relevant funding. The
+funders took no part in the design of the study, the analysis, the decision to publish or the writing
+of the manuscript. The content is the authors’ responsibility alone and does not necessarily
+represent the official views of the National Institutes of Health, the National Science Foundation,
+the University of California, the California Institute for Regenerative Medicine or any other
+federal or state agency.
+
+
+Author contributions
+J.R.M. designed the study and performed the experiments. M.T. supervised the work. J.G.-F.,
+J.G., J.K.E., M.A.M.-R., D.H. and M.T. contributed to study design and interpretation. M.T.,
+
+
+                                                 22
+D.H. and M.A.M.-R. acquired funding. J.R.M. wrote the manuscript, with contributions from
+all authors. All authors read and approved the manuscript.
+
+
+Competing interests
+The authors declare no competing interests.
+
+
+Materials and correspondence
+Correspondence and requests for materials should be addressed to J.R.M. or M.T.
+
+
+Figure legends
+Fig. 1. The brain-and-nerve-cord connectome as a spiking network inside a fly body.
+a, The body model from above and from the side, with the connectome inside it at physical scale.
+b, The neurons of the connectome drawn as their arbors and coloured by region, from above and
+from the side. c, Synapse counts between the 24 regions as a chord diagram; each ribbon joins a
+presynaptic region to a postsynaptic region and its width is the number of synapses between
+them. d, The 24 regions used throughout, one tile each; the region’s neurons are coloured on
+the grey outline of the whole central nervous system. e, The synapse counts of c as a matrix,
+presynaptic region by row and postsynaptic region by column, on a logarithmic colour scale
+(100 to 106 synapses); rows and columns are ordered by hierarchical clustering, shown by the
+dendrograms; the coloured strips give each region’s colour. f, Functional influence: each region
+was stimulated on its own, at 40 Hz for 3 s in the network outside the body, and the spiking
+evoked in every region was recorded. Rows, the stimulated region; columns, the responding
+region, in the order of e; each row is normalised to its maximum (0 to 1); mean over three seeds.
+The body model is NeuroMechFly[38] and the connectome is BANC[12].
+
+Fig. 2. Identified pathways driven in the network outside the body and read at
+identified target neurons. a, The six behaviour families on an outline of the fly: the driven
+population (coloured), the readout, and in italics the behaviour in the animal. b, Every driven
+population on the central nervous system, with its neuron count. c, Every relay neuron between
+the sugar gustatory receptor neurons (GRNs) and the proboscis motor neuron MN9 (columns),
+its firing rate (colour) under sugar at 10 to 200 Hz and under sugar at 200 Hz with a second
+tastant (bitter, Ir94e, or water as the control); above, each relay’s synapses onto MN9 (bars,
+square-root scale) and the share of its input from the sugar GRNs (dots; dotted line, the band of
+f ). d, As c for escape: the neurons feeding the giant fibre, under LC4, LPLC2, both, LPLC1,
+or LC11 as the control. e, Every leg motor neuron (columns by leg; each group’s label gives
+how many respond) under each descending drive (rows), intact and rewired; bars above, its
+descending input (square-root scale). f, The target neuron’s firing rate against the share of its
+total input that the driven pathway supplies, on logarithmic axes: filled circles, escape pathways
+onto the giant fibre; diamond, taste onto MN9; open circles, the giant fibre onto TTMn with a
+gap junction added by hand at several weights; square, seven pathways at or below 0.03% of
+input, named; shading, the operating range. g, MN9’s rate under sugar alone and with a second
+tastant, intact (green) and with the tastant’s outgoing synapses shuffled (blue); bars, mean;
+caps, s.e.m.; dots, nine seeds; dotted, the unsuppressed baseline. h, Each pathway’s registered
+outcome: conducts, dies under the null (the shuffle), matches the behaviour measured in the
+animal (filled, yes; open, no; half, conditionally), and the reason where not. i, The driven side’s
+rate above control against the network’s background rate (0 to 20 Hz): filled, mean ± s.e.m. over
+
+                                                23
+nine seeds; open, the other side; crosses, the rewired twin; diamond, MN9; shading, the rates at
+which the pathway conducts.
+
+Fig. 3. The antennal-lobe circuit and the Kenyon-cell odour code, as read and with
+the cholinergic gain scaled. Blue, as read; vermillion, the matched variant (the cholinergic
+local neurons’ output scaled to 0.15); green, the fly’s window; all outside the body. a, The
+circuit: cell counts in ovals, synapse counts on arrows (arrowhead excitatory, bar inhibitory),
+local neurons by predicted transmitter, the scaled output in both colours. b, Each local neuron’s
+output synapses (logarithmic) against its prediction score, coloured by class. c, Active fraction
+(dashed) and the two odours’ top-5% overlap (solid) per layer: olfactory receptor neurons (ORN),
+projection neurons (PN), local neurons (LN), Kenyon cells (KC), lateral-horn output neurons
+(LHON) and mushroom-body output neurons (MBON); six seeds each. d, Kenyon-cell (solid)
+and projection-neuron (dashed) active fraction and overlap against the cholinergic gain (1 = as
+read); six seeds; shading, the matched range. e, Kenyon-cell active fraction at the matched gain
+for eight odours of five glomeruli (labelled by first and last glomerulus); lines join as-read and
+matched; three or six seeds. f, MBON spikes per presentation against the gain, odour A filled
+and B open, and per odour at the matched gain (bars) with the as-read range (band); dotted, 5
+spikes. g, Kenyon-cell active fraction with every receptor driven at one rate and no odour (filled,
+after a warm-up; hollow, from silence); right, against the glomeruli per odour; six and three seeds.
+h, After training on odour A: MBON depression (fraction of before) of A (filled) and B (open)
+against the glomeruli B shares with A; right, B’s as a fraction of A’s at training strengths 1 and
+0.5 (matched) and 0.5 (as read, from the median depressions), Kenyon-cell overlap in parentheses;
+three seeds. i, One cholinergic type silenced at a time: the fall in Kenyon-cell active fraction
+(bars) and the type’s output synapses (logarithmic); Spearman ρ = 0.78, 11 types, two-sided
+P = 0.0045; three seeds. j, Types silenced together (filled) against the sum of their single falls
+(open); dotted, all 105. k, Kenyon-cell active fraction, overlap and MBON spikes against the
+odour drive (fraction of full); six seeds at drive 1, three below.
+
+Fig. 4. The embodied fly in nine arenas under three wiring conditions. Intact (blue),
+rewired (vermillion) and mushroom-body-lesioned (pink); 20 seeds (simulated flies with their own
+initial conditions) per condition in each of nine arenas ordered by clutter, i to ix, with 32 odour
+sources in all: 180 runs per condition. a, Every seed’s path in every arena, the three conditions
+overlaid; green dots, the sources; grey bars, the walls. b–d, Occupancy per condition, visits per
+bin on a shared logarithmic colour scale; the label at each source is the fraction of seeds that
+reached it. e, Firing measured on the central nervous system in one run per condition (arena i,
+seed 0), spikes per neuron per step on a logarithmic colour scale; the olfactory region, mushroom
+body and lateral horn are labelled. f, Odour sources reached per seed, of 32: dots, seeds; bars,
+means; dashed lines, all 32 and the chance level of a correlated random walk at the fly’s own
+speed. g, The fraction of sources reached, by arena: large dots, means; small dots, seeds. h, The
+fraction of seeds reaching each source in order along the corridor. i–k, Path straightness (net
+displacement over path length), median walking speed and the fraction of time moving: dots,
+runs; bars, means. l, m, Measured firing rate and the fraction of neurons firing, by structure,
+from the same single run per condition as e; open markers, zero.
+
+Fig. 5. Perturbations of the sensorimotor loop in the body. a, The loop drawn on the
+body, with the six manipulations numbered as in the key. b, Paths in the forage arena (three
+sources, green) by wiring condition; n = 20 seeds each; bar, 10 mm. c, Odour sources reached
+(of 3) per seed by condition: dots, seeds; bars, means; above each, the mean’s difference from
+intact; dotted, the intact mean; n = 20. d, Six measures for the same conditions, mean with
+s.e.m. below; colour, the value as a fraction of intact (abolished to spared). e, Closed loop (blue)
+against motor replay (yellow), the closed-loop run’s own motor commands fed back with the
+sensory loop cut, both under a 30◦ yaw perturbation: two arenas with every seed’s path; right,
+each run’s two outcomes over nine arenas; dashed, the diagonal. f, Net turn and speed change
+
+                                                24
+over 2 s of drive at each descending-neuron target, intact (blue) and rewired (vermillion): dots,
+seeds; bars, means; grey band, no-drive mean ± s.e.m.; dotted, zero; the marker above each
+target, the sign measured in the animal (filled, carried; open, not); 20 seeds per target intact,
+7 per shuffle rewired. g, The fraction of sources reached per run under closed loop (blue) and
+replay (yellow) by arena and over all nine; small dots, the unperturbed closed-loop record; bars,
+means. Two-sided paired Wilcoxon signed-rank test on the 20 flies’ mean fractions: W = 0, exact
+P = 1.9 × 10−6 ; all 180 pairs and all nine arenas fall the same way. h, i, Navigation (sources
+reached, closest approach) and walking (leg motor-neuron rate, path length) against the fraction
+of neurons removed at random (green), by traffic (black) or by traffic within the brain (dashed):
+lines, mean; shading, s.e.m. over 20 seeds; small dots, seeds; dotted, intact; i’s top strip, the
+fraction of runs excluded for a physics fault. j, The sign of each driven behaviour in the wiring
+alone, silent and on a 2 Hz baseline (Fig. 2), and in the body at three receptor rates: green, the
+sign measured in the animal; grey, the opposite; open, no effect; that sign under each column.
+
+Fig. 6. Dopamine-gated plasticity at the Kenyon-cell-to-MBON synapses, run inside
+the loop. a, The elements of the learning, numbered on the body: the odour’s receptor
+and projection neurons, the Kenyon cells, the plastic Kenyon-cell-to-MBON synapses (those of
+the aversive compartments), the dopamine reinforcement signal, the MBON valence that sets
+approach or avoidance, and the turn in the loop. Right, the protocol: six training episodes
+between a naive test and a post test, each episode an odour bar over a dopamine bar, under odour
++ dopamine (paired, vermillion), dopamine alone (unpaired, blue) or no plasticity (η = 0, grey).
+b, Left, the mean weight of the plastic connections over training by condition (n = 20 seeds);
+right, the paired condition’s weight after training against the learning rate η, every seed; dotted,
+the naive weight. c, Top, MBON valence before and after training, every seed; dotted, the 0.7
+that rescues approach in Fig. 5; grey line, zero (below it the fly turns away). Bottom, the valence
+read out through the protocol for one seed per condition; vertical lines, episode boundaries. d,
+Closest approach to the source after training, by condition: dots, seeds; bars, means; dotted, the
+capture radius (4 mm) and the naive value. Two-sided Mann–Whitney U tests with Cliff’s δ,
+n = 20 per group: paired and unpaired against no plasticity, each P = 6.8 × 10−8 , δ = +1.00;
+paired against unpaired P = 0.49, δ = +0.13. e, Devaluation (the fall from the naive to the post
+test in the fraction of the start distance closed) by condition, as d: paired and unpaired against
+no plasticity, each P = 6.8 × 10−8 , δ = +1.00; paired against unpaired P = 0.36, δ = +0.17.
+f, Valence after training (top) and devaluation (bottom) against η; dotted, 0.7; grey line, zero.
+g, Every seed’s path after training by condition, in the model as read; the paired seed at the
+median devaluation is bold; green dot, the source; under each arena, the median closest approach
+and the seeds reaching the source; bar, 10 mm. h, The same measures for the matched variant of
+Fig. 3 (weight and valence after training, closest approach, devaluation), every seed; devaluation,
+paired against unpaired, U = 400, P = 6.8 × 10−8 , δ = +1.00. i, As g for the matched variant.
+
+
+
+
+                                                25
+Fig. 1
+
+
+
+
+         26
+Fig. 2
+
+
+
+  a                                                                                                    six behaviour families: driven population and readout
+
+
+
+
+  b                                                                                                            every driven population, on the CNS
+
+
+
+
+  c                                                      taste: every relay between sugar and MN9
+                                                                                                                                  d                                                  escape: the layer feeding the giant fibre
+
+
+
+
+  e                                                                                                                 every leg motor neuron, under each descending drive
+
+
+
+
+   f     target response against the pathway's share of its input
+                                                                    g                  tastant suppression of MN9
+                                                                                                                              h                         outcome of tested pathways
+                                                                                                                                                                                                         i            drive effects across background firing
+
+
+
+
+                                                                                                                              27
+Fig. 3
+
+
+
+         a       the antennal-lobe circuit, and the output the matched variant scales
+                                                                                                      b the local neurons: output synapses against prediction score                   c                  the two odours' codes, layer by layer, in both models
+
+
+
+
+         d   Kenyon-cell activity and overlap against the cholinergic local-neuron gain
+                                                                                           e                         the code at the matched gain, odour by odour
+                                                                                                                                                                                      f             MBON spikes against the gain, and per odour at the matched gain
+
+
+
+
+         g                   Kenyon-cell activity without an odour, and against the odour's breadth
+                                                                                                                        h                         each odour's depression after training on A, and the untrained odour's as a fraction of the trained one's
+
+
+
+
+         i      silencing one cholinergic type at a time: the fall, and the type's output synapses
+                                                                                                      j            types silenced together against the sum of single falls
+                                                                                                                                                                             k                Kenyon-cell activity, overlap and MBON output against the odour drive
+
+
+
+
+                                                                                                                               28
+Fig. 4
+
+
+
+
+         29
+Fig. 5
+
+
+
+         a   the sensorimotor loop and the six manipulations
+                                                                            b                                                                  trajectories in the forage arena, by wiring condition
+
+
+
+
+         c      odour sources reached, by condition
+                                                                      d                                            approach, avoidance and walking, by condition
+                                                                                                                                                                                   e                   closed loop versus motor replay, two arenas
+
+
+
+
+         f                     net turn and speed change under descending-neuron drive
+                                                                                                                    g                                          sources reached under closed loop and motor replay, nine arenas
+
+
+
+
+         h      navigation across graded neuron removal
+                                                                      i                          walking across graded neuron removal
+                                                                                                                                                   j                                     sign of the driven behaviour in the wiring alone and in the body
+
+
+
+
+                                               random      targeted       targeted, brain only   intact
+
+
+
+
+                                                                                                                              30
+Fig. 6
+
+
+
+
+         a                                            the learning in the loop, its elements and the protocol
+                                                                                                                                                             b                   KC→MBON weight over training, and after training against the learning rate
+
+
+
+
+         c   MBON valence before and after, and over time
+                                                             d                     closest approach after training
+                                                                                                                          e                devaluation after training, by condition
+                                                                                                                                                                                          f                 valence and devaluation against the learning rate
+
+
+
+
+         g                   every seed after training, by condition
+                                                                                                 h                   the same learning on the matched variant
+                                                                                                                                                                            i              every seed of the matched variant after training, by condition
+
+
+
+
+                                                                                                                               31
+                              Supplementary Information
+         Sensorimotor behaviour from an untrained brain-and-nerve-cord connectome
+
+ John R. Minnick, Jesus Gonzalez-Ferrer, Jinghui Geng, Jason K. Eshraghian, David Haussler and
+                                       Mircea Teodorescu
+
+Contents. Supplementary Discussion, the learning experiment with the valence read as the summed
+MBON count. Supplementary Fig. 1, a sensory pulse crossing the network, the odour and the looming
+pulse. Supplementary Fig. 2, the order in which the wiring is traversed against the order in which the
+pulse reaches neurons. Supplementary Fig. 3, the signed synapse matrix of the 24 regions beside the
+influence map. Supplementary Fig. 4, the learned avoidance under the four combinations of valence
+readout and reinforcement. Supplementary Table 1, sources reached in the nine arenas beside three
+reference controllers. Supplementary Table 2, the conditions of the forage arena. Supplementary Table
+3, descending-neuron drive in the body at three receptor rates. Supplementary Table 4, the odour code
+against the gain of the cholinergic local neurons. Supplementary Table 5, the sign of every MBON
+type under the balance readout. Supplementary Table 6, the in-body results under the two readouts of
+the valence. Supplementary Table 7, the learning experiment under the four combinations of valence
+readout and reinforcement. Supplementary Table 8, the 24 groups of Fig. 1 with their defining labels
+and neuron counts.
+
+
+Supplementary Discussion. The learning experiment with the valence read as the
+summed MBON count
+
+The summed readout takes the valence as the spike count of all 104 MBONs in a 50 ms step divided
+by 107, clipped to between 0 and 1.5. The runs reported here let the reinforcement reach all 15,523
+Kenyon-cell-to-MBON connections. Six training episodes with the odour paired with the reinforcement
+took the mean weight from 0.500 to 0.128 mV and the valence from 1.44 to 0.24. The behaviour did not
+change. The trained fly’s closest approach to the source in the post test was a median 0.23 mm, against
+0.20 mm before training. The trained flies still reached the source, 19 of 20, as did 20 of 20 without
+plasticity (P = 0.23 and 0.47 against no plasticity on closest approach and devaluation, two-sided
+Mann–Whitney U tests). The valence after training fell to between 0.24 and 0.25 at learning rates
+from η = 3 × 10−4 upward and no further, and 18 to 20 of 20 flies reached the source at every rate.
+The floor was MBON output that the plasticity cannot lower. The MBON spikes per step fell from 155
+to 26 with training, and ten MBONs carried 87% of the 26. Six of the ten take at most a quarter of
+their input from Kenyon cells (MBON19, two MBON26 cells, MBON04 and two MBON31 cells). The
+two MBON05 cells take a third and a half and are driven besides by the APL and the glutamatergic
+MBON01. The two that are mostly driven by Kenyon cells (MBON11 and MBON06) are the two that
+fell most. A valence pinned at 0 abolishes approach in the forage arena and one pinned at 0.7 keeps it
+(Fig. 5). The switch of the learning arena lay below 0.24: 18 to 20 of 20 flies with a valence between
+0.24 and 0.28 reached the source. In the matched variant the depression was associative at the synapse:
+pairing took the weight to 0.182 mV and the valence to 0.25, while reinforcement alone left the weight
+at 0.495 mV and the valence at 1.42. Its trained fly still reached the source (19 of 20), because its
+valence fell to the same floor.
+A sum over every MBON cannot fall below the output of the MBONs that learning does not touch, and
+it cannot change sign. MBON types in the fly differ in the behaviour they drive, and learning shifts
+the balance between those that drive approach and those that drive avoidance (Methods). The main
+text therefore reads the valence as that balance and confines the reinforcement to the compartments of
+aversive learning (Methods; Supplementary Table 5). The balance readout, its predictions and a pilot
+of 150 runs were written down before the in-body runs of Figs 4 to 6 were made. Supplementary Table
+6 sets the two readouts side by side. The lesion, the rescues, the pinned conditions and the replay give
+the same results under both. Two other results differ between the two readouts. The intact fly stops
+less often at walls under the balance readout (30.25 against 29.20 of 32 sources in the nine arenas, and
+
+                                                  32
+all three sources of the forage arena in 20 against 16 of 20 seeds). The rewired fly reaches more sources
+under the balance readout (5.80 against 3.50 of 32). Its MBONs fire as much under both readouts,
+about 7.5 spikes per step, and the balance readout reads that as a valence of 0.11 where the summed
+readout reads 0.07, because 75 of the 104 MBONs drive approach.
+The analysis of the main text differs from the summed readout’s in two things: the readout, and which
+connections the reinforcement reaches. Two further arms change one of them at a time, each with the
+three conditions, 20 flies and both models of the learning experiment, and with predictions written
+down before the runs (Supplementary Fig. 2; Supplementary Table 7). With the summed readout and
+the reinforcement confined to the aversive compartments, the valence after pairing is 0.83 (0.84 in the
+matched variant). It stays above the floor of 0.24 because the MBONs of the other compartments
+keep their output, and all 20 flies reach the source in every condition. With the balance readout
+and the reinforcement in every compartment, the depression lowers the approach-driving and the
+avoidance-driving MBONs alike, to 13.7 and 12.5 spikes per step as read (10.0 and 10.5 in the matched
+variant). The valence after pairing is 0.03 (−0.02), and the trained fly then neither approaches nor
+avoids. It passes the source at a median 11.2 mm (10.2 mm), farther than every fly without plasticity
+and nearer than every trained fly of the main text’s analysis (P = 6.8 × 10−8 for each comparison in
+each model). The source is still reached on the way by 2 of 20 flies (1 of 20). One registered prediction
+missed by one fly: three earlier runs with the valence held at zero had put that count between 2 and
+12, and the matched variant’s 1 of 20 falls below it. Reinforcement alone does what pairing does in the
+network as read and changes nothing in the matched variant, in both arms as in the main text. The
+learned avoidance needs both changes. The trained fly turns away only when the readout is signed and
+the reinforcement is confined to the aversive compartments, where 41 of the 50 MBONs drive approach.
+
+
+
+
+                                                   33
+a                                                              b
+
+
+
+
+Supplementary Fig. 1. A sensory pulse crosses the network from its input to the leg motor pools
+within 24 ms. Spiking activity after a 60 ms pulse at the receptor neurons (a, 400 Hz) or at the LC and LPLC
+visual projection neurons (b, 300 Hz), in the network alone with no other input. Rows, the 6 ms bins starting 0,
+6, 12, 24 and 60 ms after the pulse’s onset, on the brain from the side and on the whole nervous system from
+above; a region’s colour is its rate in that bin, spikes per neuron per 6 ms, on a logarithmic scale from 0.001 to
+the input layer’s peak (2.33 in a, 1.04 in b), over a grey outline of every region, in the colours of Fig. 1d. The
+time axis at the left carries each stage’s arrival, the end of the first bin in which the region’s rate reaches a tenth
+of its mean over the pulse (the rule of the Methods), with the region’s name and the time. The input stops after
+60 ms; the last row shows the brain still active after it.
+
+
+
+
+                                                          34
+a                                                            odour pulse at the receptor neurons                      b                                                   looming pulse at the visual projection neurons
+
+                                        180   Spearman ρ = 0.59                                                                                              180   Spearman ρ = 0.58
+                                              6,775 neurons spike within the record,                                                                               3,884 neurons spike within the record,
+     first spike after the onset (ms)
+
+
+
+
+                                                                                                                          first spike after the onset (ms)
+                                              4% of the 161,504 the traversal reaches                                                                              2% of the 157,209 the traversal reaches
+                                        150                                                                                                                  150
+
+
+                                        120                                                                                                                  120
+
+
+                                        90                                                                                                                   90
+
+
+                                        60                                                                                                                   60
+
+
+                                        30                                                                                                                   30
+
+
+                                         0                                                                                                                    0
+                                                   1          2          3          4      5         6           7                                                        1              2               3        4             5
+                                         neurons   643       5,158      462       224     177       107          4                                            neurons   1,437          1,279           725       413           30
+
+                                                       traversal distance from the stimulated neurons (rounds)                                                            traversal distance from the stimulated neurons (rounds)
+
+
+
+
+Supplementary Fig. 2. The order in which the wiring is traversed from the stimulated neurons
+predicts the order in which the pulse reaches neurons. Every neuron that spikes within the record
+after the odour pulse (a, 6,775 neurons) or the looming pulse (b, 3,884), its first spike after the onset, the end
+of the first 6 ms bin with a spike in the records of Supplementary Fig. 1, against its traversal distance from
+the stimulated group in the wiring. The traversal is the information-flow model of Schlegel et al. (Methods):
+the connection list is walked in rounds from the stimulated neurons, an untraversed neuron is traversed with
+probability min(1, r/0.3), r the share of its input synapses from traversed neurons, and the distance is the round,
+averaged over ten seeded traversals and rounded. For each round, a bar at each 6 ms value whose length is the
+number of neurons with that first spike, the round scaled to its own peak, in the stimulated region’s colour of
+Fig. 1; black bar, the round’s median first spike; vertical line, its quartiles; the count under each round, its
+neurons. Each panel gives Spearman’s ρ over its neurons and the share of the neurons the traversal reaches that
+spike within the record: the traversal reaches almost every neuron, the pulse in the silent network 4% and 2% of
+them.
+
+
+
+
+                                                                                                                     35
+                                                              excitatory minus                                                 inhibitory share                                                                             influence against
+  a                                                         inhibitory synapses                                     b            of each cell                                 c                                             the signed wiring
+                                           olfactory
+                                                                                         6                                                           1.0
+                                                                                    10
+                                          gustatory                                                                                                                                                            Spearman ρ = 0.65
+                                    hind leg motor                                                                                                                                                       1.2
+                                          hair plate                                10
+                                                                                         5                                                                                                                     (all synapses 0.56)
+                                    front leg motor                                                                                                                                                            334 region pairs
+                                                                                                                                                     0.8
+                                      campaniform                                        4                                                                                                               1.0
+                                 middle leg motor                                   10
+      presynaptic region
+
+
+
+
+                                       chordotonal
+
+
+
+
+                                                                                                                                                                                  influence (Fig. 1 f)
+                                   sensory · other
+
+
+
+
+                                                                                                 synapses, signed
+
+
+
+
+                                                                                                                                                           inhibitory share
+                                        other motor                                                                                                  0.6                                                 0.8
+                                     bristle (touch)
+                                      VNC intrinsic
+                                         ascending                                  0
+                                                                                                                                                                                                         0.6
+                                      other central
+                                        descending                                                                                                   0.4
+                                              noduli
+                                     ellipsoid body                                                                                                                                                      0.4
+                           central complex · other                                           4
+                                 fan-shaped body                                    −10
+                             protocerebral bridge                                                                                                    0.2
+                                                                                                                                                                                                         0.2
+                                          optic lobe                                         5
+                                                                                    −10
+                                  visual projection
+                                  mushroom body
+                                        lateral horn                                −10
+                                                                                             6                                                                                                           0.0
+                                                                                                                                                     0.0
+                                                                                                                                                                                                               0       1       2     3      4       5     6
+
+
+                                                       central complex · other
+
+
+
+
+                                                                                                                        central complex · other
+                                                         protocerebral bridge
+
+
+
+
+                                                                                                                          protocerebral bridge
+                                                             middle leg motor
+
+
+
+
+                                                              visual projection
+
+
+
+
+                                                                                                                              middle leg motor
+
+
+
+
+                                                                                                                               visual projection
+                                                                  VNC intrinsic
+
+
+
+
+                                                              mushroom body
+                                                             fan-shaped body
+
+
+
+
+                                                                                                                                   VNC intrinsic
+
+
+
+
+                                                                                                                               mushroom body
+                                                                                                                              fan-shaped body
+                                                               sensory · other
+
+
+
+
+                                                                                                                                sensory · other
+                                                                hind leg motor
+
+                                                                front leg motor
+
+
+
+
+                                                                 ellipsoid body
+                                                                  campaniform
+
+
+
+
+                                                                 bristle (touch)
+
+
+
+
+                                                                                                                                 hind leg motor
+
+                                                                                                                                 front leg motor
+                                                                                                                                   campaniform
+
+
+
+
+                                                                                                                                  bristle (touch)
+
+
+
+
+                                                                                                                                  ellipsoid body
+                                                                  other central
+
+
+
+
+                                                                                                                                   other central
+                                                                   chordotonal
+
+                                                                    other motor
+
+
+
+
+                                                                    descending
+
+
+
+
+                                                                    lateral horn
+
+
+
+
+                                                                                                                                    chordotonal
+
+                                                                                                                                     other motor
+
+
+
+
+                                                                                                                                     descending
+
+
+
+
+                                                                                                                                     lateral horn
+                                                                     ascending
+
+
+
+
+                                                                      optic lobe
+
+
+
+
+                                                                                                                                      ascending
+
+
+
+
+                                                                                                                                       optic lobe
+                                                                       olfactory
+                                                                      gustatory
+
+                                                                      hair plate
+
+
+
+
+                                                                                                                                        olfactory
+                                                                                                                                       gustatory
+
+                                                                                                                                       hair plate
+                                                                          noduli
+
+
+
+
+                                                                                                                                           noduli
+                                                                                                                                                                                                                     excitatory-signed synapses (log10)
+
+
+
+
+                                                              postsynaptic region                                              postsynaptic region
+
+
+
+Supplementary Fig. 3. The signed wiring between the 24 regions, and the influence map against
+it. a, The synapse counts of Fig. 1e split by the sign the model gives the presynaptic neuron, excitatory minus
+inhibitory, on a symmetric log scale (vermillion, an excitatory excess; blue, an inhibitory excess); 42.5% of all
+synapses carry an inhibitory sign. b, The inhibitory share of each cell’s synapses. Rows and columns of a and b
+are in the order of Fig. 1e and f, with the row labels on a and each region’s colour, as in Fig. 1, along the edges.
+The rows of Fig. 1f that evoke nothing elsewhere are the rows of b whose output is mostly inhibitory-signed, or
+too small to drive a region (Results). c, Per region pair with any synapse (334), the influence of Fig. 1f against
+the excitatory-signed count; Spearman’s ρ = 0.65, and 0.56 against the count regardless of sign. The pairs with
+influence and no direct synapse are relayed routes, the receptors’ onto the mushroom body and the lateral horn
+among them.
+
+
+
+
+                                                                                                                             36
+a                  The network as read                                                               b                 The matched variant
+
+                               dopamine in                            dopamine in the                                              dopamine in                            dopamine in the
+                            every compartment                      aversive compartments                                        every compartment                      aversive compartments
+                    Supplementary                                                                                       Supplementary
+                    Discussion                                                                                          Discussion
+ summed readout
+
+
+
+
+                                                                                                     summed readout
+                          valence after training 0.24           valence after training 0.83                                   valence after training 0.25           valence after training 0.84
+                        19 of 20 flies reach the source       20 of 20 flies reach the source                               19 of 20 flies reach the source       20 of 20 flies reach the source
+                       median closest approach 0.2 mm        median closest approach 0.3 mm                                median closest approach 0.3 mm        median closest approach 0.3 mm
+
+
+                                                          Fig. 6                                                                                              Fig. 6
+ balance readout
+
+
+
+
+                      10 mm                                                                          balance readout
+                          valence after training 0.03           valence after training −0.33                                 valence after training −0.02           valence after training −0.53
+                        2 of 20 flies reach the source         0 of 20 flies reach the source                               1 of 20 flies reach the source         0 of 20 flies reach the source
+                      median closest approach 11.2 mm        median closest approach 19.6 mm                              median closest approach 10.2 mm        median closest approach 21.1 mm
+
+
+
+Supplementary Fig. 4. The learned avoidance needs both the balance readout and reinforcement
+confined to the aversive compartments. The path of every fly in the post test after six episodes of odour
+paired with the reinforcement (odour + dopamine; n = 20 flies per arena), under the four combinations of
+valence readout (rows) and of the connections the reinforcement reaches (columns). a, The network as read. b,
+The matched variant. Summed readout, the valence is the summed spike count of every MBON; balance readout,
+the count of the approach-driving MBONs minus that of the avoidance-driving MBONs. Every compartment,
+the reinforcement reaches all 15,523 Kenyon-cell-to-MBON connections; aversive compartments, the 8,377 of the
+compartments that the PPL1 dopamine neurons innervate. The upper left arena of each panel is the summed
+readout with the reinforcement in every compartment (Supplementary Discussion) and the lower right the
+analysis of the main text (the runs of Fig. 6 g and i); the other two change one of the two at a time. Triangle,
+the start; green dot, the odour source, with its 4 mm capture radius dotted; a dot ends each path. All eight
+arenas share one frame and one scale; bar, 10 mm. Under each arena: the valence in the post test (mean over
+flies), the flies that reach the source, and the median closest approach to it. With the summed readout the
+trained flies reach the source wherever the reinforcement acts (19 or 20 of 20). With the balance readout and
+the reinforcement in every compartment the valence goes to zero and the fly walks past the source, steering
+neither toward it nor away. It turns away only with the balance readout and the reinforcement confined to the
+aversive compartments. Every condition, with the tests, is in Supplementary Table 7.
+
+
+
+
+                                                                                                37
+Supplementary Table 1. Sources reached in the nine arenas, beside three reference controllers.
+Mean sources reached over 20 seeds. Intact, rewired and lesioned are the three wirings of Fig. 4. The random
+walk is the chance level of Fig. 4f. The two informed controllers are given the position of every source and head
+straight for the nearest one that remains, at the intact fly’s median speed and with its capture radius, start and
+time limit; at a wall one stops and the other slides along it.
+
+                                                                                                                              Informed,              Informed,
+ Arena       Layout                  Walls        Sources        Intact      Rewired       Lesioned    Random walk          stops at walls       slides along walls
+ i           open field                     0              4       4.00         1.25           0.75                 0.35                4.00                       4.00
+ ii          single detour                  1              3       3.00         0.70           0.70                 0.40                3.00                       3.00
+ iii         two-wall slalom                2              3       2.95         0.50           0.20                 0.15                3.00                       3.00
+ iv          wide gate                      2              3       3.00         1.15           0.65                 0.10                3.00                       3.00
+ v           one-sided walls                2              3       3.00         0.40           0.15                 0.05                3.00                       3.00
+ vi          long S-curve                   2              3       3.00         0.40           0.05                 0.15                1.00                       3.00
+ vii         three-wall slalom              3              4       3.95         0.45           0.30                 0.40                4.00                       4.00
+ viii        four-wall slalom               4              5       3.90         0.50           0.30                 0.25                5.00                       5.00
+ ix          dense slalom                   4              4       3.45         0.45           0.35                 0.35                3.00                       4.00
+             all nine                                     32      30.25         5.80           3.45                 2.20              29.00                    32.00
+
+
+Supplementary Table 2. The conditions of the forage arena. Mean ± s.e.m. over the runs used: the
+first 20 completed runs of each condition in seed order, a rule fixed before any spare seed ran. Faulted, runs that
+ended in a physics fault, excluded from every number. None and All, the number of runs that reached no source
+and all three. Closest approach, the mean over the three sources. DNa02, spikes per 50 ms step summed over
+the pair. Wall contact, steps within 0.5 mm of the wall.
+
+                                                             Sources                           Closest            DNa02          Wall contact      Path     Leg motor
+ Condition                          Runs        Faulted   reached (of 3)     None    All   approach (mm)     (spikes per step)     (steps)         (mm)     rate (Hz)
+ Intact                                20            3         3.00 ± 0.00      0    20       1.15 ± 0.04         1.99 ± 0.02       0.0 ± 0.0    193 ± 5      154 ± 0
+ Mushroom body lesioned                20            0         0.00 ± 0.00     20     0      14.55 ± 0.69         0.81 ± 0.11       1.9 ± 1.9   220 ± 11      152 ± 0
+ Rewired                               20            0         0.10 ± 0.07     18     0      11.00 ± 0.91         0.54 ± 0.15       1.9 ± 1.7   212 ± 11       98 ± 5
+ Lesioned, valence pinned at 1.44      20            1         3.00 ± 0.00      0    20       1.08 ± 0.03         0.77 ± 0.03       0.0 ± 0.0    191 ± 5      154 ± 0
+ Rewired, valence pinned at 1.44       20            1         2.55 ± 0.25      3    17       2.64 ± 0.96         0.46 ± 0.11     25.1 ± 15.6   186 ± 13      103 ± 6
+ Lesioned, valence pinned at 0.7       20            0         3.00 ± 0.00      0    20       0.98 ± 0.07         0.74 ± 0.05       0.0 ± 0.0    190 ± 9      152 ± 0
+ Lesioned, valence pinned at 0         20            0         0.00 ± 0.00     20     0      14.55 ± 0.69         0.81 ± 0.11       1.9 ± 1.9   220 ± 11      152 ± 0
+ Intact, valence pinned at 0           20            0         0.00 ± 0.00     20     0      16.40 ± 0.19         2.08 ± 0.08       0.0 ± 0.0    226 ± 8      152 ± 0
+ Random lesion of 4,608 neurons        20            0         2.55 ± 0.25      3    17       3.04 ± 1.06         2.73 ± 0.33       0.0 ± 0.0   174 ± 10      131 ± 7
+ Intact, looming signal at zero        20            3         0.30 ± 0.21     18     2      10.72 ± 0.77         1.85 ± 0.01    233.1 ± 18.0     53 ± 8      152 ± 0
+
+
+
+Supplementary Table 3. Descending-neuron drive in the body at three receptor rates. Net turn
+over the 2 s of drive (degrees; positive, to the left) and the change in speed from the settling window to the drive
+window (mm/s), mean ± s.e.m.; n, completed runs. The receptor neurons of both antennae are driven at the
+rate shown. Rewired, three permutations with seven seeds each at 120 Hz.
+
+                                                   0 Hz                              40 Hz                             120 Hz                    120 Hz, rewired
+ Target                                Turn               Speed      n        Turn           Speed    n        Turn          Speed     n        Turn       Speed      n
+ DNa01, left                        −219 ± 7        9.8 ± 0.1       20      86 ± 7      1.4 ± 0.1     20     116 ± 7     1.1 ± 0.1    20    55 ± 7     1.4 ± 0.2     21
+ DNa01, right                       −92 ± 13        4.6 ± 0.2       20    −167 ± 5      0.0 ± 0.1     20    −150 ± 7    −0.4 ± 0.1    20    36 ± 9     2.0 ± 0.3     21
+ DNa02, left                        −269 ± 7        7.2 ± 0.1       20      −1 ± 7      1.3 ± 0.1     20     −16 ± 7     1.3 ± 0.1    20   −7 ± 9      0.7 ± 0.1     21
+ DNa02, right                        219 ± 7        4.3 ± 0.1       20     −47 ± 6      0.4 ± 0.1     20     −25 ± 6     0.2 ± 0.1    20   −7 ± 9      1.7 ± 0.3     21
+ DNa02, both                        −85 ± 10       12.0 ± 0.1       20     −48 ± 8      0.7 ± 0.1     20     −38 ± 7     0.8 ± 0.1    20         –             –      0
+ DNp09, left                         169 ± 8        1.7 ± 0.0       20      31 ± 7     −2.1 ± 0.1     20      54 ± 6    −2.2 ± 0.1    20     3±6       0.9 ± 0.1     21
+ Threat-response cluster, both        7 ± 10        3.1 ± 0.0       20    −114 ± 8     −5.2 ± 0.1     20     −45 ± 7    −5.1 ± 0.1    20     5±8       6.3 ± 0.2     21
+ DNg12, left                         −3 ± 5         2.3 ± 0.0       20      14 ± 6      2.4 ± 0.1     20      12 ± 5     1.8 ± 0.1    20   27 ± 11     2.2 ± 0.2     21
+ DNp01, left                        −96 ± 10        0.1 ± 0.0       20      16 ± 7      0.9 ± 0.1     20     −16 ± 7     0.7 ± 0.1    20     9±7       0.5 ± 0.1     21
+ No drive                              7±7         −0.8 ± 0.0       20      21 ± 7      0.3 ± 0.1     20      −7 ± 7     0.5 ± 0.1    20         –             –      0
+
+
+
+
+                                                                                     38
+Supplementary Table 4. The odour code against the gain of the cholinergic local neurons. The
+output synapses of the local neurons predicted cholinergic are scaled by the gain (1, the network as read). Active,
+the fraction of cells with at least one spike during a 1 s presentation, averaged over the two odours; overlap, the
+fraction shared between the two odours’ 5% most active cells; MBON spikes, the total over the presentation
+before training; depression, 1 minus the ratio of the MBON output after training on odour A (strength 0.5) to
+before; a dash, an output before training under 5 spikes, which cannot be scored. Means over the seeds shown.
+
+                                       Kenyon cells   Kenyon-cell       Projection       Projection-    MBON spikes,       MBON spikes,   Depression   Depression
+ Gain                         Seeds      active        overlap        neurons active   neuron overlap     odour A            odour B        of A         of B
+    1                              6          0.682          0.90               0.74             0.86               2368           2416        0.18          0.18
+  0.5                              6          0.431          0.76               0.54             0.57               1026           1182        0.18          0.15
+ 0.25                              6          0.148          0.61               0.33             0.29                160            286        0.29          0.16
+ 0.15                              6          0.061          0.36               0.21             0.11                 52            111        0.00          0.00
+  0.1                              6          0.034          0.24               0.16             0.11                 38            102       −0.03          0.02
+0.075                              6          0.027          0.26               0.15             0.09                 32             96       −0.02         −0.01
+ 0.05                              6          0.023          0.31               0.13             0.06                 28             92        0.00          0.02
+    0                              6          0.018          0.41               0.10             0.09                 24             82        0.04         −0.02
+Every local neuron signed inhibitory          0.014
+
+
+
+
+Supplementary Table 5. The sign of every MBON type under the balance readout. The balance
+readout (Methods) reads the valence as the spike count of the approach-driving MBONs minus that of the
+avoidance-driving MBONs. A type drives avoidance when its transmitter is glutamate and approach when it is
+GABA or acetylcholine; the transmitter is the connectome table’s verified entry where the type has one, else the
+published one, else the majority of the per-neuron predictions (references in the Methods). Compartments are
+the hemibrain names; the aversive compartments are those the PPL1 dopamine neurons innervate, the only ones
+the reinforcement reaches in the learning of Fig. 6. Cells are those the network simulates.
+
+                                                                                                                                                    Aversive
+ Type                    Compartment         Cells    Transmitter      Transmitter source               Drives                                    compartment
+ MBON01                  γ5β ′ 2a               2     glutamate        verified in the table            avoidance
+ MBON02                  β2β ′ 2a               2     glutamate        verified in the table            avoidance
+ MBON03                  β ′ 2mp                2     glutamate        verified in the table            avoidance
+ MBON04                  β ′ 2mp bilateral      2     glutamate        verified in the table            avoidance
+ MBON05                  γ4>γ1γ2                2     glutamate        verified in the table            avoidance
+ MBON06                  β1>α                   2     glutamate        verified in the table            avoidance
+ MBON07                  α1                     4     glutamate        verified in the table            avoidance
+ MBON09                  γ3β ′ 1                4     GABA             verified in the table            approach
+ MBON10                  β′1                   12     GABA             verified in the table            approach
+ MBON11                  γ1pedc>α/β             2     GABA             verified in the table            approach                                         yes
+ MBON12                  γ2α′ 1                 4     acetylcholine    verified in the table            approach                                         yes
+ MBON13                  α′ 2                   3     acetylcholine    verified in the table            approach                                         yes
+ MBON14                  α3                     5     acetylcholine    verified in the table            approach                                         yes
+ MBON15                  α′ 1                   4     acetylcholine    verified in the table            approach
+ MBON15-like             α′ 1                   3     acetylcholine    verified in the table            approach
+ MBON16                  α′ 3ap                 2     acetylcholine    verified in the table            approach                                         yes
+ MBON17                  α′ 3m                  4     acetylcholine    verified in the table            approach                                         yes
+ MBON17-like             α′ 3m                  1     acetylcholine    verified in the table            approach                                         yes
+ MBON18                  α2sc                   2     acetylcholine    verified in the table            approach                                         yes
+ MBON19                  α2p3p                  6     acetylcholine    verified in the table            approach                                         yes
+ MBON20                  γ1γ2                   2     GABA             verified in the table            approach                                         yes
+ MBON21                  γ4γ5                   2     acetylcholine    majority of the predictions      approach
+ MBON22                  calyx                  2     acetylcholine    majority of the predictions      approach
+ MBON23                  α2sp                   2     acetylcholine    majority of the predictions      approach                                         yes
+ MBON24                  β2γ5                   2     –                none                             unsigned
+ MBON25, MBON34          γ1γ2 / γ2              7     glutamate        majority of the predictions      avoidance                                        yes
+ MBON26                  β ′ 2d                 2     acetylcholine    published (Methods)              approach
+ MBON27                  γ5d                    2     acetylcholine    published (Methods)              approach
+ MBON28                  α′ 3                   2     acetylcholine    verified in the table            approach                                         yes
+ MBON29                  γ4γ5                   2     –                none                             unsigned
+ MBON30                  γ1γ2γ3                 2     glutamate        published (Methods)              avoidance                                        yes
+ MBON31                  α′ 1                   3     GABA             majority of the predictions      approach
+ MBON32                  γ2                     2     GABA             published (Methods)              approach                                         yes
+ MBON33                  γ2γ3                   2     acetylcholine    verified in the table            approach                                         yes
+ MBON35                  γ2                     2     acetylcholine    majority of the predictions      approach                                         yes
+ All types                                    104                                                       75 approach, 25 avoidance, 4 unsigned          50 cells
+
+
+
+
+                                                                                39
+Supplementary Table 6. The in-body results under the two readouts of the valence. The summed
+readout reads the valence as the summed spike count of the MBONs divided by 107 (81 in the matched variant);
+the balance readout, the one of the main text, reads it as the count of the approach-driving MBONs minus that
+of the avoidance-driving MBONs (Methods; Supplementary Table 5). Every in-body run that reads the valence
+was made under each readout (Supplementary Discussion). Runs with the valence pinned do not read it. Under
+the summed readout the reinforcement reached every plastic connection; under the balance readout it reaches
+the 8,377 connections of the aversive compartments, so the weight row, a mean over all 15,523, is not comparable
+between the columns. Means over 20 seeds (the first 20 completed runs in the forage arena).
+
+ Measure                                                        Summed readout               Balance readout
+ Nine arenas (Fig. 4): sources reached of 32 per fly (runs of 180 reaching none; reaching every source of the arena)
+ Intact                                                         29.20 (0; 159)              30.25 (0; 161)
+ Rewired                                                        3.50 (115; 0)               5.80 (92; 2)
+ Mushroom body lesioned                                         3.45 (117; 0)               3.45 (117; 0)
+ Correlated random walk at the fly’s speed                      2.05                        2.20
+ Forage arena (Fig. 5 b to d): sources reached of 3 (runs of 20 reaching none; reaching all three)
+ Intact                                                         2.40 (4; 16)                 3.00 (0; 20)
+ Mushroom body lesioned                                         0.00 (20; 0)                 0.00 (20; 0)
+ Rewired                                                        0.15 (18; 0)                 0.10 (18; 0)
+ Lesioned, valence pinned at 1.44                               3.00 (0; 20)                 3.00 (0; 20)
+ Rewired, valence pinned at 1.44                                2.55 (3; 17)                 2.55 (3; 17)
+ Lesioned, valence pinned at 0.7                                3.00 (0; 20)                 3.00 (0; 20)
+ Lesioned, valence pinned at 0                                  0.00 (20; 0)                 0.00 (20; 0)
+ Intact, valence pinned at 0                                    0.00 (20; 0)                 0.00 (20; 0)
+ Random lesion of 4,608 neurons                                 2.85 (1; 19)                 2.55 (3; 17)
+ Intact, looming signal set to zero                             0.15 (19; 1)                 0.30 (18; 2)
+ Motor replay (Fig. 5 e, g): fraction of sources per fly
+ Closed loop, replay                                            0.940, 0.030                 0.940, 0.020
+ Exact Wilcoxon W , P ; flies with closed loop above replay     0, 1.9 × 10−6 ; 20 of 20     0, 1.9 × 10−6 ; 20 of 20
+ Graded removal (Fig. 5 h, i): sources reached of 3
+ 20% at random                                                  2.47                         2.50
+ 50% at random                                                  0.26                         0.30
+ 1% by traffic                                                  0.00                         0.00
+ Learning, the network as read (Fig. 6 b to g)
+ Weight of all Kenyon-cell-to-MBON connections, mV, naive       0.500 → 0.128                0.500 → 0.298
+ → after pairing
+ Valence, naive → after (range after): odour + dopamine         1.44 → 0.24 (0.24 to 0.25)   1.41 → −0.33 (−0.34 to −0.32)
+ Valence, naive → after (range after): dopamine alone           1.44 → 0.29 (0.28 to 0.29)   1.41 → −0.29 (−0.30 to −0.28)
+ Valence, naive → after (range after): no plasticity            1.44 → 1.44 (1.44 to 1.45)   1.41 → 1.41 (1.40 to 1.42)
+ Flies reaching the source, naive, after: odour + dopamine      20 of 20, 19 of 20           20 of 20, 0 of 20
+ Flies reaching the source, naive, after: dopamine alone        20 of 20, 20 of 20           20 of 20, 0 of 20
+ Flies reaching the source, naive, after: no plasticity         20 of 20, 20 of 20           20 of 20, 20 of 20
+ Learning, the matched variant (Fig. 6 h, i)
+ Weight of all Kenyon-cell-to-MBON connections, mV, naive       0.500 → 0.182                0.500 → 0.328
+ → after pairing
+ Valence, naive → after (range after): odour + dopamine         1.44 → 0.25 (0.25 to 0.26)   1.40 → −0.53 (−0.54 to −0.52)
+ Valence, naive → after (range after): dopamine alone           1.44 → 1.42 (1.41 to 1.42)   1.40 → 1.38 (1.36 to 1.40)
+ Valence, naive → after (range after): no plasticity            1.44 → 1.44 (1.43 to 1.44)   1.40 → 1.40 (1.38 to 1.42)
+ Flies reaching the source, naive, after: odour + dopamine      20 of 20, 19 of 20           20 of 20, 0 of 20
+ Flies reaching the source, naive, after: dopamine alone        20 of 20, 20 of 20           20 of 20, 20 of 20
+ Flies reaching the source, naive, after: no plasticity         20 of 20, 20 of 20           20 of 20, 20 of 20
+
+
+
+
+                                                              40
+Supplementary Table 7. The learning experiment under the four combinations of valence readout
+and reinforcement. The four combinations of Supplementary Fig. 4 in both models: the valence read as
+the summed MBON count or as the balance of approach-driving and avoidance-driving MBONs, with the
+reinforcement reaching every Kenyon-cell-to-MBON connection (15,523) or those of the aversive compartments
+(8,377). The first column is the summed readout with the reinforcement in every compartment (Supplementary
+Discussion) and the last the analysis of the main text (Fig. 6); the two between them change one of the two at a
+time, their predictions written down before they ran. Each condition has 20 flies. Valence, the mean over the
+post-test episode. Closest approach, to the source in the post test; a fly reaches the source when it comes within
+4 mm. Tests, two-sided Mann–Whitney U on the closest approach, with Cliff’s δ and its 95% bootstrap interval
+where the groups overlap; no correction for multiple comparisons. One of the 16 tests has P between 0.001 and
+0.05: the matched variant with the sum readout and the reinforcement in the aversive compartments, odour +
+dopamine against dopamine alone (P = 0.014; medians 0.27 and 0.18 mm, every fly of both groups reaching the
+source). Without plasticity the reach of the reinforcement has no effect, and the two no-plasticity columns of a
+readout are the same simulation run twice: they agree fly for fly.
+
+                                                                    Summed readout, reinforcement in                  Balance readout, reinforcement in
+                                                                every                 the aversive                every                  the aversive
+ Measure                                                     compartment            compartments               compartment              compartments
+ The network as read
+ Valence after training (range over flies)
+   odour + dopamine                                          0.24 (0.24 to 0.25)      0.83 (0.82 to 0.83)      0.03 (0.03 to 0.04)      −0.33 (−0.34 to −0.32)
+   dopamine alone                                            0.29 (0.28 to 0.29)      0.83 (0.83 to 0.84)      0.03 (0.01 to 0.08)      −0.29 (−0.30 to −0.28)
+   no plasticity                                             1.44 (1.44 to 1.45)      1.44 (1.44 to 1.45)      1.41 (1.40 to 1.42)      1.41 (1.40 to 1.42)
+ Flies reaching the source after training, of 20
+   odour + dopamine                                          19                       20                       2                        0
+   dopamine alone                                            20                       20                       1                        0
+   no plasticity                                             20                       20                       20                       20
+ Closest approach after training, median (range), mm
+   odour + dopamine                                          0.23 (0.08 to 4.92)      0.26 (0.08 to 1.07)      11.25 (2.73 to 14.25)    19.56 (18.06 to 21.02)
+   dopamine alone                                            0.18 (0.07 to 1.97)      0.28 (0.03 to 1.25)      9.98 (2.76 to 15.40)     19.54 (17.61 to 20.48)
+   no plasticity                                             0.19 (0.07 to 1.16)      0.19 (0.07 to 1.16)      0.15 (0.09 to 0.40)      0.15 (0.09 to 0.40)
+ Closest approach, odour + dopamine against no plasticity
+   P                                                         0.23                     0.13                     6.8 × 10−8               6.8 × 10−8
+   Cliff’s δ (95% interval)                                  +0.23 (−0.14 to +0.56)   +0.28 (−0.08 to +0.62)   +1.00                    +1.00
+ Closest approach, odour + dopamine against dopamine alone
+   P                                                         0.30                     0.69                     0.39                     0.49
+   Cliff’s δ (95% interval)                                  +0.20 (−0.17 to +0.54)   −0.07 (−0.45 to +0.29)   +0.16 (−0.21 to +0.52)   +0.13 (−0.25 to +0.49)
+ The matched variant
+ Valence after training (range over flies)
+   odour + dopamine                                          0.25 (0.25 to 0.26)      0.84 (0.83 to 0.84)      −0.02 (−0.03 to 0.00)    −0.53 (−0.54 to −0.52)
+   dopamine alone                                            1.42 (1.41 to 1.42)      1.43 (1.42 to 1.43)      1.39 (1.37 to 1.41)      1.38 (1.36 to 1.40)
+   no plasticity                                             1.44 (1.43 to 1.44)      1.44 (1.43 to 1.44)      1.40 (1.38 to 1.42)      1.40 (1.38 to 1.42)
+ Flies reaching the source after training, of 20
+   odour + dopamine                                          19                       20                       1                        0
+   dopamine alone                                            20                       20                       20                       20
+   no plasticity                                             20                       20                       20                       20
+ Closest approach after training, median (range), mm
+   odour + dopamine                                          0.29 (0.10 to 4.28)      0.27 (0.00 to 1.20)      10.18 (2.06 to 15.77)    21.08 (20.39 to 21.60)
+   dopamine alone                                            0.22 (0.01 to 1.30)      0.18 (0.03 to 0.89)      0.21 (0.05 to 1.18)      0.27 (0.01 to 1.18)
+   no plasticity                                             0.26 (0.06 to 1.17)      0.26 (0.06 to 1.17)      0.23 (0.02 to 1.24)      0.23 (0.02 to 1.24)
+ Closest approach, odour + dopamine against no plasticity
+   P                                                         0.31                     0.58                     6.8 × 10−8               6.8 × 10−8
+   Cliff’s δ (95% interval)                                  +0.19 (−0.18 to +0.52)   +0.10 (−0.25 to +0.46)   +1.00                    +1.00
+ Closest approach, odour + dopamine against dopamine alone
+   P                                                         0.21                     0.014                    6.8 × 10−8               6.8 × 10−8
+   Cliff’s δ (95% interval)                                  +0.24 (−0.12 to +0.57)   +0.46 (+0.12 to +0.75)   +1.00                    +1.00
+
+
+
+
+                                                                               41
+Supplementary Table 8. The 24 groups of Fig. 1 and their defining labels. The groups that Fig. 1 b
+to f read from, with the number of simulated neurons in each. A neuron takes the first of the 13 coarse rules it
+matches, in this order: visual projection, olfactory, mushroom body, lateral horn, central complex, descending,
+ascending, leg motor, other motor, other sensory, optic lobe, VNC intrinsic, other central (the rules read the
+neuron table’s super_class, cell_class, cell_sub_class, cell_type and region columns; the names with underscores
+are the table’s own labels). The central-complex groups split the central-complex rule (cell_class containing
+central_complex) by cell_type prefix, the sensory groups split the other-sensory rule (super_class sensory,
+sensory_ascending or sensory_descending, not olfactory receptor or photoreceptor) by cell_class, and the leg
+motor groups split cell_class leg_motor_neuron by the segment named in cell_sub_class. Non-neuronal units
+(glia, trachea) count where their labels place them.
+
+   Group                     Defining labels                                                        Neurons
+   optic lobe                region optic_lobe                                                        93,925
+   visual projection         super_class visual_projection                                             7,284
+   olfactory                 cell_class olfactory_receptor_neuron                                      2,978
+   mushroom body             cell_class kenyon_cell or mushroom_body_output_neuron                     4,608
+   lateral horn              cell_class containing lateral_horn                                        1,655
+   other central             super_class central_brain_intrinsic not matched by an earlier rule       30,575
+                             (the antennal-lobe projection and local neurons among them), and
+                             the 8,409 neurons matching no rule
+   ellipsoid body            a split of central complex: cell_type EPG, PEG, PEN, EL, ER or              397
+                             EB
+   fan-shaped body           a split of central complex: cell_type FB, FC, FR, FS, PFL, PFN,           2,362
+                             PFR, PFG, vDelta or hDelta
+   noduli                    a split of central complex: cell_type NO or LNO                               6
+   protocerebral bridge      a split of central complex: cell_type Delta7, IbSpsP or PB                   68
+   central complex, other    a split of central complex: the other central-complex cell types             98
+   bristle (touch)           a split of other sensory: cell_class bristle_neuron                       6,017
+   campaniform               a split of other sensory: cell_class campaniform_sensillum_neuron           575
+   chordotonal               a split of other sensory: cell_class chordotonal_organ_neuron             2,115
+   gustatory                 a split of other sensory: cell_class taste_bristle_gustatory_neuron       1,362
+                             or taste_peg_gustatory_neuron
+   hair plate                a split of other sensory: cell_class hair_plate_neuron                      320
+   sensory, other            a split of other sensory: the other sensory cell classes                  1,275
+   VNC intrinsic             super_class ventral_nerve_cord_intrinsic                                 12,838
+   descending                super_class descending                                                    1,316
+   ascending                 super_class ascending or ascending_visceral_circulatory                   1,854
+   front leg motor           a split of leg motor: cell_sub_class naming the front leg                   139
+   middle leg motor          a split of leg motor: cell_sub_class naming the middle leg                  126
+   hind leg motor            a split of leg motor: cell_sub_class naming the hind leg                    126
+   other motor               super_class motor, not leg_motor_neuron (and leg motor neurons              414
+                             without a segment)
+   all                                                                                               172,433
+
+
+
+
+                                                      42
+

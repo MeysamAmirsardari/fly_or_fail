@@ -1,0 +1,931 @@
+                                                                                     RESEARCH ARTICLE
+
+
+
+
+                                    Figures and figure supplements
+
+                                    Taste quality and hunger interactions in a feeding sensorimotor circuit
+
+
+                                    Philip K Shiu et al
+
+
+
+
+Shiu, Sterne et al. eLife 2022;11:e79887. DOI: https://doi.org/10.7554/eLife.79887                           1 of 16
+           ﻿Research article﻿﻿﻿﻿﻿                                                                                                                        Neuroscience
+
+
+ A                       B          EM             C       split-Gal4            D Neural activation                    E Neural inhibition
+                         Zorro                                                         100 Zorro        ***       ***      100
+                                                                                                                                                   ***
+                                                                                                                                         ***
+
+
+
+
+                                                                                     % PER
+
+
+
+
+                                                                                                                         % PER
+                  325                                                                    50                                  50
+
+
+                                                                                        0                                    0
+                                                                                 CsChrimson: +          +         +      GtACR1: +       +         +
+                                                                                   SS67405:         +   +               SS67405:     +   +
+                                                                                   SS67406:                   +   +     SS67406:               +   +
+
+                         Clavicle                                                      100 Clavicle                        100
+                                                                                                                  ***
+
+
+
+
+                                                                                     % PER
+
+
+
+
+                                                                                                                         % PER
+                  210                                                                        50                              50                    ***
+
+                                                                                        0                                    0
+                                                                                 CsChrimson: +                    +      GtACR1: +                 +
+                                                                                   SS48947:             +         +     SS48947:         +         +
+
+                         G2N-1                                                         100 G2N-1        ***       ***      100                     ns
+                                                                                                                                         *
+
+
+
+
+                                                                                     % PER
+
+
+
+
+                                                                                                                         % PER
+                  165                                                                    50                                  50
+
+
+                                                                                        0                                    0
+                                                                                 CsChrimson: +          +         +      GtACR1: +       +         +
+                                                                                   SS47082:         +   +               SS47082:     +   +
+                                                                                   SS56399:                   +   +     SS56399:               +   +
+
+                         Rattle                                                        100 Rattle                 ***      100
+
+                  110
+
+
+
+
+                                                                                     % PER
+
+
+
+
+                                                                                                                         % PER
+   Sugar                                                                                 50                                  50
+   GRNs                                                                                                                                            ***
+                                                                                        0                                    0
+                                                                                 CsChrimson: +                    +      GtACR1: +                 +
+                                                                                   SS50091:             +         +     SS50091:         +         +
+
+
+                    75
+                         Usnea                                                         100 Usnea                           100
+                                                                                                                  ***
+
+
+
+
+                                                                                                                         % PER
+                                                                                     % PER
+
+
+
+                                                                                             50                              50
+                                                                                                                                                   ***
+                                                                                        0                                    0
+                                                                                 CsChrimson: +                    +      GtACR1: +                 +
+                                                                                   SS37122:             +         +     SS37122:         +         +
+
+                         FMIn                                                          100 FMIn         ***       ***      100
+                    75                                                                                                                             ns
+                                                                                                                                         ***
+                                                                                                                         % PER
+                                                                                     % PER
+
+
+
+
+                                                                                         50                                  50
+
+
+                                                                                        0                                    0
+                                                                                 CsChrimson: +          +         +      GtACR1: +       +          +
+                                                                                   SS48944:         +   +               SS48944:     +   +
+                                                                                   SS48949:                   +   +     SS48949:               +    +
+
+                    65   Phantom                                                       100 Phantom***             ***      100
+                                                                                                                         % PER
+                                                                                     % PER
+
+
+
+
+                                                                                         50                                  50
+
+
+                                                                                        0                                    0
+                                                                                 CsChrimson: +          +         +      GtACR1: +       +          +
+                                                                                   SS44877:         +   +               SS44877:     +   +
+                                                                                   SS44879:                   +   +     SS44879:               +    +
+
+
+Figure 1. Sugar-­sensing gustatory receptor neurons (GRNs) synapse onto multiple second-­order neurons that influence proboscis extension.
+(A) Aggregate synaptic connectivity from sugar GRNs onto second-­order sugar neurons. Numbers indicate the total number of synapses that the 17
+candidate sugar GRNs make onto each second-­order neuron. (B–C) Manually reconstructed electron microscopy (EM) skeletons (B) and registered
+neural images in split-­Gal4 lines (C) for each second-­order neuron in the subesophageal zone (SEZ) of the Drosophila brain. Sugar GRNs are depicted
+in white, JRC 2018 unisex coordinate space is shown in gray (C). Scale bar is 50 μm. (D) CsChrimson-­mediated activation of seven second-­order neurons
+elicits proboscis extension, n=30 flies per genotype. (E) GtACR1-­mediated inhibition of second-­order neurons reduces proboscis extension to 50 mM
+sucrose, n=46–83 flies per genotype. (D–E) The fraction of flies exhibiting proboscis extension response (PER) upon optogenetic or 50 mM sucrose
+stimulation. Mean ± 95% confidence interval (CI), Fisher’s Exact Tests, *p<0.05, ***p<0.001. See Figure 1—figure supplement 1 for EM reconstructions
+of additional second-­order neurons and synaptic connectivity counts. See Figure 1—figure supplement 2 for additional PER phenotypes of second-­
+order sugar neurons.
+
+
+
+
+Shiu, Sterne et al. eLife 2022;11:e79887. DOI: https://doi.org/10.7554/eLife.79887                                                                           2 of 16
+           ﻿Research article﻿﻿﻿﻿﻿                                                                                                                        Neuroscience
+
+
+                                     A                                      B
+                                                                                                           Sugar GRNs
+
+
+
+
+                                                                              Zorro Clavicle G2N-1 Rattle Usnea FMIn Phantom
+
+                                     C
+                                      Sugar GRNs                             Fuchs                                             Fudog
+
+                                                                                 Zorro
+                                                                                 Zor
+                                                                                 Zo
+                                                                                 Z orro
+                                                                                   o  o
+
+
+
+
+                                      Billiards                              Quasimodo                                         Specter
+
+
+
+
+                                      Cleaver                                Buster                                            Dandelion
+
+
+
+
+                                     D                              325   Zorro       E
+                                                                                                Zorro      10
+                                                                          Clavicle                                        Clavicle
+                                                                    210                                                        30
+                                                                                                                14        31
+                                                                    160   G2N-1
+                                                                                                                               14
+                                                                                                                                         G2N-1
+                                                                                                                                         11
+                                                                    105   Fuchs                       14
+                                                                                           Fuchs
+                                                                    105   Rattle                                                    11
+                                                                                                Rattle          Fudog
+                                                                    105
+                                                                          Fudog                       22
+
+                                      Sugar                         105
+                                      GRNs                                Billiards                                  11
+                                                              100   100                                                                  Billiards
+                                                                          Quasimodo
+                                                              180    95                                     Quasimodo
+                                                               50
+                                                                          Specter
+                                                                     80                       Specter                          16
+
+                                                               20         Usnea
+                                                                     75                                                                  Usnea
+                                                                          FMIn
+                                                                     70
+                                                                                            FMIn
+                                                                     20
+                                                                          Phantom
+                                                                                          Phantom                    10
+                                                                     20   Cleaver
+                                                                                           Cleaver
+                                                                     20   Buster
+                                                                                                                          Buster
+                                     f                                    Dandelion
+                                     F                                                    Dandelion
+                                         Sugar GRN synapses
+
+
+
+
+                                    Figure 1—figure supplement 1. Anatomy of reconstructed second-­order neurons and their connectivity, related
+                                    to Figure 1. (A) Schematic of the entire fly brain, showing electron microscopy (EM) reconstructed sugar-­sensing
+                                    gustatory receptor neurons (GRNs) in gray. Full adult fly brain (FAFB) neuropil space is shown in darker gray. Area
+                                    outlined in red is enlarged in the first panel of C. (B) Synaptic connectivity of 17 previously identified candidate
+                                    Figure 1—figure supplement 1 continued on next page
+
+
+
+Shiu, Sterne et al. eLife 2022;11:e79887. DOI: https://doi.org/10.7554/eLife.79887                                                                           3 of 16
+           ﻿Research article﻿﻿﻿﻿﻿                                                                                                           Neuroscience
+
+                                    Figure 1—figure supplement 1 continued
+                                    sugar GRNs onto second-­order neurons that elicit proboscis extension response (PER). Line thickness represents
+                                    the number of synapses, with a minimum of six synapses to a maximum of 46 synapses. (C) Anatomy of second-­
+                                    order candidate sugar EM reconstructed neurons. Scale bar is 50 μm. (D) Synaptic connectivity from sugar GRNs
+                                    onto and from second-­order neurons. Second-­order neurons identified by EM and present in a split-­Gal4 line
+                                    (black circles); second-­order neurons identified by EM only (gray circles). (E) Synaptic connectivity between second-­
+                                    order neurons. (F) Neurons with the most synapses from 17 candidate sugar GRNs based on Flywire predicted
+                                    synapses (n≥40), with x-­axis labeling neurons identified in this study.
+
+
+
+
+Shiu, Sterne et al. eLife 2022;11:e79887. DOI: https://doi.org/10.7554/eLife.79887                                                                4 of 16
+           ﻿Research article﻿﻿﻿﻿﻿                                                                                                           Neuroscience
+
+
+ A
+                                                                                                           Fudog
+
+
+
+
+ B                              100                                                    100
+                                                                                                 Fudog
+
+
+
+                                                           ***
+                             % PER
+
+
+
+
+                                                                                    % PER
+                                     50                                                     50
+
+
+
+
+                                      0                                                     0
+                                          +   +   +    +     +                                         +             +       +
+                                              +        +                                                   +         +
+                                          +       +          +                                                           +   +
+                                              +   +
+                                                       +     +
+
+ C                                                                                               ***
+                                                                                                               ***
+   % PER
+
+
+
+
+Figure 1—figure supplement 2. Additional proboscis extension phenotypes of second-­order neurons, related to Figure 1. (A) Light microscopy
+images of Cleaver, Usnea, and Fudog. Specific lines for Cleaver and Usnea were generated using a triple-­intersection approach (see Methods). In the
+Fudog image, sugar GRNs are depicted in white. Scale bar is 50 μm. JRC 2018 unisex coordinate space is shown in blue (Cleaver and Usnea) or dark
+gray (Fudog). (B) Activation of Usnea, but not Cleaver or Fudog, elicits proboscis extension. n=30 flies per genotype. (C) Hyperpolarization of Rattle and
+Usnea inhibited proboscis extension to 100 mM sucrose, but hyperpolarization of other second-­order neurons did not. n=30-­144 flies per genotype. (B-­
+C) Mean ± 95% confidence interval (CI), Fisher’s Exact Tests, ***p<0.001.
+
+
+
+
+Shiu, Sterne et al. eLife 2022;11:e79887. DOI: https://doi.org/10.7554/eLife.79887                                                                5 of 16
+            ﻿Research article﻿﻿﻿﻿﻿                                                                                                                Neuroscience
+
+
+    A                                                                                                                             Genetic access
+                  Second-order
+                                                          Third-order
+                  Zorro
+                                                                                                                                            Yes
+                                                                                                  Premotor
+                                                                                                                                            No
+                                                                                                       Roundup
+                                                         Sternum
+                                     Clavicle
+
+
+                  G2N-1
+                                                                                                       Roundtree                         MN 9
+
+                                     Rattle              Bract 1
+
+                                                                         Bract 2                       Rounddown
+                  Usnea
+
+                                                           Fdg
+                  Phantom            FMIn
+
+
+    B                EM                       C     split-Gal4                  D            Neural activation          E         Neural inhibition
+    Bract                                                                                               ***       ***
+                                                                                      100                                   100
+
+
+
+
+                                                                                                                         % PER
+                                                                                    % PER
+                                                                                        50                                   50
+
+
+                                                                                     0                                       0
+                                                                              CsChrimson: +      +                +      GtACR1: +           +        +
+                                                                                SS31320:      + +                       SS31320:        +    +
+                                                                                SS31386:            +              +    SS31386:                  +   +
+    Fdg                                                                                  FMIn
+                                                                                   100          ***               ***       100
+
+
+
+
+                                                                                                                         % PER
+                                                                                    % PER
+
+
+
+
+                                                                                        50                                   50
+
+
+                                                                                     0                                       0
+                                                                              CsChrimson: +      +     +                 GtACR1: +           +        +
+                                                                                SS31333:      + +                       SS31333:     +       +
+    Roundup                                                                     SS46913:
+                                                                                         FMIn
+                                                                                                    + +                 SS46913:
+                                                                                                                                FMIn
+                                                                                                                                                  +   +
+                                                                                   100          ***   ***                  100
+                                                                                                                         % PER
+                                                                                    % PER
+
+
+
+
+                                                                                        50                                   50
+
+
+                                                                                     0                                       0
+                                                                              CsChrimson: +             +         +      GtACR1: +           +        +
+                                                                                SS47744:           +    +               SS47744:        +    +
+                                                                                SS47745:                      +   +     SS47745:                  +   +
+
+
+
+Figure 2. Second-­order neurons synapse onto a local sensorimotor circuit for feeding initiation. (A) Schematic of the feeding initiation circuit. Circles
+outlined in black denote neurons with split-­Gal4 genetic access, circles with gray outlines denote neurons without split-­Gal4 genetic access. Line
+thickness represents synaptic connectivity of more than five synapses. (B–C) Electron microscopy (EM) neural reconstructions (B) and registered neural
+images in split-­Gal4 lines (C) of third-­order or premotor neurons in the subesophageal zone (SEZ). Scale bar is 50 μm. JRC 2018 unisex coordinate
+space is shown in gray, MN9 morphology is shown in orange. (D) CsChrimson-­mediated activation of third-­order or premotor neurons elicits proboscis
+extension response (PER), n=30 flies per genotype. (E) GtACR1-­mediated inhibition of third-­order or premotor neurons does not influence PER to
+50 mM sucrose, n=40–70 flies per genotype. (D–E) Mean ± 95% CI, Fisher’s Exact Tests, ***p<0.001. See Figure 2—figure supplement 1 for synaptic
+counts.
+
+
+
+
+Shiu, Sterne et al. eLife 2022;11:e79887. DOI: https://doi.org/10.7554/eLife.79887                                                                       6 of 16
+           ﻿Research article﻿﻿﻿﻿﻿                                                                                                                                                        Neuroscience
+
+
+                                       A                          Second-order                                                                             Genetic access
+                                                                                                        Third-order
+                                                                                                                                                                                    Yes
+                                                                  Zorro                                                                 Premotor
+                                                                                                                              13
+                                                                                              45
+                                                                                                                   123                   Roundup                                    No
+                                                                              30
+                                                                                              30        Sternum                6                     337
+                                                                              31   Clavicle                                        48
+
+                                                                                                                                                     138
+                                                                  G2N-1            14
+                                                                                                         Bract 1                   55                                               MN 9
+                                                                   6
+                                                                                                                                         Roundtree
+                                                                              5               25
+                                                                                                                                                      92
+                                                                                                            26
+                                                                                   Rattle     11            30
+                                                                          5                        38                              41
+                                                                                                             6                           Rounddown
+                                                                                   8                                Bract 2
+                                                                  Usnea       7                             11
+                                                                                               6
+                                                                                                         Fdg
+                                                                  Phantom                     19
+                                                                                   FMIn
+
+                                       B
+                                        2° postsynaptic neurons
+
+
+
+
+                                       C
+                                        MN9 presynaptic neurons
+
+
+
+
+                                       D
+
+
+
+                                                                                                                                                             Fraction of synapses
+
+
+
+
+                                    Figure 2—figure supplement 1. Synaptic connectivity in the feeding initiation circuit, related to Figure 2.
+                                    (A) Schematic of the feeding initiation circuit, with circles outlined in black for neurons with split-­Gal4 lines, circles
+                                    outlined in gray for neurons without split-­Gal4 lines. Line thickness represents connectivity of more than five
+                                    synapses, with synapse numbers labeled. (B) Neurons with the most synapses from second-­order neurons that elicit
+                                    Figure 2—figure supplement 1 continued on next page
+
+
+
+Shiu, Sterne et al. eLife 2022;11:e79887. DOI: https://doi.org/10.7554/eLife.79887                                                                                                           7 of 16
+           ﻿Research article﻿﻿﻿﻿﻿                                                                                                          Neuroscience
+
+                                    Figure 2—figure supplement 1 continued
+                                    proboscis extension response (PER), based on Flywire predicted synapses (n≥30), x-­axis labels neurons identified in
+                                    this study. (C) Neurons with the most synapses onto MN9, based on Flywire predicted synapses (n≥30), x-­axis labels
+                                    neurons identified in this study. (D) Neurotransmitter predictions (Eckstein et al., 2020) for individual synapses for
+                                    each neuron in the feeding initiation circuit generated by a machine learning classifier. The fraction of synapses
+                                    predicted to contain each neurotransmitter is indicated by color.
+
+
+
+
+Shiu, Sterne et al. eLife 2022;11:e79887. DOI: https://doi.org/10.7554/eLife.79887                                                               8 of 16
+             ﻿Research article﻿﻿﻿﻿﻿                                                                                                                     Neuroscience
+
+
+   A                                                                                                                 Response properties
+                     Second-order
+                                                         Third-order                                                         Water
+                     Zorro
+                                                                                                    Premotor
+                                                                                                                              1M sucrose
+                                                                                                      Roundup
+                                      Clavicle
+                                                        Sternum                                                              No genetic access
+
+                     G2N-1
+                                                                                                      Roundtree                  MN 9
+
+                                      Rattle            Bract 1
+
+                                                                         Bract 2                      Rounddown
+                     Usnea
+
+
+
+                     Phantom
+
+   B                                                           ns                                                                         ns
+             Zorro                                         *        **                 Clavicle                                      *         **
+
+
+
+
+         0           10       20      30         40   water sugar bitter           0           10       20      30      40     water sugar bitter
+                          Time (secs)                                                               Time (secs)
+                                                               ns                                                                         ns
+             G2N-1                                         *        **                 Rattle                                        **        *
+
+
+
+
+         0           10       20      30         40   water sugar bitter           0           10       20      30      40     water sugar bitter
+                          Time (secs)                                                               Time (secs)
+                                                                                                                                          ns
+                                                               **
+             Usnea                                         *        ns                                                               *         *
+
+
+
+
+         0           10       20      30         40   water sugar bitter           0           10       20      30      40     water sugar bitter
+                          Time (secs)                                                               Time (secs)
+                                                                                                                                          ns
+             Phantom                                                                   Bract                                         **        **
+                                                               *
+                                                          ns        *
+
+
+
+
+         0           10       20      30         40   water sugar bitter           0           10       20      30      40     water sugar bitter
+                          Time (secs)                                                               Time (secs)
+                                                                                                                                          ns
+                                                                                                                                     *         *
+                                                                                       Roundup
+
+                                                               ns
+                                                          ns        ns
+
+
+
+
+         0           10       20      30         40   water sugar bitter           0           10       20      30      40     water sugar bitter
+                          Time (secs)                                                               Time (secs)
+
+
+
+Figure 3. Feeding initiation neurons respond to taste detection. (A) Connectivity schematic of the feeding initiation circuit, where filled green circles
+represent cell types that respond to sugar detection, while filled blue circles represent cell types that respond to water detection. One cell type,
+Phantom, responds to both sugar and water (split blue and green circle). Fdg did not respond to proboscis taste detection (white circle), but see
+Figure S4A for responses to optogenetic activation of sugar gustatory receptor neurons (GRNs). (B) Calcium responses of feeding initiation neurons to
+Figure 3 continued on next page
+
+
+
+Shiu, Sterne et al. eLife 2022;11:e79887. DOI: https://doi.org/10.7554/eLife.79887                                                                          9 of 16
+            ﻿Research article﻿﻿﻿﻿﻿                                                                                                               Neuroscience
+
+Figure 3 continued
+stimulation of the proboscis in food-­deprived flies. For each cell type, GCaMP6s fluorescence traces are shown on the left of the panel (ΔF/F), while ΔF/F
+area for each trace is shown on the right, with thin black lines indicating sample pairing. The proboscis of each tested individual was stimulated with
+water (green), sugar (blue), and bitter (red) tastants in sequential trials during the indicated period (thick black line). The following split-­GAL4 lines were
+imaged for each cell type: Clavicle; SS48947, FMIn; SS48944, Zorro; SS67405, G2N-­1; SS47082, Usnea; SS37122, Phantom; SS68204, Rattle; SS50091,
+Fdg; SS31345, Bract; SS31386, Roundup; SS47744. n=5-­8 flies per genotype. Quade’s test with Quade’s All Pairs test, using Holm’s correction to adjust
+for multiple comparisons, ns p>0.05, *p≤0.05, **p≤0.01. See also Figure 3—figure supplement 1 for additional calcium imaging studies of feeding
+initiation neurons.
+
+
+
+
+Shiu, Sterne et al. eLife 2022;11:e79887. DOI: https://doi.org/10.7554/eLife.79887                                                                    10 of 16
+                         ﻿Research article﻿﻿﻿﻿﻿                                                                                                                                        Neuroscience
+
+
+ A                                                                                                            ns
+                                                                                                         **        *
+
+
+
+
+                     0            10              20      30        40                         ppk28                Gr66a
+                                                  Time (secs)
+ B                                                                                                                                                                       *
+                         Ppk28 - Dessicated                                                                                     Ppk28 - Pseudodessicated
+                                                                                               ns
+
+
+
+
+                     0            10       20      30                    40             fed     2hr dess                 0          10       20      30    40                 p-dess
+                                       Time (secs)                                                                                       Time (secs)
+ C
+                         Clavicle                                                              **                               G2N-1
+                                                                                          ns        **                                                                   ns
+                                                                                                                                                                     *        **
+
+
+
+
+                     0            10       20      30                    40           water sugar bitter                    0       10       20      30    40   water sugar bitter
+                                       Time (secs)                                                                                       Time (secs)
+                                                                                                                                                                         ** ns
+                         Rattle                                                                **                               Usnea                                *
+                                                                                          **        ****
+
+
+
+
+                     0            10       20      30                    40           water sugar bitter                    0       10       20      30    40   water sugar bitter
+                                       Time (secs)                                                                                       Time (secs)
+                                                                                               ns
+                                                                                          ns
+                         Roundup                                                                     *
+
+
+
+
+                     0            10       20      30                    40           water sugar bitter
+                                       Time (secs)
+ D
+                                                                                                                   sugar GRNs
+                                                                                                                   water GRNs
+                                                                                                                   high salt GRNs
+               400
+  GRN inputs
+
+
+
+
+               300
+
+               200
+
+               100
+
+                0
+                             ro
+                          Zorro
+
+
+
+                                       Clavicle
+                                             le
+
+
+
+                                                       G2N-1
+                                                          -1
+
+
+
+                                                                Rattle
+                                                                    le
+
+
+
+                                                                              Usnea
+                                                                                 ea
+
+
+
+
+                                                                                                               m
+                                                                                                         Phantom
+
+
+
+
+Figure 3—figure supplement 1. Taste responses of feeding initiation neurons, related to Figure 3. (A) Calcium responses of Fdg to optogenetic
+activation of water (blue, ppk28-­LexA), sugar (green, Gr5a-­LexA), or bitter (red, Gr66a-­LexA) GRNs in food-­deprived flies. To examine Fdg responses,
+GCaMP7b was expressed using SS46913. Fluorescence traces are shown on the left of the panel (ΔF/F), while ΔF/F area for each trace is shown on the
+right. Stimulation with 660 nm light is indicated with vertical gray bars. Kruskal Wallace test with Dunn’s test using Holm’s correction to adjust for multiple
+Figure 3—figure supplement 1 continued on next page
+
+
+
+Shiu, Sterne et al. eLife 2022;11:e79887. DOI: https://doi.org/10.7554/eLife.79887                                                                                                        11 of 16
+            ﻿Research article﻿﻿﻿﻿﻿                                                                                                                 Neuroscience
+
+Figure 3—figure supplement 1 continued
+comparisons, n=5-­7 flies per genotype, ns p>0.05, *p≤0.05, **p≤0.01. (B–C) Calcium responses of water gustatory sensory neurons and feeding initiation
+neurons to taste stimulation of the proboscis. GCaMP6s fluorescence traces are shown on the left of each panel (ΔF/F), while ΔF/F area for each trace
+is shown on the right. n=5-­10 flies per genotype, ns p>0.05, *p≤0.05, **p≤0.01, ***p≤0.001, ****p≤0.0001. (B) Taste responses to water in fed (purple)
+versus 2 hr desiccated (2 hr dess, teal) flies (left). Taste responses to water in fed flies allowed to rest for 1 hr in low osmolality artificial hemolymph after
+dissection before imaging (1 hr fed, purple) versus pseudodessicated, thirsty-­like flies (p-­dess, blue) (right). (C) Taste responses in pseudodessicated,
+thirsty-­like flies. The proboscis of each tested individual was stimulated with water (green), sugar (blue), and bitter (red) tastants in sequential trials
+during the indicated period (thick black line). Thin black lines indicate sample pairing. The following split-­GAL4 lines were imaged for each cell type:
+Clavicle; SS48947, G2N-­1; SS47082, Usnea; SS37122, Rattle; SS50091, Roundup; SS47744. Quade’s test with Quade’s All Pairs test, using Holm’s
+correction to adjust for multiple comparisons. (D) GRN synapes onto second-­order neurons, with GRN categories based on Engert et al., 2021.
+
+
+
+
+Shiu, Sterne et al. eLife 2022;11:e79887. DOI: https://doi.org/10.7554/eLife.79887                                                                      12 of 16
+           ﻿Research article﻿﻿﻿﻿﻿                                                                                                                                                Neuroscience
+
+
+
+                                       A                                    Second-order                                                                         Hunger modulation
+                                                                                                                  Third-order
+                                                                              Zorro
+                                                                                                                                                Premotor                        Yes
+                                                                                                                                                 Roundup                        No
+                                                                                           Clavicle                  Sternum
+                                                                              G2N-1
+
+                                       Sugar GRNs                                          Rattle                                                Roundtree           MN9
+                                                                                                                     Bract 1
+                                                                              Usnea
+                                                                                                                                                 Rounddown
+                                                                                           FMIn
+                                                                              Phantom                                Fdg       Bract 2
+                                                                                                                                                                            Fed
+                                                                                                                                                                               Deprived
+                                       B 200                                                  c 100                                      ***      100
+                                                           csChrimson activation                            Sugar GRNs                                      MN9
+                                                                                        150
+                                                                                                                                 ***
+                                                                                                                       ***
+                                        µW/mm 2
+
+
+
+
+                                                                                               % PER
+
+
+
+
+                                                                                                                                               % PER
+                                             100                                                       50                                              50
+                                                                                                               ***
+
+
+                                                                               18
+                                                           1.8     9
+                                                   0                                                    0                                               0
+                                                       1               2           3          4               1        2        3        4                   1      2       3         4
+                                       d 100                           Laser setting                100                                           100
+                                                           Zorro                                            Clavicle                                        G2N-1
+
+                                                                                                                                         ***
+                                                                                                                                 ***                                ***
+                                        % PER
+
+
+
+
+                                                                                               % PER
+
+
+
+
+                                                                                                                                               % PER
+                                                  50                                                   50                                              50
+                                                                                                                       ***
+
+
+
+
+                                                   0                                                    0                                               0
+                                                             1          2       3      4                      1        2        3        4                   1      2       3         4
+                                             100                                                    100                                           100
+                                                           Rattle                                           Usnea                                           FMin
+                                        % PER
+
+
+
+
+                                                                                               % PER
+
+
+
+
+                                                                                                                                               % PER
+
+
+
+                                                  50                                                   50                                              50
+
+
+
+
+                                                   0                                                    0                                               0
+                                                             1          2       3      4                      1        2        3        4                   1      2       3         4
+                                             100                                                    100                                           100
+                                                           Bract                                            Fdg                                             Roundup
+                                        % PER
+
+
+
+
+                                                                                               % PER
+
+
+
+
+                                                                                                                                               % PER
+
+
+
+
+                                                  50                                                   50                                              50
+
+
+
+
+                                                   0                                                   0                                                0
+                                                             1          2       3      4                      1        2        3        4                   1      2       3         4
+
+
+
+
+                                    Figure 4. Hunger acts on a subset of second-­order central neurons to modulate behavior. (A) Schematic of the
+                                    feeding initiation circuit, with filled green circles representing nodes that are hunger-­modulated. (B) Optogenetic
+                                    activation at four different light intensities. (C) Activation of sugar-­sensing neurons results in different feeding
+                                    initiation rates between fed and food-­deprived flies (left) whereas activation of MN9 does not (right), at four
+                                    Figure 4 continued on next page
+
+
+
+Shiu, Sterne et al. eLife 2022;11:e79887. DOI: https://doi.org/10.7554/eLife.79887                                                                                                       13 of 16
+           ﻿Research article﻿﻿﻿﻿﻿                                                                                                           Neuroscience
+
+                                    Figure 4 continued
+                                    different light intensities. n=50. (D) Optogenetic activation of second-­order, third-­order, and premotor neurons in
+                                    either fed or food-­deprived flies. n=39–103. Mean ± 95% CI, Fisher’s Exact Tests, ***p<0.001.
+
+
+
+
+Shiu, Sterne et al. eLife 2022;11:e79887. DOI: https://doi.org/10.7554/eLife.79887                                                               14 of 16
+           ﻿Research article﻿﻿﻿﻿﻿                                                                                                             Neuroscience
+
+
+                                     A Bitter                                                     Bitter modulation
+                                         GRNs               Scapula
+                                                                                                               Yes
+                                                                                                               No
+
+                                                            Zorro
+                                                                                                           Roundup
+                                                                       Clavicle
+                                                                                        Sternum
+                                                           G2N-1
+                                         Sugar                         Rattle           Bract 1            Roundtree
+                                                                                                                               MN9
+                                         GRNs
+                                                            Usnea                                          Rounddown
+                                                                                  Fdg        Bract 2
+                                                                       FMIn
+                                                            Phantom
+                                     B        Roundup
+                                          4                                                            5
+
+                                          3                                                            4
+                                                                                                                    ***
+                                                                                                       3       *          ns
+                                          2
+                                                                                                       2
+                                          1
+                                                                                                       1
+                                          0                                                            0
+                                         -1                                                       -1
+                                              0      10         20       30         40        50 Gr5a      +        +
+                                                                Time (secs)                     Gr66a               +           +
+                                     C        G2N-1
+                                          4                                                            5
+                                                                                                                    **
+                                                                                                       4       ns         **
+                                          3
+                                                                                                       3
+                                          2
+                                                                                                       2
+                                          1
+                                                                                                       1
+                                          0                                                            0
+                                         -1                                                       -1
+                                              0      10         20       30         40        50 Gr5a      +        +
+                                                                Time (secs)                     Gr66a               +           +
+
+                                    Figure 5. Premotor neurons integrate sweet and bitter taste detection. (A) Schematic of the feeding initiation
+                                    circuit, showing a pathway from bitter GRNs to premotor neurons. Filled maize circle labels a premotor neuron
+                                    inhibited by bitter tastants, filled gray circle labels an upstream second-­order neuron that is not inhibited by bitter
+                                    tastants. (B and C) Calcium responses of feeding circuit neurons to optogenetic activation of sugar (green, Gr5a-­
+                                    LexA), sugar plus bitter (maize, Gr5a-­LexA plus Gr66a-­LexA), or bitter (red, Gr66a-­LexA) GRNs in food-­deprived
+                                    flies. For each cell type, Syt::GCaMP7b fluorescence traces are shown on the left of the panel (ΔF/F), while ΔF/F
+                                    area for each trace is shown on the right. Periods of stimulation with 660 nm light are indicated with vertical
+                                    gray bars. (B) SS47744 was imaged to examine Roundup responses. (C) SS47082 was imaged to examine G2N-­1
+                                    responses. (B-­C) Kruskal Wallace test with Dunn’s test using Holm’s correction to adjust for multiple comparisons,
+                                    n=6-­8 flies per genotype, ns p>0.05, *p≤0.05, **p≤0.01, ***p≤0.001. See Figure 5—figure supplement 1 for
+                                    synaptic counts of second-­order bitter neurons.
+
+
+
+
+Shiu, Sterne et al. eLife 2022;11:e79887. DOI: https://doi.org/10.7554/eLife.79887                                                                 15 of 16
+           ﻿Research article﻿﻿﻿﻿﻿                                                                                                     Neuroscience
+
+
+
+
+                                     Bitter GRN synapses
+
+
+
+                                    Figure 5—figure supplement 1. Second-­order bitter neurons, related to Figure 5. Neurons with the most
+                                    synapses from candidate bitter gustatory receptor neurons (GRNs) based on Flywire predicted synapses (n≥30),
+                                    with x-­axis labeling neurons identified in this study.
+
+
+
+
+Shiu, Sterne et al. eLife 2022;11:e79887. DOI: https://doi.org/10.7554/eLife.79887                                                        16 of 16
+

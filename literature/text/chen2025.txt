@@ -1,0 +1,1007 @@
+ bioRxiv preprint doi: https://doi.org/10.64898/2025.12.14.694122; this version posted December 16, 2025. The copyright holder for this
+    preprint (which was not certified by peer review) is the author/funder, who has granted bioRxiv a license to display the preprint in
+                                   perpetuity. It is made available under a CC-BY 4.0 International license.
+
+
+
+
+        Whole-brain connectomics of Drosophila reveals a
+
+       robust, distributed architecture for the suppression
+
+                                       of feeding during escape
+
+                                           Wei-Qiang Chen2 and Wenjie Xi1,2
+
+     1 Department of Physics and HK Institute of Quantum Science & Technology, The University
+
+
+                                  of Hong Kong, Pokfulam Road, Hong Kong, China
+        2 Department of Physics and Shenzhen Key Laboratory of Advanced Quantum Functional
+
+
+        Materials and Devices, Southern University of Science and Technology, Shenzhen 518055,
+
+                                                                 China
+
+                                                 E-mail: wjxi@connect.hku.hk
+
+
+
+
+1                                                             Abstract
+
+2               Survival demands instant prioritization of escape over maintenance. To decode the dy-
+3           namic logic embedded in the static Drosophila connectome (FlyWire v783), we simulated
+4           the conflict between predator-evasion, feeding, and grooming to uncover the logic of this
+5           switch. We show that escape is a holistic state defined by distributed robustness: it is
+6           reliably triggered by only a fraction of visual inputs (LC4/LPLC2) and induces a system-
+7           wide pause on behaviors like feeding and grooming. Within this global suppression, we
+8           identify a specialized, fail-safe architecture for arresting feeding. A redundant ensemble of
+9           neurons (DNge031/CB0565) targets the premotor center Roundup, effectively disfacilitating
+10          motor output. Crucially, this inhibition is modular, anatomically distinct from grooming
+11          suppression, and relies on additive logic to ensure suppression even if individual components
+12          fail. Our results demonstrate how connectome topology implements robust, survival-critical
+13          control through distributed neural architecture.
+
+
+
+
+                                                                    1
+ bioRxiv preprint doi: https://doi.org/10.64898/2025.12.14.694122; this version posted December 16, 2025. The copyright holder for this
+    preprint (which was not certified by peer review) is the author/funder, who has granted bioRxiv a license to display the preprint in
+                                   perpetuity. It is made available under a CC-BY 4.0 International license.
+
+
+
+
+14   Introduction
+
+15   To survive in a complex environment, animals must continuously prioritize mutually exclusive be-
+
+16   haviors, executing high-priority actions such as predator evasion while suppressing maintenance
+
+17   drives such as feeding [1, 2]. A central tenet of neuroethology attributes this rapid switching to
+
+18   ”command neurons”—single critical nodes whose activation is both necessary and sufficient to
+
+19   trigger a specific behavioral program [3–5]. This reductionist paradigm spans diverse species.
+
+20   For example, the Giant Fiber (GF) system in Drosophila [6, 7], the Mauthner cells in fish [4],
+
+21   and lateral giant neurons in crayfish [8] are all classically defined as dedicated decision nodes
+
+22   for escape. Similarly, in mammals, specific hypothalamic populations such as AgRP neurons
+
+23   are often modeled as centralized switches that drive feeding [9]. However, this focus on single-
+
+24   node control presents an engineering paradox. Biological systems display remarkable resilience
+
+25   to noise and damage [10]. Such holistic stability is incompatible with architectures reliant on
+
+26   a single critical node [11, 12]. Theoretical work on biological complexity suggests that robust-
+
+27   ness arises not from singular controls but from degeneracy—the ability of structurally distinct
+
+28   elements to perform the same function [13]—and distributed population codes [14]. Despite
+
+29   these theoretical insights, the specific synaptic architectures that implement such distributed
+
+30   robustness within the brain remain largely unmapped.
+
+31       The recent completion of the adult Drosophila whole-brain connectome (FlyWire) [15, 16]
+
+32   provides an unprecedented opportunity to resolve this paradox. By mapping every synaptic
+
+33   connection, we can now identify distributed networks that were previously invisible to sparse
+
+34   sampling methods. Furthermore, a static wiring diagram alone cannot predict which pathways
+
+35   are functionally recruited during specific behaviors. This data set allows us to investigate the
+
+36   holistic topology of neural states. Crucially, this perspective reveals that a behavior is rarely
+
+37   executed by a solitary command. For instance, a successful escape requires not just the trigger
+
+38   (e.g., DNp01 [6, 17]), but the co-activation of postural control (e.g., DNp04 [7]) and directional
+
+39   steering (e.g., DNa02 [18, 19]) to form a complete motor synergy. To decode the dynamic logic
+
+40   embedded in this static map, we apply a connectome-constrained spiking neural network (SNN)
+
+41   model of the entire brain [20]. This full-brain simulation approach enables us to perform ”virtual
+
+42   stress tests” on the network—systematically perturbing inputs and performing combinatorial
+
+43   silencing of hidden layers to reveal the redundancy and stability of behavioral states. This allows
+
+44   us to dissect fault-tolerant architectures that are difficult to probe via single-gene manipulations
+
+
+
+                                                                    2
+ bioRxiv preprint doi: https://doi.org/10.64898/2025.12.14.694122; this version posted December 16, 2025. The copyright holder for this
+    preprint (which was not certified by peer review) is the author/funder, who has granted bioRxiv a license to display the preprint in
+                                   perpetuity. It is made available under a CC-BY 4.0 International license.
+
+
+
+
+45   in vivo. This framework allows us to ask not just how a behavior is triggered, but how the
+
+46   system ensures its execution is robust against internal variability and external perturbations.
+
+47       In this paper, we simulate the competition between predator evasion and maintenance circuits
+
+48   including feeding and grooming to study the circuit logic of high-priority behavioral switching.
+
+49   We reveal that the escape response is not a rigid reflex driven by isolated lines, but a holistic
+
+50   neural state protected by distributed stability at both input and output levels. First, we show
+
+51   that escape is reliably initiated by activating only a fraction of the looming-sensitive population
+
+52   (LC4/LPLC2) [7,21,22], demonstrating that danger detection relies on robust population coding
+
+53   rather than critical individual inputs. Second, we identify a specialized, fail-safe architecture that
+
+54   enforces behavioral exclusivity. We find that the escape circuit suppresses feeding not through
+
+55   lateral inhibition at the motor output (MN9), but via upstream disfacilitation. A redundant
+
+56   ensemble of descending (DNge031) and central (CB0565) neurons collectively inhibits Roundup,
+
+57   the primary upstream of NM9, effectively cutting off the feeding drive at its source. This
+
+58   architecture offers a distinct control advantage: by suppressing the premotor drive rather than
+
+59   competing at the muscle level, the system avoids metabolic waste and prevents ”jittery” motor
+
+60   conflicts, ensuring a clean state transition. By removing the excitatory input from Roundup
+
+61   rather than inhibiting the motor neuron MN9 directly, this mechanism prevents conflicting
+
+62   signals from competing at the output stage, ensuring a efficient behavioral switch. Perturbation
+
+63   analysis reveals that this inhibition operates on an additive logic: the failure of any single
+
+64   inhibitor is insufficient to release the feeding drive, establishing a redundant safety margin
+
+65   that guarantees the absolute priority of survival. Finally, we demonstrate that this inhibitory
+
+66   architecture is highly modular. While escape induces a system-wide pause, it utilizes distinct
+
+67   mechanisms for different behaviors: the disfacilitation of Roundup is specific to feeding, whereas
+
+68   grooming is suppressed via separate, dedicated gating pathways. Our findings demonstrate that
+
+69   the connectome is engineered for systemic robustness, where stable behavioral switching emerges
+
+70   from the synergistic action of distributed neural assemblies.
+
+
+
+71   Results
+
+72   In this paper, we applied a full-scale SNN model [20] constrained by the adult Drosophila brain
+
+73   connectome (FlyWire v783) [15,16] to study the circuit logic of behavioral switching. This model
+
+74   incorporates 127,400 proofread neurons and approximately 50 million synaptic connections, rep-
+
+
+
+                                                                    3
+  bioRxiv preprint doi: https://doi.org/10.64898/2025.12.14.694122; this version posted December 16, 2025. The copyright holder for this
+     preprint (which was not certified by peer review) is the author/funder, who has granted bioRxiv a license to display the preprint in
+                                    perpetuity. It is made available under a CC-BY 4.0 International license.
+
+
+
+
+75    resenting the complete wiring diagram of the adult Drosophila brain. The dynamics of the model
+
+76    is characterized by a Leaky Integrate-and-Fire (LIF) formalism, a standard approach that bal-
+
+77    ances computational tractability with biophysical realism. The model was constrained strictly
+
+78    based on anatomical data: synaptic weights were proportional to the number of ultrastructural
+
+79    synapses between neuron pairs, and the sign of the interaction (excitatory or inhibitory) was de-
+
+80    termined by brain-wide neurotransmitter predictions [23]. By driving the model with stochastic
+
+81    Poisson inputs, we transcend static graph analysis to simulate the dynamic transformation of
+
+82    sensory signals into coordinated motor outputs.
+
+
+83    Holistic Activation of Escape
+
+84    we simulated a ”looming predator” by activating the visual projection neurons LC4 and LPLC2.
+
+85    Biological studies have established that these neurons act as specific feature detectors, summing
+
+86    their inputs to drive the GF membrane potential [7]. Accordingly, we drove these inputs at
+
+87    high frequencies (150 Hz) to mimic the peak synaptic drive generated during the terminal
+
+88    phase of a rapid loom. Biologically, escape is not a singular muscle twitch but a coordinated
+
+89    motor synergy involving takeoff triggering, postural adjustment, and directional steering. Our
+
+90    simulation accurately captured this holistic activation pattern across varying input frequencies
+
+91    (Fig1a).
+
+92        In response, the model GF (DNp01) reliably entered a high-frequency firing state (> 150Hz).
+
+93    While the biological GF typically triggers escape via a single action potential [7,17], its synapses
+
+94    are known to possess a high safety factor capable of following high-frequency stimulation [6].
+
+95    Within our LIF framework, this sustained output represents a robust suprathreshold state,
+
+96    signifying a maximal excitatory drive that guarantees the ”one-for-one” transmission required
+
+ 97   for instantaneous takeoff.
+
+98        Crucially, we observed that the downstream activity was not confined to this primary
+
+99    line. The model spontaneously elicited a parallel ensemble of descending neurons, including
+
+100   DNp04(> 100 Hz) and DNp02(> 100 Hz), which are essential for postural stabilization and flight
+
+101   initiation [7]. High-resolution analysis reveals a precise temporal separation within this synergy
+
+102   (Fig1b). The trigger (DNp01) and postural (DNp04) modules fire in tight synchronization with
+
+103   an ultra-short latency (∼5 ms) to initiate takeoff. In contrast, the steering module (DNa02)
+
+104   exhibits a distinct delay, activating at∼22 ms. This temporal separation suggests that the con-
+
+105   nectome encodes a multi-stage motor program that prioritizes immediate lift-off before engaging
+
+
+                                                                     4
+bioRxiv preprint doi: https://doi.org/10.64898/2025.12.14.694122; this version posted December 16, 2025. The copyright holder for this
+   preprint (which was not certified by peer review) is the author/funder, who has granted bioRxiv a license to display the preprint in
+                                  perpetuity. It is made available under a CC-BY 4.0 International license.
+
+
+
+
+                                                                                D   5 H V S R Q V H  ) X Q F W L R Q  	  7 K U H V K R O G
+                                                                         
+                                                                                      6 X E  W K U H V K R O G
+                                                                         
+                      2 X W S X W  ) L U L Q J  5 D W H   + ] 
+
+
+
+                                                                         
+                                                                                                                                                                                                      7 U L J J H U   ' 1 S   
+                                                                                                                                                                                                         3 R V W X U H   ' 1 S   
+                                                                                                                                                                                                      6 W H H U L Q J   ' 1 D   
+                                                                         
+                                                                         
+                                                                         
+                                                                          
+                                                                                                                                                                                                               
+                                                                                                                                            , Q S X W  ) U H T X H Q F \   + ] 
+                                                                                E   7 H P S R U D O  6 H S H U D W L R Q
+
+                   6 W H H U L Q J 
+
+
+
+
+                    3 R V W X U H 
+
+
+
+
+                     7 U L J J H U 
+
+                                                                                                                                                                                                                                    
+                                                                                                                                 7 L P H  I U R P  6 W L P X O X V  2 Q V H W   P V 
+
+
+   Figure 1: Frequency-response curve and temporal dynamics of the escape synergy. (a)
+   Frequency-response curves for the escape components: Trigger (DNp01, red), Posture (DNp04,
+   orange) and Steering (DNa02, blue), generated with input activation fixed at 70% for both
+   LC4 and LPLC2. The shaded region indicates firing rates rise sharply to a regimes (>60 Hz),
+   demonstrating a non-linear response that ensures the escape synergy is stably elicited only under
+   high-urgency conditions. (b) Spike raster (inputs= 150HZ) plot showing the temporal response
+   of key escape components to a simulated high-urgency looming stimulus (start at t = 0). High-
+   resolution analysis reveals a precise temporal separation: Trigger and Posture modules fire in
+   tight synchronization with an ultra-short latency (∼5 ms) to initiate takeoff, while the Steering
+   module exhibits a distinct delay (activating at ∼22 ms). This sequence suggests a motor logic
+   that prioritizes takeoff before engaging directional flight control.
+
+
+
+
+                                                                                                                                                    5
+  bioRxiv preprint doi: https://doi.org/10.64898/2025.12.14.694122; this version posted December 16, 2025. The copyright holder for this
+     preprint (which was not certified by peer review) is the author/funder, who has granted bioRxiv a license to display the preprint in
+                                    perpetuity. It is made available under a CC-BY 4.0 International license.
+
+
+
+
+106   directional flight control, optimizing the aerodynamics of escape. As shown in the co-activation
+
+107   function (Fig.2a), these distinct functional modules exhibit a synchronized onset, confirming
+
+108   that the connectome encodes a tightly coupled motor synergy. Furthermore, the steering com-
+
+109   mand exhibited absolute directionality(Fig.2d): while right-sided visual input elicited robust
+
+110   activation of the contralateral (left) DNa02(> 20 Hz), the ipsilateral (right) DNa02 remained
+
+111   completely silent (0 Hz). This noise-free asymmetry provides an unambiguous, vector-correct
+
+112   signal for the fly to steer away from the threat, demonstrating that the connectome’s topology
+
+113   inherently encodes precise spatial computations.
+
+
+114   Robust Population Coding for escape
+
+115   To determine the minimal input requirements for reliable escape initiation, we performed sys-
+
+116   tematic ”virtual stress tests” simulations by activating random fractions of the looming-sensitive
+
+117   population.
+
+118       We observed a highly non-linear response profile where activating as few as 30% of LC4
+
+119   and LPLC2 inputs was sufficient to drive the system into a stable ”escape state” (Fig.2a). As
+
+120   visualized in the robustness landscapes, both Trigger (DNp01) and Postural (DNp04) neurons
+
+121   rapidly entered a broad high-activity plateau, maintaining firing rates well above the 100 Hz
+
+122   threshold even across varying input combinations (Fig.2b, c). Similarly, the Steering module
+
+123   (left DNa02) exhibited a robust directional bias, consistently firing above its 20 Hz threshold
+
+124   (Fig.2d) while the ipsilateral counterpart remained silent. This broad safety margin demon-
+
+125   strates that danger detection relies on distributed population coding: the escape response is not
+
+126   contingent on specific individual neurons but emerges from the collective activity of the visual
+
+127   assembly, ensuring robustness against noise and partial input loss. However, this potent and
+
+128   easily triggered escape state poses a regulatory challenge: how does the system prevent this
+
+129   high-gain signal from conflicting with simultaneous maintenance behaviors?
+
+
+130   Feeding suppression during escape
+
+131   We next simulated a ”conflict” scenario where the Drosophila is exposed to both sugar and a
+
+132   quickly looming threat. We found that triggering the escape response causes a rapid shutdown
+
+133   of feeding. As escape inputs (LC4/LPLC2) increase, the feeding motor neuron MN9 drops from
+
+134   high activity (> 80 Hz) to near-silence (Fig.3a). This creates a strict ”exclusion zone” (dark
+
+135   blue region) where feeding is blocked. This establishes definitive evidence for the priority of
+
+
+                                                                     6
+bioRxiv preprint doi: https://doi.org/10.64898/2025.12.14.694122; this version posted December 16, 2025. The copyright holder for this
+   preprint (which was not certified by peer review) is the author/funder, who has granted bioRxiv a license to display the preprint in
+                                  perpetuity. It is made available under a CC-BY 4.0 International license.
+
+
+
+
+                                                D   & R  D F W L Y D W L R Q  7 U D Q V I H U  ) X Q F W L R Q                                                                                                                                             E   7 U L J J H U   ' 1 S                                                  
+                                                         7 U L J J H U   ' 1 S   
+
+
+
+
+                                                                                                                                                                                                                           
+                                                            3 R V W X U H   ' 1 S                                                                                                                                                                                                                                                            
+                                                         6 W H H U L Q J   ' 1 D   
+                                                                                                                                                                                                                                                                                                                                                  
+                                         
+    ) L U L Q J  5 D W H   + ] 
+
+
+
+
+                                                                                                                                                           ) U D F W L R Q  / 3 / & 
+                                                                                                                                                                                                                                                                                                                                               
+
+                                                                                                                                                                                                                                                                                                                                                  
+
+
+
+
+                                                                                                                                                                                                                                                                                                                                                       + ]
+                                         
+
+                                                                                                                                                                                                                                                                                                                                               
+
+                                                                                                                                                                                                                                                                                                                                            
+
+                                                                                                                                                                                                                                                                                                                                               
+                                                                                                                                                                                                                                                                                                                                               
+                                                                                                                                                                                                                                                                                               
+                                                                      , Q S X W  $ F W L Y D W L R Q     R I  3 R S X O D W L R Q                                                                                                                                                     ) U D F W L R Q  / & 
+                                                F   3 R V W X U H   ' 1 S                                                               
+                                                                                                                                                                                                                                                                G   6 W H H U L Q J   ' 1 D   B /                                         
+
+                                                                                                                                               
+                                                                                                                                                                                                                                                                                                                                                 
+                                                                                                                                               
+
+                                                                                                                                                                                                                                                                                                                                              
+                                                                                                                                               
+                                                                                                                                                    + ]
+
+
+
+
+                                                                                                                                                                                                                                                                                                                                                     + ]
+                                                                                                                                                                                                                                                                                                                                               
+
+                                                                                                                                                                                                                                                                                                    
+                                                              
+
+
+
+
+                                                                                                                                                                                                                                                                                                                                                 
+                                                                                                                                              
+
+                                                                                                                                                                                                                                                                                                                                               
+
+
+      Figure 2: The synergistic and robust escape response. (a) Co-activation function show-
+      ing the firing rates of three distinct functional modules: Trigger (DNp01, red), Posture (DNp04,
+      orange), and Steering (DNa02, blue). These distinct motor programs are topologically locked
+      into a unified behavioral state. (b-d) Input robustness landscapes (heatmaps) for each com-
+      ponent. The color scale represents firing frequency (blue=silent, red=maximal). (b, c) The
+      Trigger (DNp01) and Postural (DNp04) neurons exhibit a broad high-activity plateau (scale
+      0–200 Hz). The white dashed lines mark the 100 Hz threshold, demonstrating a wide safety
+      margin where the behavior is reliably executed even if significant fractions of the input popu-
+      lation (LC4/LPLC2) are silent. (d) The Steering neuron (left DNa02) shows a similar robust
+      topology but operates in a lower frequency regime (scale 0–50 Hz, threshold 20 Hz), consistent
+      with its role in providing continuous directional bias the right DNa02 is keeping silent.
+
+
+
+
+                                                                                                                                                          7
+bioRxiv preprint doi: https://doi.org/10.64898/2025.12.14.694122; this version posted December 16, 2025. The copyright holder for this
+   preprint (which was not certified by peer review) is the author/funder, who has granted bioRxiv a license to display the preprint in
+                                  perpetuity. It is made available under a CC-BY 4.0 International license.
+
+
+
+
+                                                                                                                                                                                                                                        E   0 H F K D Q L V P   8 S V W U H D P  ' L V I D F L O L W D W L R Q
+                                  D   5 R E X V W  6 X S S U H V V L R Q  R I  ) H H G L Q J
+                                                                                                                                                                                                                                                                     ' 1 J H   
+                                                                                                                                                                                                                                                                                                                                                                ( I I H F W L Y H
+                                                                                                                                                                                                                                             & %       /                                                                                         ' L V I D F L O L W D W L R Q
+                                                                                                                                                                                                                                                           & %       5 
+                                                                                                                                                                                                                                  
+                                                                                                                   
+
+
+                                                                                                                                                                  ) L U L Q J  5 D W H  G X U L Q J  ( V F D S H   + ] 
+                                                                                                                                                                                                                                
+                                                                                                                       0 1   ) L U L Q J  5 D W H   + ] 
+
+
+                                                                                                                   
+   ) U D F W L R Q  / 3 / & 
+
+
+
+
+                                                                                                                                                                                                                                  
+                                                                                                                                                                                                                                                                                                                                                 7 R  5 R X Q G X S   3 U H P R W R U 
+                                                                                                                                                                                                                                                                                                                                                   7 R  0 1    0 R W R U 
+                                                                            )                                      
+                                                                        6 X S S H H G L Q J                                                                                                                                       
+                                                                                 U H V V L R
+                                                                                             Q                     
+                                                                                                                                                                                                                                
+                                                                                                                   
+                                                                                                                                                                                                                                  
+                                                                                                                  
+
+                                                                                                                                                                                                                                  
+                                                                             
+                                                                       ) U D F W L R Q  / &                                                                                                                                                                                                                                                                                  
+                                                                                                                                                                                                                                                                                , Q K L E L W R U \  6 \ Q D S W L F  : H L J K W   $ E V 
+
+         Figure 3: Escape suppresses feeding via targeted disfacilitation of the premotor cen-
+         ter. (a) Heatmap showing the firing rate of the feeding motor neuron (MN9) during conflict
+         (sugar stimulus + varying escape inputs). Despite constant sugar stimulation inputs (150 HZ),
+         MN9 activity drops from high levels (> 80 Hz, red) to near-silence (blue) as escape inputs
+         (LC4/LPLC2) increase. The white dashed line marks the suppression threshold (MN9< 30 Hz),
+         showing a clear boundary where feeding stops. (b) Mechanism analysis for the escape state
+         generated with input activation fixed at 100% for both LC4 and LPLC2 (150 HZ). Scatter plot
+         comparing synaptic weight and firing rate for inhibitory neurons targeting either the motor
+         neuron (MN9, blue crosses) or the premotor center (Roundup, red circles). The escape circuit
+         selectively recruits strong inhibitors with high firing rates(e.g., DNge031, CB0565) targeting
+         Roundup. In contrast, inhibitors targeting MN9 are either weak or inactive. This confirms that
+         suppression is achieved by cutting off the excitatory drive at Roundup (upstream disfacilitation),
+         rather than by inhibiting the motor neuron directly.
+
+
+
+
+                                                                                                                                                                 8
+  bioRxiv preprint doi: https://doi.org/10.64898/2025.12.14.694122; this version posted December 16, 2025. The copyright holder for this
+     preprint (which was not certified by peer review) is the author/funder, who has granted bioRxiv a license to display the preprint in
+                                    perpetuity. It is made available under a CC-BY 4.0 International license.
+
+
+
+
+136   survival, demonstrating that escape acts as a global state that forcibly overrides maintenance
+
+137   behaviors.
+
+138             To find the mechanism behind this suppression, we traced the inhibitory signals of the
+
+139   escape circuit. Anatomically, the escape circuit connects to both the motor neuron (MN9) and
+
+140   its primary premotor driver, Roundup. However, effective suppression requires active neurons,
+
+141   not just static connections. By plotting synaptic weight against firing rate (Fig.3b), we revealed
+
+142   a clear functional difference. Inhibitors projecting directly to MN9 (blue crosses) were largely
+
+143   inactive or weak though they possessed high synaptic weights. In contrast, a specific group
+
+144   targeting Roundup, including the descending neuron DNge031 and central neuron CB0565,
+
+145   showed both high firing rates and strong inhibitory weights (marked red circles). This active
+
+146   inhibition silences Roundup, effectively cutting off the excitatory signals to MN9. This analysis
+
+147   exposes a critical limitation of purely static connectomics: anatomical connectivity does not
+
+148   equal functional inhibition. Therefore, the escape circuit enforces behavioral exclusivity via
+
+149   upstream disfacilitation, rather than directly inhibiting the motor neuron.
+       D   + R O L V W L F  $ U F K L W H F W X U H  	  0 R G X O D U  6 X S S U H V V L R Q                                                                                                                                     E   $ G G L W L Y H  / R J L F   5 H G X Q G D Q W  , Q K L E L W L R Q
+                                                                     ( V F D S H  5 H V S R Q V H   + R O L V W L F  6 W D W H                                                                                             
+
+                     ) H H G L Q J                                                                                                                             * U R R P L Q J                                                                                                                                                      6 X J D U  % D V H O L Q H
+                       *  1                                                               / &     / 3 / &                                                   - 2 1 V
+                                                                                                                                                                                                                                 
+
+                                                  8 S V W U H D P
+                                              ' L V I D F L O L W D W L R Q
+                                                                                                                                                                                                                                                                                 $ G G L W L Y H
+                                                                                                                                                                                                                                                                                   * D L Q
+                                                                                                                                                                                   0 1   ) L U L Q J  5 D W H   + ] 
+
+
+
+
+                     5 R X Q G X S                                                               ( V F D S H                                                        D % 1                                                       
+                                                                                                   & R U H
+
+
+
+                                                                                                                                             ' R Z Q V W U H D P
+                                                                                                                                                 * D W L Q J                                                                     
+                                                                           ' 1 S                ' 1 S                ' 1 D  
+                                                                         3 R V W X U H         7 U L J J H U       6 W H H U L Q J 
+
+
+                        0 1                                                                                                                                        D ' 1                                                        
+
+
+
+                                                                                                                                                                                                                                  
+                                                                                                                                                                                                                                                  ( V F D S H                     6 L O H Q F H                    6 L O H Q F H           6 X J D U
+                                                                                                                                                                                                                                                 & R Q W U R O                    2 Q H                             7 Z R                 2 Q O \
+
+
+      Figure 4: Modular specificity and additive redundancy of escape suppression (a)
+      Schematic of the holistic escape architecture where blue nodes indicate active neurons and red
+      nodes indicate inactive/suppressed neurons. The escape core drives a synergistic motor out-
+      put (center) while simultaneously suppressing competing behaviors via distinct, target-specific
+      strategies. Feeding is suppressed via upstream disfacilitation (left): the escape core inhibits the
+      premotor center Roundup (red), cutting off the excitatory drive to MN9. In contrast, groom-
+      ing [24,25] is suppressed via downstream gating (right): the premotor drive (aBN1, blue) remains
+      active, but the motor output (aDN, red) is blocked. (b) MN9 firing rates under combinatorial
+      silencing of the identified inhibitors (DNge031, CB0565s) with input activation fixed at 100% for
+      both LC4 and LPLC2 (150 HZ). Silencing any single inhibitor (”Silence One”) fails to restore
+      feeding. Silencing two inhibitors (”Silence Two”) results in only partial recovery, demonstrating
+      an additive gain. This redundancy creates a safety margin, ensuring fail-safe suppression even
+      if individual inhibitory components fail.
+
+
+                                                                                                                                                                              9
+  bioRxiv preprint doi: https://doi.org/10.64898/2025.12.14.694122; this version posted December 16, 2025. The copyright holder for this
+     preprint (which was not certified by peer review) is the author/funder, who has granted bioRxiv a license to display the preprint in
+                                    perpetuity. It is made available under a CC-BY 4.0 International license.
+
+
+
+
+150   Inhibitory architecture is highly robust and modular
+
+151   To quantify the robustness of this suppression, we performed ”counterfactual” simulations by
+
+152   silencing the identified inhibitors (DNge031 and CB0565) individually and in combination. We
+
+153   found that the system follows a strict additive logic (Fig.4b). Silencing any single inhibitor
+
+154   failed to restore feeding. Even silencing two out of three inhibitors resulted in only partial
+
+155   recovery (∼ 40 Hz), which remained significantly below the sugar-driven baseline (∼ 86 Hz).
+
+156   This safety margin ensures fail-safe termination of feeding, as the failure of any single component
+
+157   is insufficient to break the blockade.
+
+158       Finally, we asked whether this architecture represents a global ”freeze” or a targeted control
+
+159   policy. By comparing the feeding circuit with the grooming circuit, we found distinct, modular
+
+160   strategies (Fig.4a). While escape pauses both behaviors, it targets them at different hierarchical
+
+161   levels. Feeding is cut off at the source via upstream disfacilitation of Roundup. In contrast,
+
+162   the grooming premotor center (aBN1) remains active during escape, but its downstream output
+
+163   (aDN) is blocked via downstream gating. This functional dissociation confirms that the escape
+
+164   state acts through modular control policies, applying specific stopping mechanisms adapted to
+
+165   different behavioral conflicts.
+
+
+
+166   Discussion
+
+167   From Static Maps to Dynamic Logic
+
+168   The FlyWire connectome provides a static map of the brain’s hardware. However, understanding
+
+169   behavioral logic requires dynamics. By applying a biophysical LIF model to this structure, we
+
+170   successfully recapitulated emergent properties, such as the temporal separation between ballistic
+
+171   takeoff and directional steering, which are not explicitly visible in the wiring diagram alone. This
+
+172   validates that connectome-constrained modeling is a sufficient and powerful tool to bridge the
+
+173   gap between structural biology and system dynamics.
+
+
+174   Anatomy Does Not Equate to Function
+
+175   A critical insight from our conflict simulation is that anatomical connectivity does not equate
+
+176   to functional efficacy. Although the connectome contains strong inhibitory connections directly
+
+177   to the motor neuron (MN9), our model reveals that these pathways remain functionally silent
+
+178   during escape. Instead, the brain selectively recruits a specific, redundant ensemble to target the
+
+
+                                                                    10
+  bioRxiv preprint doi: https://doi.org/10.64898/2025.12.14.694122; this version posted December 16, 2025. The copyright holder for this
+     preprint (which was not certified by peer review) is the author/funder, who has granted bioRxiv a license to display the preprint in
+                                    perpetuity. It is made available under a CC-BY 4.0 International license.
+
+
+
+
+179   premotor source (Roundup). This finding serves as a crucial caution against inferring function
+
+180   solely from synaptic weights without considering dynamic state variables.
+
+
+181   Computational Predictions Guide Experimental Dissection
+
+182   Finally, this work illustrates the unique value of “virtual genetics.” In biological experiments,
+
+183   identifying redundant mechanisms is notoriously difficult because silencing a single neuron often
+
+184   yields no phenotype, leading to false negatives. Our computational approach enabled us to
+
+185   perform combinatorial perturbations that are technically difficult in vivo, revealing the hidden
+
+186   fault-tolerant architecture of the feeding suppression circuit. These predictions provide precise
+
+187   coordinates for future research: rather than searching for a single ”command neuron” that
+
+188   stops feeding, experimentalists should investigate distributed ensembles. By illuminating these
+
+189   invisible architectural principles, computational connectomics provides the necessary blueprint
+
+190   to guide the dissection of complex biological systems.
+
+
+
+191   Methods
+
+192   Connectome Data and Neuron Selection
+
+193   All neuronal reconstruction and synaptic connectivity data were obtained from the FlyWire full-
+
+194   brain connectome (Codex version 783). Neurons of interest (e.g., LC4, LPLC2, DNp01, MN9)
+
+195   were identified using cell-type annotations in the FlyWire Codex.
+
+
+196   Computational Model
+
+197   We implemented a Leaky Integrate-and-Fire (LIF) [20, 26] spiking neural network model of the
+
+198   entire central brain, following the framework established by Shiu et al. [20]. The dynamics of
+
+199   the membrane potential Vi for each neuron i are governed by the following differential equations:
+
+                                                     dVi   gi − (Vi − Vresting )
+                                                         =                                                                        (1)
+                                                      dt          Tmbr
+
+
+
+                                                               dgi    gi
+                                                                   =−                                                             (2)
+                                                               dt     τ
+
+200   where gi represents the synaptic conductance resulting from the aggregate firing of presynaptic
+
+201   neurons. Upon the arrival of a spike from presynaptic neuron j, the conductance is updated
+
+
+                                                                    11
+  bioRxiv preprint doi: https://doi.org/10.64898/2025.12.14.694122; this version posted December 16, 2025. The copyright holder for this
+     preprint (which was not certified by peer review) is the author/funder, who has granted bioRxiv a license to display the preprint in
+                                    perpetuity. It is made available under a CC-BY 4.0 International license.
+
+
+
+
+202   according to the rule: gi ← gi + wj,i . When Vi reaches the firing threshold Vthreshold , the neuron
+
+203   spikes, and Vi is reset to Vreset for a refractory period Trefractory .
+
+204       Biophysical parameters were fixed to values established in previous Drosophila modeling
+
+205   studies [20, 27]:
+
+206       • Resting potential: Vresting = −52 mV
+
+207       • Reset potential: Vreset = −52 mV
+
+208       • Firing threshold: Vthreshold = −45 mV
+
+209       • Membrane time constant: Tmbr = 20 ms (derived from membrane resistance Rmbr =
+
+210          10 kΩ · cm2 and capacitance Cmbr = 2µF · cm−2 )
+
+211       • Synapse decay time constant: τ = 5 ms
+
+212       • Refractory period: Trefractory = 2.2 ms
+
+213       • Synaptic delay: Tdly = 1.8 ms
+
+214       The synaptic weight wj,i connecting neuron j to neuron i is defined as:
+
+
+
+                                                       wj,i = Nsyn · S · Wsyn                                                     (3)
+
+215   where Nsyn is the number of ultrastructural synapses from j to i derived from the FlyWire
+
+216   connectome, S is the neurotransmitter sign (+1 for excitatory, −1 for inhibitory) predicted
+
+217   by the connectome-wide classifier [23], and Wsyn = 0.275 mV is the global scaling parameter
+
+218   representing the postscynaptic potential change per synapse.
+
+
+219   Simulation strategy
+
+220   Sensory inputs (Visual looming, Sugar) were modeled as Poisson spike trains delivered to specific
+
+221   receptor neurons (LC4/LPLC2, Sugar GRNs). ”Counterfactual” silencing was performed via
+
+222   ”virtual axotomy”: the outgoing synaptic weights of specific target neurons (e.g., DNge031) were
+
+223   set to zero, effectively removing their influence on the network while preserving their internal
+
+224   dynamics. All simulations were performed using the Brian2 simulator.
+
+
+225   Data Availability
+
+226   The neuronal connectivity data used in this study are available from the FlyWire Codex.
+
+                                                                    12
+  bioRxiv preprint doi: https://doi.org/10.64898/2025.12.14.694122; this version posted December 16, 2025. The copyright holder for this
+     preprint (which was not certified by peer review) is the author/funder, who has granted bioRxiv a license to display the preprint in
+                                    perpetuity. It is made available under a CC-BY 4.0 International license.
+
+
+
+
+227   Code Availability
+
+228   The simulation code and analysis scripts are available at: https://github.com/WJXI/escape-of-
+
+229   Drosophila.
+
+
+230   Competing Interests
+
+231   The authors declare no competing interests.
+
+
+
+232   1     Acknowledgments
+
+233   This work was supported by Research Grants Council of Hong Kong (GRF 17311322 and
+
+234   CRF C7012-21GF), National Natural Science Foundation of China (Grant No. 12222416),
+
+235   National Key R&D Program of China (Grants No. 2022YFA1403700), NSFC (Grants No.
+
+236   12141402) and the Science, Technology and Innovation Commission of Shenzhen Municipality
+
+237   (No. ZDSYS20190902092905285)
+
+
+
+238   References
+
+239    [1] Tinbergen, N. The study of instinct (Pygmalion Press, an imprint of Plunkett Lake Press,
+
+240         2020).
+
+241    [2] Gould, J. L. A physiological ethology: The hungry fly. a physiological study of the behavior
+
+242         associated with feeding. Science 193, 567–568 (1976).
+
+243    [3] Kupfermann, I. & Weiss, K. R. The command neuron concept. Behavioral and Brain
+
+244         Sciences 1, 3–10 (1978).
+
+245    [4] Korn, H. & Faber, D. S. The mauthner cell half a century later: a neurobiological model
+
+246         for decision-making? Neuron 47, 13–28 (2005).
+
+247    [5] Flood, T. F. et al. A single pair of interneurons commands the drosophila feeding motor
+
+248         program. Nature 499, 83–87 (2013).
+
+249    [6] Allen, M. J., Godenschwege, T. A., Tanouye, M. A. & Phelan, P. Making an escape:
+
+250         Development and function of the drosophila giant fibre system. Seminars in Cell and
+
+251         Developmental Biology 17, 31–41 (2006).
+
+
+
+                                                                    13
+  bioRxiv preprint doi: https://doi.org/10.64898/2025.12.14.694122; this version posted December 16, 2025. The copyright holder for this
+     preprint (which was not certified by peer review) is the author/funder, who has granted bioRxiv a license to display the preprint in
+                                    perpetuity. It is made available under a CC-BY 4.0 International license.
+
+
+
+
+252    [7] Ache, J. M. et al. Neural basis for looming size and velocity encoding in the drosophila
+
+253         giant fiber escape pathway. Current Biology 29, 1073–1081.e4 (2019).
+
+254    [8] Edwards, D. H., Heitler, W. J. & Krasne, F. B. Fifty years of a command neuron: the
+
+255         neurobiology of escape behavior in the crayfish. Trends in neurosciences 22, 153–161 (1999).
+
+256    [9] Aponte, Y., Atasoy, D. & Sternson, S. M. Agrp neurons are sufficient to orchestrate feeding
+
+257         behavior rapidly and without training. Nature neuroscience 14, 351–355 (2011).
+
+258   [10] Prinz, A. A., Bucher, D. & Marder, E. Similar network activity from disparate circuit
+
+259         parameters. Nature neuroscience 7, 1345–1352 (2004).
+
+260   [11] Edelman, G. M. & Gally, J. A. Degeneracy and complexity in biological systems. Proceedings
+
+261         of the National Academy of Sciences 98, 13763–13768 (2001).
+
+262   [12] Marder, E. & Goaillard, J.-M. Variability, compensation and homeostasis in neuron and
+
+263         network function. Nature Reviews Neuroscience 7, 563–574 (2006).
+
+264   [13] Krakauer, J. W., Ghazanfar, A. A., Gomez-Marin, A., MacIver, M. A. & Poeppel, D.
+
+265         Neuroscience needs behavior: correcting a reductionist bias. Neuron 93, 480–490 (2017).
+
+266   [14] Averbeck, B. B., Latham, P. E. & Pouget, A. Neural correlations, population coding and
+
+267         computation. Nature reviews neuroscience 7, 358–366 (2006).
+
+268   [15] Dorkenwald, S. et al. Neuronal wiring diagram of an adult brain. Nature 634, 124–138
+
+269         (2024).
+
+270   [16] Schlegel, P. et al. Whole-brain annotation and multi-connectome cell typing of drosophila.
+
+271         Nature 634, 139–152 (2024).
+
+272   [17] Von Reyn, C. R. et al. A spike-timing mechanism for action selection. Nature neuroscience
+
+273         17, 962–970 (2014).
+
+274   [18] Namiki, S., Dickinson, M. H., Wong, A. M., Korff, W. & Card, G. M. The functional
+
+275         organization of descending sensory-motor pathways in drosophila. Elife 7, e34272 (2018).
+
+276   [19] Rayshubskiy, A. et al. Neural circuit mechanisms for steering control in walking drosophila.
+
+277         ELife 13, RP102230 (2025).
+
+
+
+
+                                                                    14
+  bioRxiv preprint doi: https://doi.org/10.64898/2025.12.14.694122; this version posted December 16, 2025. The copyright holder for this
+     preprint (which was not certified by peer review) is the author/funder, who has granted bioRxiv a license to display the preprint in
+                                    perpetuity. It is made available under a CC-BY 4.0 International license.
+
+
+
+
+278   [20] Shiu, P. K. et al. A drosophila computational brain model reveals sensorimotor processing.
+
+279         Nature 634, 210–219 (2024).
+
+280   [21] Wu, M. et al. Visual projection neurons in the drosophila lobula link feature detection to
+
+281         distinct behavioral programs. Elife 5, e21022 (2016).
+
+282   [22] Klapoetke, N. C. et al. Ultra-selective looming detection from radial motion opponency.
+
+283         Nature 551, 237–241 (2017).
+
+284   [23] Eckstein, N. et al. Neurotransmitter classification from electron microscopy images at
+
+285         synaptic sites in drosophila melanogaster. Cell 187, 2574–2594 (2024).
+
+286   [24] Seeds, A. M. et al. A suppression hierarchy among competing motor programs drives
+
+287         sequential grooming in drosophila. Elife 3, e02951 (2014).
+
+288   [25] Hampel, S., Franconville, R., Simpson, J. H. & Seeds, A. M. A neural command circuit for
+
+289         grooming movement control. eLife 4, e08758 (2015).
+
+290   [26] Huang, Y.-C. et al. A single-cell level and connectome-derived computational model of the
+
+291         drosophila brain. Frontiers in Neuroinformatics Volume 12 - 2018 (2019).
+
+292   [27] Kakaria, K. S. & De Bivort, B. L. Ring attractor dynamics emerge from a spiking model
+
+293         of the entire protocerebral bridge. Frontiers in behavioral neuroscience 11, 8 (2017).
+
+
+
+
+                                                                    15
+

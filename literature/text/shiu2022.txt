@@ -1,0 +1,1809 @@
+                                                                                           RESEARCH ARTICLE
+
+
+
+
+                                     Taste quality and hunger interactions in a
+                                     feeding sensorimotor circuit
+                                     Philip K Shiu1†, Gabriella R Sterne1,2*†, Stefanie Engert1, Barry J Dickson2,3,
+                                     Kristin Scott1*
+                                     1
+                                      University of California, Berkeley, Berkeley, United States; 2Janelia Research Campus,
+                                     Howard Hughes Medical Institute, Chevy Chase, United States; 3Queensland Brain
+                                     Institute, University of Queensland, Brisbane, Australia
+
+
+
+                                     Summary Taste detection and hunger state dynamically regulate the decision to initiate feeding.
+                                     To study how context-­appropriate feeding decisions are generated, we combined synaptic resolu-
+                                     tion circuit reconstruction with targeted genetic access to specific neurons to elucidate a gustatory
+                                     sensorimotor circuit for feeding initiation in adult Drosophila melanogaster. This circuit connects
+                                     gustatory sensory neurons to proboscis motor neurons through three intermediate layers. Most
+                                     neurons in this pathway are necessary and sufficient for proboscis extension, a feeding initiation
+                                     behavior, and respond selectively to sugar taste detection. Pathway activity is amplified by hunger
+                                     signals that act at select second-­order neurons to promote feeding initiation in food-­deprived
+                                     animals. In contrast, the feeding initiation circuit is inhibited by a bitter taste pathway that impinges
+                                     on premotor neurons, illuminating a local motif that weighs sugar and bitter taste detection to
+                                     adjust the behavioral outcomes. Together, these studies reveal central mechanisms for the inte-
+                                     gration of external taste detection and internal nutritive state to flexibly execute a critical feeding
+                                     decision.
+*For correspondence:
+sternegr@berkeley.edu (GRS);
+kscott@berkeley.edu (KS)             Editor's evaluation
+†
+ These authors contributed           The findings presented in this article contribute to a circuit-­based understanding of how sweet and
+equally to this work                 bitter tastes are integrated with the hunger state to drive feeding initiation in Drosophila. Anatom-
+Competing interest: The authors      ical, behavioral, and neuronal activity data support a multi-­step pathway from sensory input to motor
+declare that no competing            output. This manuscript, thus, advances our understanding of how multiple sensory cues are inte-
+interests exist.                     grated with an internal state to reach a behavioral decision.
+
+Funding: See page 21
+Preprinted: 07 March 2022
+Received: 29 April 2022
+Accepted: 27 June 2022               Introduction
+Published: 06 July 2022              The decision to initiate feeding depends both on the quality of available food and current nutrient
+                                     needs. The gustatory system detects nutritious and noxious compounds in the environment and eval-
+Reviewing Editor: Ilona C
+                                     uates food quality. Food quality information is integrated with internal nutritive state to ensure that
+Grunwald Kadow, University of
+Bonn, Germany                        food intake matches energy demands. How do central neural circuits evaluate taste information in the
+                                     context of internal nutritive state to make feeding decisions?
+‍ ‍Copyright Shiu, Sterne
+                                         As feeding decisions are universal and essential for survival, animals as diverse as humans and
+et al. This article is distributed
+                                     Drosophila share similar strategies to detect taste compounds and assess nutrient needs. Peripheral
+under the terms of the Creative
+Commons Attribution License,
+                                     taste detection in mammals and insects is mediated by sensory cells that detect specific taste modal-
+which permits unrestricted use       ities and elicit innate feeding behaviors. Both mammals and flies have sugar-, bitter-, water-, and
+and redistribution provided that     salt-­sensing gustatory cells (Liman et al., 2014; Yarmolinsky et al., 2009). Activation of sugar-­sensing
+the original author and source       gustatory cells triggers feeding initiation, whereas activation of bitter-­sensing cells inhibits feeding.
+are credited.                        Mammals and insects also evaluate internal nutrient needs with similar strategies (Augustine et al.,
+
+
+Shiu, Sterne et al. eLife 2022;11:e79887. DOI: https://doi.org/10.7554/eLife.79887                                                     1 of 24
+           Research article﻿﻿﻿﻿﻿﻿                                                                                                Neuroscience
+
+                                    2018; Leopold and Perrimon, 2007; Nässel and Zandawala, 2019; Pool and Scott, 2014; Sareen
+                                    et al., 2021). Neuromodulators released from neurosecretory centers and the gut signal hunger or
+                                    satiety to oppositely regulate feeding. Disruption of these hunger and satiety signals results in obesity
+                                    and anorexia in mammals and insects.
+                                        Although gustatory sensory neurons have been shown to be modulated by hunger signals and
+                                    conflicting taste information (Chu et al., 2014; French et al., 2015; Inagaki et al., 2012; Inagaki
+                                    et al., 2014; Jeong et al., 2013; Meunier et al., 2003), central mechanisms that modulate feeding
+                                    decisions are unclear because the identity, structure, and function of central feeding initiation circuits
+                                    are unknown. Recent advances in brain-­wide synaptic connectivity mapping (Dorkenwald et al., 2022;
+                                    Eckstein et al., 2020; Zheng et al., 2018) and precise genetic access to single neurons (Dionne
+                                    et al., 2018; Luan et al., 2006) make Drosophila melanogaster an ideal system to interrogate how
+                                    central neural circuits compute feeding decisions. Taste detection in adult Drosophila begins with acti-
+                                    vation of gustatory receptor neurons (GRNs) found in sensory structures located on the body surface,
+                                    including the external mouthparts, or proboscis labellum (Dethier, 1976; Montell, 2021; Scott, 2018;
+                                    Stocker, 1994). The axons of proboscis GRNs project to the primary taste and premotor center of the
+                                    insect brain, the subesophageal zone (SEZ) (Kendroud et al., 2018; Miyazaki and Ito, 2010; Stocker
+                                    and Schorderet, 1981). The motor neurons that execute feeding have cell bodies and dendrites
+                                    in the SEZ near GRN axons, suggesting a local feeding circuit (Gordon and Scott, 2009; McKellar
+                                    et al., 2020; Schwarz et al., 2017). However, only a few isolated interneurons have been implicated
+                                    in feeding initiation (Flood et al., 2013; Kain and Dahanukar, 2015).
+                                        To investigate how neural circuits transform taste detection into context-­    appropriate feeding
+                                    decisions, we combined electron microscopy-­based circuit reconstruction, genetic tools that provide
+                                    access to single cell types, optogenetics, and imaging of taste responses in awake, behaving animals
+                                    to uncover a circuit-­level view of feeding initiation in Drosophila melanogaster. This work delineates
+                                    the neural circuit that transforms taste detection into the motor actions of feeding initiation from
+                                    sensory inputs to motor outputs, and reveals central mechanisms that integrate taste detection with
+                                    internal physiological state to shape behavior.
+
+
+
+                                    Results
+                                    GRNs synapse onto multiple second-order neurons
+                                    To examine neural circuits for feeding initiation, we identified neurons directly postsynaptic to gusta-
+                                    tory sensory axons in the central brain. We utilized the full adult fly brain (FAFB) electron microscopy
+                                    (EM) volume (Zheng et al., 2018) to manually reconstruct neurons postsynaptic to 17 labellar GRN
+                                    axons in the right hemisphere that likely correspond to sugar-­sensing GRNs (Engert et al., 2021).
+                                    Fifteen second-­order taste neurons and their synapses were fully reconstructed (Figure 1A–B and
+                                    Figure 1—figure supplement 1) in the CATMAID platform (Saalfeld et al., 2009). The second-­order
+                                    neurons do not receive inputs from all candidate sugar GRNs (Figure 1—figure supplement 1B);
+                                    however, as sugar GRNs make extensive axonal-­axonal connections (Engert et al., 2021), the impact
+                                    of these differences is unclear.
+                                        To assess the completeness of our second-­order collection, we compared these 15 second-­order
+                                    neurons with the recently released Flywire dataset, a dense, machine learning based reconstruction
+                                    of FAFB neurons (Dorkenwald et al., 2022; Eckstein et al., 2020). This comparison revealed that we
+                                    identified 14 of the 15 neurons with the most synapses from sugar GRNs. These second-­order neurons
+                                    represent 12 unique cell types (Figure 1—figure supplement 1F). The 15 second-­order neurons we
+                                    manually reconstructed receive 21% of sugar GRN synaptic outputs. We note that the distribution of
+                                    second-­order neurons has a very long tail, likely due in part to small neural fragments that are chal-
+                                    lenging to reconstruct. These second-­order neurons have not previously been characterized, except
+                                    for G2N-­1, which was identified as a candidate second-­order gustatory neuron based on anatomical
+                                    proximity to sugar-­sensing GRNs (Miyazaki et al., 2015). Each of the second-­order neurons is a local
+                                    SEZ interneuron with arbors that overlap extensively with sugar GRN termini.
+
+
+                                    Multiple second-order taste neurons influence proboscis extension
+                                    To test whether second-­  order gustatory neurons participate in feeding behaviors, we identified
+                                    split-­
+                                          Gal4 lines that provide specific genetic access to individual second-­
+                                                                                                               order cell types, using
+
+
+Shiu, Sterne et al. eLife 2022;11:e79887. DOI: https://doi.org/10.7554/eLife.79887                                                    2 of 24
+            Research article﻿﻿﻿﻿﻿﻿                                                                                                                          Neuroscience
+
+
+ A                        B          EM              C        split-Gal4             D Neural activation                   E Neural inhibition
+                          Zorro                                                           100 Zorro        ***       ***      100
+                                                                                                                                                      ***
+                                                                                                                                            ***
+
+
+
+
+                                                                                        % PER
+
+
+
+
+                                                                                                                            % PER
+                   325                                                                      50                                  50
+
+
+                                                                                           0                                    0
+                                                                                    CsChrimson: +          +         +      GtACR1: +       +         +
+                                                                                      SS67405:         +   +               SS67405:     +   +
+                                                                                      SS67406:                   +   +     SS67406:               +   +
+
+                          Clavicle                                                        100 Clavicle                        100
+                                                                                                                     ***
+
+
+
+
+                                                                                        % PER
+
+
+
+
+                                                                                                                            % PER
+                   210                                                                          50                              50                    ***
+
+                                                                                           0                                    0
+                                                                                    CsChrimson: +                    +      GtACR1: +                 +
+                                                                                      SS48947:             +         +     SS48947:         +         +
+
+                          G2N-1                                                           100 G2N-1        ***       ***      100                     ns
+                                                                                                                                            *
+
+
+
+
+                                                                                        % PER
+
+
+
+
+                                                                                                                            % PER
+                   165                                                                      50                                  50
+
+
+                                                                                           0                                    0
+                                                                                    CsChrimson: +          +         +      GtACR1: +       +         +
+                                                                                      SS47082:         +   +               SS47082:     +   +
+                                                                                      SS56399:                   +   +     SS56399:               +   +
+
+                          Rattle                                                          100 Rattle                 ***      100
+
+                   110
+
+
+
+
+                                                                                        % PER
+
+
+
+
+                                                                                                                            % PER
+   Sugar                                                                                    50                                  50
+   GRNs                                                                                                                                               ***
+                                                                                           0                                    0
+                                                                                    CsChrimson: +                    +      GtACR1: +                 +
+                                                                                      SS50091:             +         +     SS50091:         +         +
+
+
+                     75
+                          Usnea                                                           100 Usnea                           100
+                                                                                                                     ***
+
+
+
+
+                                                                                                                            % PER
+                                                                                        % PER
+
+
+
+                                                                                                50                              50
+                                                                                                                                                      ***
+                                                                                           0                                    0
+                                                                                    CsChrimson: +                    +      GtACR1: +                 +
+                                                                                      SS37122:             +         +     SS37122:         +         +
+
+                          FMIn                                                            100 FMIn         ***       ***      100
+                     75                                                                                                                               ns
+                                                                                                                                            ***
+                                                                                                                            % PER
+                                                                                        % PER
+
+
+
+
+                                                                                            50                                  50
+
+
+                                                                                           0                                    0
+                                                                                    CsChrimson: +          +         +      GtACR1: +       +          +
+                                                                                      SS48944:         +   +               SS48944:     +   +
+                                                                                      SS48949:                   +   +     SS48949:               +    +
+
+                     65   Phantom                                                         100 Phantom***             ***      100
+                                                                                                                            % PER
+                                                                                        % PER
+
+
+
+
+                                                                                            50                                  50
+
+
+                                                                                           0                                    0
+                                                                                    CsChrimson: +          +         +      GtACR1: +       +          +
+                                                                                      SS44877:         +   +               SS44877:     +   +
+                                                                                      SS44879:                   +   +     SS44879:               +    +
+
+
+Figure 1. Sugar-­sensing gustatory receptor neurons (GRNs) synapse onto multiple second-­order neurons that influence proboscis extension.
+(A) Aggregate synaptic connectivity from sugar GRNs onto second-­order sugar neurons. Numbers indicate the total number of synapses that the 17
+candidate sugar GRNs make onto each second-­order neuron. (B–C) Manually reconstructed electron microscopy (EM) skeletons (B) and registered
+neural images in split-­Gal4 lines (C) for each second-­order neuron in the subesophageal zone (SEZ) of the Drosophila brain. Sugar GRNs are depicted
+in white, JRC 2018 unisex coordinate space is shown in gray (C). Scale bar is 50 μm. (D) CsChrimson-­mediated activation of seven second-­order neurons
+elicits proboscis extension, n=30 flies per genotype. (E) GtACR1-­mediated inhibition of second-­order neurons reduces proboscis extension to 50 mM
+sucrose, n=46–83 flies per genotype. (D–E) The fraction of flies exhibiting proboscis extension response (PER) upon optogenetic or 50 mM sucrose
+stimulation. Mean ± 95% confidence interval (CI), Fisher’s Exact Tests, *p<0.05, ***p<0.001. See Figure 1—figure supplement 1 for EM reconstructions
+of additional second-­order neurons and synaptic connectivity counts. See Figure 1—figure supplement 2 for additional PER phenotypes of second-­
+order sugar neurons.
+The online version of this article includes the following source data and figure supplement(s) for figure 1:
+Source data 1. Source data for behavioral experiments in Figure 1.
+Figure supplement 1. Anatomy of reconstructed second-­order neurons and their connectivity, related to Figure 1.
+Figure 1 continued on next page
+
+
+
+Shiu, Sterne et al. eLife 2022;11:e79887. DOI: https://doi.org/10.7554/eLife.79887                                                                              3 of 24
+           Research article﻿﻿﻿﻿﻿﻿                                                                                                  Neuroscience
+
+Figure 1 continued
+Figure supplement 2. Additional proboscis extension phenotypes of second-­order neurons, related to Figure 1.
+Figure supplement 2—source data 1. Source data for behavioral experiments in Figure 1—figure supplement 2.
+
+
+
+
+                                    NBLAST comparisons (Costa et al., 2016) to a library of SEZ split-­Gal4 lines (Sterne et al., 2021).
+                                    This provided split-­Gal4 matches for seven second-­order neurons (Figure 1C and Figure 1—figure
+                                    supplement 2A). Additionally, we used intersectional approaches to gain genetic access to two
+                                    additional second-­order neurons, Cleaver (Figure 1—figure supplement 2A) and Zorro (Figure 1C).
+                                    These genetic reagents are exquisitely specific for each of the nine second-­order gustatory neurons,
+                                    providing the opportunity to evaluate their function.
+                                        As activation of sugar-­sensing GRNs on the proboscis labellum causes the fly to extend its proboscis
+                                    to initiate feeding (Dethier, 1976), we tested whether activation or inhibition of second-­order taste
+                                    neurons influences this behavior. We expressed the red-­shifted channelrhodopsin CsChrimson (Klapo-
+                                    etke et al., 2014) selectively in each second-­order taste neuron, activated each with 635 nm light,
+                                    and examined the proboscis extension response (PER). Remarkably, optogenetic activation of seven
+                                    of the nine second-­order taste neurons elicited proboscis extension (Figure 1D and Figure 1—figure
+                                    supplement 2B). Moreover, inhibiting the activity of each second-­order neuron individually, by optoge-
+                                    netic activation of the anion channelrhodopsin GtACR1 (Mohammad et al., 2017), reduced proboscis
+                                    extension to 50 mM sucrose in food-­deprived flies, for six of the seven second-­order neurons that
+                                    elicited PER upon activation (Figure 1E). At a higher sucrose concentration (100 mM), neural inhi-
+                                    bition of only two of the second-­order neuron classes decreased proboscis extension (Figure 1—
+                                    figure supplement 2C). These studies argue that multiple second-­order neurons contribute to normal
+                                    feeding initiation behavior and suggest that the partial redundancy of these second-­order neurons
+                                    ensures robust feeding.
+
+                                    Second-order taste neurons activate a local SEZ circuit for feeding
+                                    initiation
+                                    How does activation of a diverse set of second-­order neurons drive proboscis extension? Proboscis
+                                    motor neurons 4, 6, 7, and 9 are involved in extending different segments of the proboscis for feeding
+                                    initiation (McKellar et al., 2020). We focused on the well-­studied motor neuron 9 (MN9), which is
+                                    necessary and sufficient for extension of the rostrum, the largest portion of the proboscis (Gordon
+                                    and Scott, 2009; McKellar et al., 2020). We located MN9 in the FAFB EM volume by examining
+                                    large SEZ neurons that lack synaptic output. To identify a pathway from taste detection to proboscis
+                                    extension, we reconstructed presynaptic partners of MN9 and postsynaptic partners of second-­order
+                                    taste neurons.
+                                        This strategy identified a minimal pathway from taste detection to proboscis extension, composed
+                                    of interconnected second-­order neurons and third-­order neurons each receiving inputs from a subset
+                                    of second-­  order neurons, and feedforward premotor neurons (Figure 2A and Figure 2—figure
+                                    supplement 1A). The third-­order neurons represent a small subset based on comparisons to Flywire
+                                    automated reconstructions (Figure 2—figure supplement 1B). They include one previously charac-
+                                    terized neuron, the putative feeding command neuron, Fdg (Flood et al., 2013; Figure 3B), and a
+                                    set of descending neurons, Bract, that project to the ventral nerve cord (Sterne et al., 2021). The
+                                    premotor neurons are strongly connected to MN9, representing approximately 13% of the synaptic
+                                    input onto MN9 (Figure 2—figure supplement 1C). There are direct connections between three
+                                    second-­order neurons (G2N-­1, Zorro, and FMIn) and premotor neurons, and additional paths via third-­
+                                    order neurons to premotor neurons. The neurons in the feeding initiation circuit are predicted to be
+                                    cholinergic, except for Usnea and Phantom which are predicted to be GABAergic (Figure 2—figure
+                                    supplement 1D), based on machine learning classifications (Eckstein et al., 2020).
+                                        To investigate the function of deeper layers of this circuit, we identified split-­Gal4 lines that selec-
+                                    tively label two third-­order neurons and one premotor neuron (Figure 2C) using NBLAST comparisons
+                                    with SEZ split-­Gal4 lines (Sterne et al., 2021). Optogenetic activation of third-­order or premotor
+                                    neurons with CsChrimson revealed that each cell type elicits robust proboscis extension (Figure 2D).
+                                    However, acute inhibition of the third-­order or premotor neurons with GtACR1 did not influence PER
+                                    to 50 mM sucrose (Figure 2E), consistent with multiple pathways to proboscis motor neurons. Thus,
+
+
+Shiu, Sterne et al. eLife 2022;11:e79887. DOI: https://doi.org/10.7554/eLife.79887                                                      4 of 24
+            Research article﻿﻿﻿﻿﻿﻿                                                                                                                 Neuroscience
+
+
+    A                                                                                                                              Genetic access
+                  Second-order
+                                                           Third-order
+                  Zorro
+                                                                                                                                             Yes
+                                                                                                   Premotor
+                                                                                                                                             No
+                                                                                                        Roundup
+                                                          Sternum
+                                     Clavicle
+
+
+                  G2N-1
+                                                                                                        Roundtree                         MN 9
+
+                                     Rattle               Bract 1
+
+                                                                          Bract 2                       Rounddown
+                  Usnea
+
+                                                            Fdg
+                  Phantom            FMIn
+
+
+    B                EM                       C     split-Gal4                   D            Neural activation          E         Neural inhibition
+    Bract                                                                                                ***       ***
+                                                                                       100                                   100
+
+
+
+
+                                                                                                                          % PER
+                                                                                     % PER
+                                                                                         50                                   50
+
+
+                                                                                      0                                       0
+                                                                               CsChrimson: +      +                +      GtACR1: +           +        +
+                                                                                 SS31320:      + +                       SS31320:        +    +
+                                                                                 SS31386:            +              +    SS31386:                  +   +
+    Fdg                                                                                   FMIn
+                                                                                    100          ***               ***       100
+
+
+
+
+                                                                                                                          % PER
+                                                                                     % PER
+
+
+
+
+                                                                                         50                                   50
+
+
+                                                                                      0                                       0
+                                                                               CsChrimson: +      +     +                 GtACR1: +           +        +
+                                                                                 SS31333:      + +                       SS31333:     +       +
+    Roundup                                                                      SS46913:
+                                                                                          FMIn
+                                                                                                     + +                 SS46913:
+                                                                                                                                 FMIn
+                                                                                                                                                   +   +
+                                                                                    100          ***   ***                  100
+                                                                                                                          % PER
+                                                                                     % PER
+
+
+
+
+                                                                                         50                                   50
+
+
+                                                                                      0                                       0
+                                                                               CsChrimson: +             +         +      GtACR1: +           +        +
+                                                                                 SS47744:           +    +               SS47744:        +    +
+                                                                                 SS47745:                      +   +     SS47745:                  +   +
+
+
+
+Figure 2. Second-­order neurons synapse onto a local sensorimotor circuit for feeding initiation. (A) Schematic of the feeding initiation circuit. Circles
+outlined in black denote neurons with split-­Gal4 genetic access, circles with gray outlines denote neurons without split-­Gal4 genetic access. Line
+thickness represents synaptic connectivity of more than five synapses. (B–C) Electron microscopy (EM) neural reconstructions (B) and registered neural
+images in split-­Gal4 lines (C) of third-­order or premotor neurons in the subesophageal zone (SEZ). Scale bar is 50 μm. JRC 2018 unisex coordinate
+space is shown in gray, MN9 morphology is shown in orange. (D) CsChrimson-­mediated activation of third-­order or premotor neurons elicits proboscis
+extension response (PER), n=30 flies per genotype. (E) GtACR1-­mediated inhibition of third-­order or premotor neurons does not influence PER to
+50 mM sucrose, n=40–70 flies per genotype. (D–E) Mean ± 95% CI, Fisher’s Exact Tests, ***p<0.001. See Figure 2—figure supplement 1 for synaptic
+counts.
+The online version of this article includes the following source data and figure supplement(s) for figure 2:
+Source data 1. Source data for behavioral experiments in Figure 2.
+Figure supplement 1. Synaptic connectivity in the feeding initiation circuit, related to Figure 2.
+
+
+
+
+Shiu, Sterne et al. eLife 2022;11:e79887. DOI: https://doi.org/10.7554/eLife.79887                                                                        5 of 24
+             Research article﻿﻿﻿﻿﻿﻿                                                                                                                     Neuroscience
+
+
+   A                                                                                                                 Response properties
+                     Second-order
+                                                         Third-order                                                         Water
+                     Zorro
+                                                                                                    Premotor
+                                                                                                                              1M sucrose
+                                                                                                      Roundup
+                                      Clavicle
+                                                        Sternum                                                              No genetic access
+
+                     G2N-1
+                                                                                                      Roundtree                  MN 9
+
+                                      Rattle            Bract 1
+
+                                                                         Bract 2                      Rounddown
+                     Usnea
+
+
+
+                     Phantom
+
+   B                                                           ns                                                                         ns
+             Zorro                                         *        **                 Clavicle                                      *         **
+
+
+
+
+         0           10       20      30         40   water sugar bitter           0           10       20      30      40     water sugar bitter
+                          Time (secs)                                                               Time (secs)
+                                                               ns                                                                         ns
+             G2N-1                                         *        **                 Rattle                                        **        *
+
+
+
+
+         0           10       20      30         40   water sugar bitter           0           10       20      30      40     water sugar bitter
+                          Time (secs)                                                               Time (secs)
+                                                                                                                                          ns
+                                                               **
+             Usnea                                         *        ns                                                               *         *
+
+
+
+
+         0           10       20      30         40   water sugar bitter           0           10       20      30      40     water sugar bitter
+                          Time (secs)                                                               Time (secs)
+                                                                                                                                          ns
+             Phantom                                                                   Bract                                         **        **
+                                                               *
+                                                          ns        *
+
+
+
+
+         0           10       20      30         40   water sugar bitter           0           10       20      30      40     water sugar bitter
+                          Time (secs)                                                               Time (secs)
+                                                                                                                                          ns
+                                                                                                                                     *         *
+                                                                                       Roundup
+
+                                                               ns
+                                                          ns        ns
+
+
+
+
+         0           10       20      30         40   water sugar bitter           0           10       20      30      40     water sugar bitter
+                          Time (secs)                                                               Time (secs)
+
+
+
+Figure 3. Feeding initiation neurons respond to taste detection. (A) Connectivity schematic of the feeding initiation circuit, where filled green circles
+represent cell types that respond to sugar detection, while filled blue circles represent cell types that respond to water detection. One cell type,
+Phantom, responds to both sugar and water (split blue and green circle). Fdg did not respond to proboscis taste detection (white circle), but see
+Figure S4A for responses to optogenetic activation of sugar gustatory receptor neurons (GRNs). (B) Calcium responses of feeding initiation neurons to
+Figure 3 continued on next page
+
+
+
+Shiu, Sterne et al. eLife 2022;11:e79887. DOI: https://doi.org/10.7554/eLife.79887                                                                          6 of 24
+            Research article﻿﻿﻿﻿﻿﻿                                                                                                               Neuroscience
+
+Figure 3 continued
+stimulation of the proboscis in food-­deprived flies. For each cell type, GCaMP6s fluorescence traces are shown on the left of the panel (ΔF/F), while ΔF/F
+area for each trace is shown on the right, with thin black lines indicating sample pairing. The proboscis of each tested individual was stimulated with
+water (green), sugar (blue), and bitter (red) tastants in sequential trials during the indicated period (thick black line). The following split-­GAL4 lines were
+imaged for each cell type: Clavicle; SS48947, FMIn; SS48944, Zorro; SS67405, G2N-­1; SS47082, Usnea; SS37122, Phantom; SS68204, Rattle; SS50091,
+Fdg; SS31345, Bract; SS31386, Roundup; SS47744. n=5-­8 flies per genotype. Quade’s test with Quade’s All Pairs test, using Holm’s correction to adjust
+for multiple comparisons, ns p>0.05, *p≤0.05, **p≤0.01. See also Figure 3—figure supplement 1 for additional calcium imaging studies of feeding
+initiation neurons.
+The online version of this article includes the following source data and figure supplement(s) for figure 3:
+Source data 1. Source data for calcium experiments in Figure 3.
+Figure supplement 1. Taste responses of feeding initiation neurons, related to Figure 3.
+Figure supplement 1—source data 1. Source data for calcium imaging experiments in Figure 3—figure supplement 1.
+
+
+                                       by combining EM tracing studies with precise neural manipulations afforded by split-­Gal4 lines, we
+                                       have elucidated a neural circuit that promotes feeding initiation upon sweet taste detection.
+
+                                       Feeding initiation neurons respond to sugar taste detection
+                                       To examine how taste information is processed by the feeding initiation circuit to guide feeding deci-
+                                       sions, we monitored taste-­induced activity of each neuron in the circuit. The proboscis was stimulated
+                                       with water, sugar, or bitter taste solutions, while monitoring GCaMP6s calcium activity (Chen et al.,
+                                       2013) in live flies (Harris et al., 2015). Eight of the ten neural classes responded to sugar taste presen-
+                                       tation in food-­deprived animals, and not to water or bitter solutions (Figure 3). Two second-­order
+                                       cell types responded to water taste detection: Usnea responded specifically to water and Phantom
+                                       responded equally to water and sugar detection. Usnea and Phantom are reciprocally connected with
+                                       GRNs (Figure 1—figure supplement 1D), suggesting that these second-­order cell types may tune
+                                       GRN responses in the presence of water. One third-­order neuron, Fdg, did not respond to proboscis
+                                       taste stimulation, but did respond to optogenetic activation of sugar-­sensing GRNs (Figure 3—figure
+                                       supplement 1A), suggesting that Fdg may respond to pharyngeal or leg taste detection. Together,
+                                       these studies reveal that sugar taste is processed by a multilayered neural circuit to initiate feeding in
+                                       food-­deprived flies.
+                                           To test whether responses in the proboscis extension circuit are altered based on specific nutrient
+                                       needs, we examined taste responses in flies that were thirsty rather than hungry. High hemolymph
+                                       osmolality is a key signal of thirst that acts on central neurons to promote water consumption (Jourjine
+                                       et al., 2016). We mimicked a thirsty-­like state by increasing hemolymph osmolality, which enhanced
+                                       water responses in water-­sensing GRNs (Figure 3—figure supplement 1B). In four of the five central
+                                       neurons tested, response profiles were similar in food-­deprived and thirsty-­like flies (Figure 3 and
+                                       Figure 3—figure supplement 1C). However, one second-­order neuron, Clavicle, responded to water
+                                       and to sugar taste detection in a thirsty-­like state but only to sugar in a hungry state (Figure 3 and
+                                       Figure 3—figure supplement 1C). These results suggest that state-­dependent responses to water at
+                                       a single node (Clavicle) may tune the responsiveness of the pathway to bias acceptance of more dilute
+                                       sugar solutions. However, the majority of neurons uncovered here responded selectively to sugar
+                                       taste detection regardless of whether the animal was hungry or thirsty.
+                                           Given that two second-­order neurons, Usnea and Phantom, responded to water taste stimulation
+                                       despite synaptic connectivity to candidate sugar GRNs, we examined the connections of the second-­
+                                       order feeding initiation neurons from all GRNs of the right hemisphere (Engert et al., 2021). These
+                                       GRNs have previously been clustered into candidate taste categories (sugar, water, bitter, high salt,
+                                       and low salt) based on their morphology and GRN-­GRN connectivity. Remarkably, we found that the
+                                       second-­order neurons that receive sugar GRN inputs also receive inputs from candidate water and
+                                       high-­salt (ppk23-­positive, Glut-­positive) GRNs but do not receive inputs from candidate bitter or low
+                                       salt (Ir94e) GRNs (Figure 3—figure supplement 1D). The connectivity is consistent with our calcium
+                                       imaging studies showing responses to sugar taste detection but not bitter taste. However, responses
+                                       to sugar and water were not consistent with the predicted connectivity for each neuron, suggesting
+                                       the possibilities of state-­dependence, network interactions, and/or errors in GRN modality catego-
+                                       rization. As GRN category assignments in the EM dataset were based on anatomy and connectivity
+                                       alone, some GRNs may be misclassified, leading to errors in assessing sensory inputs (Engert et al.,
+
+
+Shiu, Sterne et al. eLife 2022;11:e79887. DOI: https://doi.org/10.7554/eLife.79887                                                                     7 of 24
+           Research article﻿﻿﻿﻿﻿﻿                                                                                               Neuroscience
+
+                                    2021). While the connectivity suggests the exciting possibility that taste integration may occur at
+                                    second-­order neurons, further functional studies will be necessary to illuminate the taste categories
+                                    that activate or inhibit individual second-­order neurons under different nutritive states. Nevertheless,
+                                    our studies demonstrate that most second-­order neurons respond to sugar taste stimulation but not
+                                    to water or bitter tastes.
+
+
+                                    Feeding initiation is modulated by hunger at specific nodes
+                                    How is sugar taste information integrated with hunger state to promote feeding initiation in food-­
+                                    deprived flies? Hunger modulates sugar GRN activity (Inagaki et al., 2012); however, whether sensory
+                                    gating is the only mechanism for hunger regulation or whether modulation of central neurons contrib-
+                                    utes to an altered network state in hungry animals has not been examined. To comprehensively inves-
+                                    tigate how taste detection is integrated with hunger state to initiate feeding, we optogenetically
+                                    activated each neuron in the PER circuit in either fed or food-­deprived flies and examined behavior.
+                                    Optogenetic activation has the advantage of bypassing changes in sugar sensory detection that prop-
+                                    agate through the circuit, enabling the evaluation of central circuit changes.
+                                        We reasoned that activating neurons upstream of or at the node(s) where hunger modulation
+                                    occurs would cause differences in proboscis extension rates between hungry and fed flies, whereas
+                                    activating neurons beyond the site where hunger impinges would not. Indeed, CsChrimson-­mediated
+                                    activation of sugar GRNs caused higher proboscis extension rates in food-­deprived flies than in fed
+                                    flies, whereas activation of MN9 elicited the same proboscis extension rate in food-­deprived and
+                                    fed flies (Figure 4A–C). Moreover, activation of two second-­order neurons, G2N-­1, and Clavicle,
+                                    increased proboscis extension in food-­deprived flies, whereas activation of all other neural classes did
+                                    not (Figure 4A and D). Thus, hunger signals act on sensory neurons to increase detection sensitivity
+                                    and on a specific set of second-­order interneurons to amplify sugar pathway activation and promote
+                                    feeding.
+
+
+                                    Premotor neurons integrate sweet and bitter taste information
+                                    Animals evaluate both internal nutritive state and food quality to decide whether to initiate feeding.
+                                    To investigate how food quality alters feeding initiation, we examined how the detection of bitter
+                                    compounds is integrated with sugar taste information in the feeding initiation circuit. Previous studies
+                                    have demonstrated that bitter compounds inhibit sugar-­sensing gustatory neurons to prevent feeding
+                                    (Chu et al., 2014; French et al., 2015; Jeong et al., 2013; Meunier et al., 2003), but have not
+                                    addressed how downstream neural circuitry modulates appetitive feeding behaviors in response to
+                                    bitter taste detection. To investigate central mechanisms of bitter modulation, we examined whether
+                                    pathways from bitter GRNs intersect with the feeding initiation pathway.
+                                       As bitter GRNs do not directly synapse with neurons in the feeding initiation circuit, we asked
+                                    whether second-­order bitter neurons synapse onto the feeding initiation pathway. We reconstructed
+                                    neurons downstream of bitter GRNs (Engert et al., 2021) in the EM volume and identified a second-­
+                                    order bitter neuron, Scapula, which receives over 150 synapses from bitter GRNs and is the second-­
+                                    most strongly connected cell type with bitter GRNs (Figure 5A and Figure 5—figure supplement 1).
+                                    Scapula synapses directly onto two feeding initiation premotor neurons, Roundup and Rounddown,
+                                    but not onto second- or third-­order appetitive taste neurons.
+                                       Because bitter taste detection inhibits proboscis extension, we hypothesized that Roundup and
+                                    Rounddown would be inhibited by Scapula to prevent proboscis extension to sugar in the pres-
+                                    ence of bitter compounds. Consistent with this hypothesis, Scapula is predicted to release gluta-
+                                    mate (Figure 2—figure supplement 1D), which is often an inhibitory neurotransmitter in Drosophila
+                                    (Liu and Wilson, 2013). To test this, we monitored activity in Roundup by in vivo calcium imaging
+                                    while activating sugar GRNs, bitter GRNs, or both, using optogenetics to bypass sensory modula-
+                                    tion. Roundup responded to optogenetic activation of sugar GRNs but not bitter GRNs (Figure 5B),
+                                    as expected based on its response to taste compounds (Figure 3B). Upon co-­activation of sugar
+                                    and bitter GRNs, the Roundup response was dramatically decreased compared to the response to
+                                    sugar GRN activation alone, arguing that bitter signals suppress the feeding initiation pathway. To
+                                    test whether this bitter suppression reflects a central mechanism acting at Roundup, we monitored
+                                    activity in a second-­order neuron, G2N-­1, directly upstream of Roundup, and found that its response
+                                    upon co-­activation of sugar and bitter GRNs was indistinguishable from its response to sugar GRN
+
+
+Shiu, Sterne et al. eLife 2022;11:e79887. DOI: https://doi.org/10.7554/eLife.79887                                                   8 of 24
+           Research article﻿﻿﻿﻿﻿﻿                                                                                                                                                Neuroscience
+
+
+
+                                       A                                    Second-order                                                                         Hunger modulation
+                                                                                                                  Third-order
+                                                                              Zorro
+                                                                                                                                                Premotor                        Yes
+                                                                                                                                                 Roundup                        No
+                                                                                           Clavicle                  Sternum
+                                                                              G2N-1
+
+                                       Sugar GRNs                                          Rattle                                                Roundtree           MN9
+                                                                                                                     Bract 1
+                                                                              Usnea
+                                                                                                                                                 Rounddown
+                                                                                           FMIn
+                                                                              Phantom                                Fdg       Bract 2
+                                                                                                                                                                            Fed
+                                                                                                                                                                               Deprived
+                                       B 200                                                  c 100                                      ***      100
+                                                           csChrimson activation                            Sugar GRNs                                      MN9
+                                                                                        150
+                                                                                                                                 ***
+                                                                                                                       ***
+                                        µW/mm 2
+
+
+
+
+                                                                                               % PER
+
+
+
+
+                                                                                                                                               % PER
+                                             100                                                       50                                              50
+                                                                                                               ***
+
+
+                                                                               18
+                                                           1.8     9
+                                                   0                                                    0                                               0
+                                                       1               2           3          4               1        2        3        4                   1      2       3         4
+                                       d 100                           Laser setting                100                                           100
+                                                           Zorro                                            Clavicle                                        G2N-1
+
+                                                                                                                                         ***
+                                                                                                                                 ***                                ***
+                                        % PER
+
+
+
+
+                                                                                               % PER
+
+
+
+
+                                                                                                                                               % PER
+                                                  50                                                   50                                              50
+                                                                                                                       ***
+
+
+
+
+                                                   0                                                    0                                               0
+                                                             1          2       3      4                      1        2        3        4                   1      2       3         4
+                                             100                                                    100                                           100
+                                                           Rattle                                           Usnea                                           FMin
+                                        % PER
+
+
+
+
+                                                                                               % PER
+
+
+
+
+                                                                                                                                               % PER
+
+
+
+                                                  50                                                   50                                              50
+
+
+
+
+                                                   0                                                    0                                               0
+                                                             1          2       3      4                      1        2        3        4                   1      2       3         4
+                                             100                                                    100                                           100
+                                                           Bract                                            Fdg                                             Roundup
+                                        % PER
+
+
+
+
+                                                                                               % PER
+
+
+
+
+                                                                                                                                               % PER
+
+
+
+
+                                                  50                                                   50                                              50
+
+
+
+
+                                                   0                                                   0                                                0
+                                                             1          2       3      4                      1        2        3        4                   1      2       3         4
+
+
+
+
+                                    Figure 4. Hunger acts on a subset of second-­order central neurons to modulate behavior. (A) Schematic of the
+                                    feeding initiation circuit, with filled green circles representing nodes that are hunger-­modulated. (B) Optogenetic
+                                    activation at four different light intensities. (C) Activation of sugar-­sensing neurons results in different feeding
+                                    initiation rates between fed and food-­deprived flies (left) whereas activation of MN9 does not (right), at four
+                                    Figure 4 continued on next page
+
+
+
+Shiu, Sterne et al. eLife 2022;11:e79887. DOI: https://doi.org/10.7554/eLife.79887                                                                                                       9 of 24
+           Research article﻿﻿﻿﻿﻿﻿                                                                                                           Neuroscience
+
+                                    Figure 4 continued
+                                    different light intensities. n=50. (D) Optogenetic activation of second-­order, third-­order, and premotor neurons in
+                                    either fed or food-­deprived flies. n=39–103. Mean ± 95% CI, Fisher’s Exact Tests, ***p<0.001.
+                                    The online version of this article includes the following source data for figure 4:
+                                    Source data 1. Source data for behavioral experiments in Figure 4.
+
+
+
+
+                                    activation alone (Figure 5C). Together, the EM and imaging studies demonstrate that sugar and bitter
+                                    tastes are integrated at feeding initiation premotor neurons, providing a central mechanism to reject
+                                    sweet foods laced with bitter compounds.
+
+
+
+                                    Discussion
+                                    In this study, we couple EM circuit reconstruction with the ability to precisely monitor and manipu-
+                                    late single neurons to elucidate how a complex nervous system orchestrates the decision to initiate
+                                    feeding. First, we delineate the sensorimotor circuit for feeding initiation from sensory inputs to motor
+                                    outputs with cellular and synaptic resolution. Then, we demonstrate how this central circuit inte-
+                                    grates taste detection with internal state, providing mechanistic insight into how taste modalities and
+                                    feeding decisions are encoded in the brain.
+
+
+                                    A local, interconnected network transforms sweet taste detection into
+                                    behavior
+                                    Previous studies in Drosophila have identified gustatory neurons, motor neurons, and three candidate
+                                    interneurons that influence feeding initiation (Flood et al., 2013; Gordon and Scott, 2009; Kain and
+                                    Dahanukar, 2015; McKellar et al., 2020; Miyazaki et al., 2015; Talay et al., 2017). Here, by eluci-
+                                    dating a complete sensorimotor circuit with synaptic resolution, we provide a comprehensive view
+                                    of the neural pathway that elicits proboscis extension, the first step in feeding. The feeding initiation
+                                    pathway is a local circuit, with three- and four-­synaptic relays to motor output. Each neuron elicits
+                                    proboscis extension upon optogenetic activation, demonstrating that each neuron participates in a
+                                    pathway for the behavior. Inhibiting activity of single second-­order neurons reduced the behavioral
+                                    response, whereas inhibiting activity of third-­order or premotor neurons did not. As inhibiting activity
+                                    of single neurons did not abolish proboscis extension, this demonstrates that additional paths not
+                                    requiring the individual neural cell type contribute to this innate behavior. These results are consistent
+                                    with the circuit connectivity, which reveals that there are multiple routes between sugar GRNs and
+                                    MN9 for proboscis extension. The multiple paths from second-­order neurons to premotor neurons
+                                    may enable proboscis extension to be recruited in different contexts to ensure robust feeding. More
+                                    generally, multiple circuit paths may enhance behavioral flexibility by facilitating sensory tuning and
+                                    multisensory integration (Miroschnikow et al., 2018; Ohyama et al., 2015).
+                                        Consistent with our finding that there are multiple pathways for proboscis extension, EM circuit
+                                    tracing of sensorimotor paths for feeding in Drosophila larvae revealed both direct GRN-­motor neuron
+                                    synapses as well as indirect pathways (Miroschnikow et al., 2018). The functional significance of this
+                                    circuit organization has not been explored. Although we did not identify direct GRN-­motor neuron
+                                    synaptic connections for proboscis extension in adult Drosophila, other feeding subprograms such as
+                                    pharyngeal pumping may utilize direct sensory to motor connections and remain to be discovered.
+                                        Most neurons in the proboscis extension pathway respond to sugar taste detection, but not to
+                                    water or bitter tastes, in food-­deprived flies, demonstrating a direct line from sweet taste detection
+                                    to the motor output for feeding. How water taste modulates proboscis extension in thirsty flies will
+                                    require further study. Importantly, we identified and characterized three second-­order neurons that
+                                    respond to water taste detection: one is selective for water taste, another responds to both water and
+                                    sugar tastes, and the third shows state-­dependent sugar and water taste responses. Further study of
+                                    these second-­order neurons and their connectivity will be critical to evaluate the degree of separation
+                                    or convergence of water and sugar pathways for feeding initiation. Moreover, we find that second-­
+                                    order neurons that respond to sugar receive inputs from sugar GRNs as well as candidate water and
+                                    high-­salt GRNs. This hints at the exciting possibility that second-­order neurons integrate multiple taste
+
+
+Shiu, Sterne et al. eLife 2022;11:e79887. DOI: https://doi.org/10.7554/eLife.79887                                                               10 of 24
+           Research article﻿﻿﻿﻿﻿﻿                                                                                                             Neuroscience
+
+
+                                     A Bitter                                                     Bitter modulation
+                                         GRNs               Scapula
+                                                                                                               Yes
+                                                                                                               No
+
+                                                            Zorro
+                                                                                                           Roundup
+                                                                       Clavicle
+                                                                                        Sternum
+                                                           G2N-1
+                                         Sugar                         Rattle           Bract 1            Roundtree
+                                                                                                                               MN9
+                                         GRNs
+                                                            Usnea                                          Rounddown
+                                                                                  Fdg        Bract 2
+                                                                       FMIn
+                                                            Phantom
+                                     B        Roundup
+                                          4                                                            5
+
+                                          3                                                            4
+                                                                                                                    ***
+                                                                                                       3       *          ns
+                                          2
+                                                                                                       2
+                                          1
+                                                                                                       1
+                                          0                                                            0
+                                         -1                                                       -1
+                                              0      10         20       30         40        50 Gr5a      +        +
+                                                                Time (secs)                     Gr66a               +           +
+                                     C        G2N-1
+                                          4                                                            5
+                                                                                                                    **
+                                                                                                       4       ns         **
+                                          3
+                                                                                                       3
+                                          2
+                                                                                                       2
+                                          1
+                                                                                                       1
+                                          0                                                            0
+                                         -1                                                       -1
+                                              0      10         20       30         40        50 Gr5a      +        +
+                                                                Time (secs)                     Gr66a               +           +
+
+                                    Figure 5. Premotor neurons integrate sweet and bitter taste detection. (A) Schematic of the feeding initiation
+                                    circuit, showing a pathway from bitter GRNs to premotor neurons. Filled maize circle labels a premotor neuron
+                                    inhibited by bitter tastants, filled gray circle labels an upstream second-­order neuron that is not inhibited by bitter
+                                    tastants. (B and C) Calcium responses of feeding circuit neurons to optogenetic activation of sugar (green, Gr5a-­
+                                    LexA), sugar plus bitter (maize, Gr5a-­LexA plus Gr66a-­LexA), or bitter (red, Gr66a-­LexA) GRNs in food-­deprived
+                                    flies. For each cell type, Syt::GCaMP7b fluorescence traces are shown on the left of the panel (ΔF/F), while ΔF/F
+                                    area for each trace is shown on the right. Periods of stimulation with 660 nm light are indicated with vertical
+                                    gray bars. (B) SS47744 was imaged to examine Roundup responses. (C) SS47082 was imaged to examine G2N-­1
+                                    responses. (B-­C) Kruskal Wallace test with Dunn’s test using Holm’s correction to adjust for multiple comparisons,
+                                    n=6-­8 flies per genotype, ns p>0.05, *p≤0.05, **p≤0.01, ***p≤0.001. See Figure 5—figure supplement 1 for
+                                    synaptic counts of second-­order bitter neurons.
+                                    The online version of this article includes the following source data and figure supplement(s) for figure 5:
+                                    Source data 1. Source data for calcium imaging experiments in Figure 5.
+                                    Figure supplement 1. Second-­order bitter neurons, related to Figure 5.
+
+
+
+                                    modalities and may show responses that vary based on nutritive state. Furthermore, functional studies
+                                    will be essential to assess taste integration by second-­order neurons.
+                                       Of the interneurons identified here, only G2N-­1 and Fdg have previously been implicated in feeding.
+                                    G2N-­1 was identified as a candidate sugar-­sensing second-­order neuron based on its anatomical
+                                    proximity to gustatory axons alone (Miyazaki et al., 2015); here, we elucidated its functional role in
+
+
+Shiu, Sterne et al. eLife 2022;11:e79887. DOI: https://doi.org/10.7554/eLife.79887                                                                 11 of 24
+           Research article﻿﻿﻿﻿﻿﻿                                                                                                Neuroscience
+
+                                    taste detection and feeding initiation. Fdg was isolated as a ‘feeding command neuron,’ able to elicit
+                                    multiple steps in feeding, including proboscis extension (Flood et al., 2013). In our calcium imaging
+                                    studies, Fdg did not respond to proboscis taste stimulation but did respond to optogenetic activation
+                                    of sugar GRNs. This suggests that Fdg may receive gustatory signals from GRNs on the pharynx or
+                                    legs. Our studies demonstrate that Fdg is a third-­order neuron in the feeding initiation pathway, with
+                                    synaptic connections to Bract descending neurons. A description of the reconstruction of all FlyWire
+                                    DNs is in preparation (K. Eichler, M. Costa, G. Card, G. Jefferis, personal communication). As Bract
+                                    synapses with proboscis premotor neurons and ventral cord circuits, Fdg and Bract are well-­poised to
+                                    coordinate proboscis extension with other steps in feeding.
+                                        The architecture of the circuit provides a platform to investigate how taste signals are transformed
+                                    in the brain to drive behavior. In this study, we focused on MN9, the rostrum protractor motor neuron
+                                    that elicits proboscis extension, as a key readout of proboscis extension behavior. However, proboscis
+                                    extension involves not only rostrum protraction but also extension of the haustellum and opening of
+                                    the labellum, controlled by additional motor neurons (McKellar et al., 2020). We hypothesize that
+                                    the connectivity among second- and third-­order neurons may coordinate the precise temporal activa-
+                                    tion of different muscle groups for coordinated extension. Moreover, proboscis extension is followed
+                                    by ingestion and then meal termination (Dethier, 1976; Pool and Scott, 2014). Continued expan-
+                                    sion and exploration of this pathway will provide the opportunity to examine how different feeding
+                                    subprograms are timed and coordinated to elicit feeding in natural environments.
+
+
+                                    Hunger tunes second-order neurons to promote sugar responses
+                                    Studies in C. elegans, Drosophila, and mammals have demonstrated that a key site of hunger regula-
+                                    tion is at the peripheral chemosensory neurons, altering sensitivity of detection (Chalasani et al., 2010;
+                                    Kawai et al., 2000; Root et al., 2011; Savigner et al., 2009; Sengupta, 2013). For example, dopa-
+                                    mine enhances the sensitivity of Drosophila sugar-­sensing gustatory neurons to promote proboscis
+                                    extension at lower sucrose concentrations in hungry animals (Inagaki et al., 2012; Marella et al.,
+                                    2012). Hunger modulation of taste processing beyond sensory neurons has been more challenging to
+                                    evaluate, both because of lack of knowledge of central networks and because changes at the sensory
+                                    level propagate through the network.
+                                       To isolate the role of central brain neurons in hunger modulation, we used the precise genetic
+                                    access available in Drosophila to activate each node of the feeding initiation pathway and examined
+                                    the behavioral response elicited in fed and food-­deprived flies. These studies pinpoint the site of
+                                    hunger modulation to sensory neurons and two second-­order neurons. Although caveats of artificial
+                                    stimulation exist, the consistent changes seen across different light intensities for neural manipulation
+                                    early in the pathway, but not downstream, argue that these results are robust. These studies demon-
+                                    strate that hunger acts at a few critical nodes to modulate feeding initiation: sensory neurons increase
+                                    detection sensitivity and second-­order neurons amplify pathway activation. It will be interesting to
+                                    examine whether hunger modulation of sensory and second-­order neurons occurs independently
+                                    or over different time scales to adjust behavioral responses as starvation increases. In addition, the
+                                    specific hunger signals that act on central neurons and their mechanism of modulation may now be
+                                    explored.
+
+
+                                    Bitter compounds inhibit premotor neurons to prevent feeding
+                                    initiation
+                                    While previous studies have demonstrated interactions between sweet and bitter taste modalities
+                                    at the level of sensory neurons (Chu et al., 2014; French et al., 2015; Jeong et al., 2013; Meunier
+                                    et al., 2003 LeDue et al., 2016) and through feedback from the mammalian gustatory cortex (Jin
+                                    et al., 2021), this study reveals a third circuit strategy for weighing sweet and bitter tastes: a local
+                                    inhibitory network. Inhibitory interactions between bitter and sugar pathways at the level of premotor
+                                    neurons provide an elegant strategy to weigh incoming sugar and bitter taste information and adjust
+                                    behavioral probability. In addition, by blocking activity at specific muscles, bitter detection may specif-
+                                    ically change behavior to direct the proboscis away from a hazardous food source. The existence of
+                                    a local inhibitory circuit for bitter-­sweet integration has been recently postulated based on studies
+                                    of mammalian taste circuitry (Jin et al., 2021) and may be a shared strategy across species. These
+
+
+Shiu, Sterne et al. eLife 2022;11:e79887. DOI: https://doi.org/10.7554/eLife.79887                                                    12 of 24
+           Research article﻿﻿﻿﻿﻿﻿                                                                                                       Neuroscience
+
+                                          multiple circuit mechanisms for suppression of sweet attraction by bitter signals may reflect the evolu-
+                                          tionary importance of robust bitter taste avoidance.
+                                              By examining a complete sensorimotor pathway, we elucidate how a complex nervous system
+                                          orchestrates the decision to initiate feeding and illuminate central modules that integrate taste detec-
+                                          tion with internal state. These central controls afford independent amplification and suppression of
+                                          feeding and stand apart from sensory modulation as mechanisms that dynamically tune behavior. As
+                                          sensory modulation may suffer from finite amplification and incomplete suppression, central modu-
+                                          lation provides a strategy to bypass those limits, allowing a broader range and different temporal
+                                          dynamics of modulation.
+
+
+                                          Materials and methods
+Key resources table
+Reagent type
+(species) or resource        Designation                          Source or reference                   Identifiers        Additional information
+
+                                                                                                        DSHB Cat# nc82,
+Antibody                     Anti-­Brp (mouse monoclonal)         DSHB, University of Iowa, USA         RRID:AB_2314866    1/500
+
+                             Anti-­GFP (chicken polyclonal)       Thermo Fisher Scientific              Thermo Fisher
+                                                                                                        Scientific
+                                                                                                        Cat# A10262,
+Antibody                                                                                                RRID:AB_2534023    1/1000
+
+                             Anti-­dsRed (rabbit polyclonal)      Takara                                Takara Bio
+                                                                                                        Cat# 632496,
+Antibody                                                                                                RRID:AB_10013483   1/1000
+
+                             Anti-­chicken Alexa Fluor 488 (goat Thermo Fisher Scientific               Thermo Fisher      1/100
+                             polyclonal)                                                                Scientific
+                                                                                                        Cat# A-­11039,
+Antibody                                                                                                RRID:AB_2534096
+
+                             Anti-­rabbit Alexa Fluor 568 (goat   Thermo Fisher Scientific              Thermo Fisher
+                             polyclonal)                                                                Scientific
+                                                                                                        Cat# A-­11036,
+Antibody                                                                                                RRID:AB_10563566   1/100
+
+                             Anti-­mouse Alexa Fluor 647 (goat    Thermo Fisher Scientific              Thermo Fisher
+                             polyclonal)                                                                Scientific
+                                                                                                        Cat# A-­21236,
+Antibody                                                                                                RRID:AB_2535805    1/100
+
+Chemical Compound,
+drug                         All trans-­Retinal                   MilliporeSigma                        Cat # R2500
+
+Genetic reagent (D.          20XUAS-­IVS-­CsChrimson.mVenus       Bloomington Stock Center;
+melanogaster)                attP18                               Klapoetke et al., 2014                RRID:BDSC_55134
+
+Genetic reagent (D.
+melanogaster)                UAS-­GtACR1.d.EYFP}attP2             Bloomington Stock Center              RRID:BDSC_92983
+
+                                                                                                                           Full genotype: w; R12C04-­
+                                                                                                                           p65ADZp in attP40;
+Genetic reagent (D.                                                                                                        VT043788-­ZpGDBD in
+melanogaster)                Zorro split-­GAL4, SS67405           Janelia Research Campus                                  attP2
+
+                                                                                                                           Full genotype: w; R12C04-­
+                                                                                                                           p65ADZp in attP40;
+Genetic reagent (D.                                                                                                        VT020600-­ZpGDBD in
+melanogaster)                Zorro split-­GAL4, SS67406           Janelia Research Campus                                  attP2
+
+                                                                                                                           Full genotype: w;
+                                                                  Janelia Research Campus; Sterne                          VT020732-­p65ADZp in
+Genetic reagent (D.                                               et al., 2021; available at http://​                      attP40; R17G10-­ZpGDBD
+melanogaster)                Clavicle split-­GAL4, SS48947        splitgal4.janelia.org                                    in attP2
+
+                                                                                                                           Full genotype: w; R12C04-­
+                                                                  Janelia Research Campus; Sterne                          p65ADZp in attP40;
+Genetic reagent (D.                                               et al., 2021; available at http://​                      VT043658-­ZpGDBD in
+melanogaster)                G2N-­1 split-­GAL4, SS47082          splitgal4.janelia.org                                    attP2
+
+Continued on next page
+
+
+
+Shiu, Sterne et al. eLife 2022;11:e79887. DOI: https://doi.org/10.7554/eLife.79887                                                           13 of 24
+            Research article﻿﻿﻿﻿﻿﻿                                                                                               Neuroscience
+
+Continued
+Reagent type
+(species) or resource         Designation                      Source or reference                    Identifiers   Additional information
+
+                                                                                                                    Full genotype: w; R12C04-­
+                                                               Janelia Research Campus; Sterne                      p65ADZp in attP40;
+Genetic reagent (D.                                            et al., 2021; available at http://​                  VT020839-­ZpGDBD in
+melanogaster)                 G2N-­1 split-­GAL4, SS56399      splitgal4.janelia.org                                attP2
+
+                                                                                                                    Full genotype: w;
+                                                               Janelia Research Campus; Sterne                      VT006545-­p65ADZp in
+Genetic reagent (D.                                            et al., 2021; available at http://​                  attP40; VT023745-­ZpGDBD
+melanogaster)                 Rattle split-­GAL4, SS50091      splitgal4.janelia.org                                in attP2
+
+                                                                                                                    Full genotype: w;
+                                                               Janelia Research Campus; Sterne                      VT037525-­p65ADZp in
+Genetic reagent (D.                                            et al., 2021; available at http://​                  attP40; VT033627-­ZpGDBD
+melanogaster)                 Usnea split-­Gal4, SS37122       splitgal4.janelia.org                                in attP2
+
+                                                                                                                    Full genotype: w;
+                                                               Janelia Research Campus; Sterne                      VT038544-­p65ADZp in
+Genetic reagent (D.           Usnea and Cleaver split-­Gal4,   et al., 2021; available at http://​                  attP40; VT019345-­ZpGDBD
+melanogaster)                 SS31022                          splitgal4.janelia.org                                in attP2
+
+                                                               Janelia Research Campus; Sterne                      Full genotype: w; R81E10-­
+Genetic reagent (D.                                            et al., 2021; available at http://​                  p65ADZp in attP40;
+melanogaster)                 FMIn split-­GAL4, SS48944        splitgal4.janelia.org                                R17G10-­ZpGDBD in attP2
+
+                                                               Janelia Research Campus; Sterne                      Full genotype: w; R81E10-­
+Genetic reagent (D.                                            et al., 2021; available at http://​                  p65ADZp in attP40;
+melanogaster)                 FMIn split-­GAL4, SS48949        splitgal4.janelia.org                                R21H11-­ZpGdbd in attP2
+
+                                                               Janelia Research Campus; Sterne                      Full genotype: w; R82F02-­
+Genetic reagent (D.                                            et al., 2021; available at http://​                  p65ADZp in attP40;
+melanogaster)                 Phantom split-­GAL4, SS43877     splitgal4.janelia.org                                R20G06-­ZpGdbd in attP2
+
+                                                               Janelia Research Campus; Sterne                      Full genotype: w; R20G06-­
+Genetic reagent (D.                                            et al., 2021; available at http://​                  p65ADZp in attP40;
+melanogaster)                 Phantom split-­GAL4, SS43879     splitgal4.janelia.org                                R82F02-­ZpGDBD in attP2
+
+                                                                                                                    Full genotype: w; R20G06-­
+Genetic reagent (D.                                                                                                 p65ADZp in attP40;
+melanogaster)                 Phantom split-­GAL4, SS68204     Janelia Research Campus                              R81A07-­ZpGdbd in attP2
+
+                                                               Janelia Research Campus; Sterne                      Full genotype: w; R59F08-­
+Genetic reagent (D.                                            et al., 2021; available at http://​                  p65ADZp in attP40;
+melanogaster)                 Fudog split-­GAL4, SS35290       splitgal4.janelia.org                                R69E06-­ZpGDBD in attP2
+
+                                                                                                                    Full genotype: w;
+                                                               Janelia Research Campus; Sterne                      VT038225-­p65ADZp in
+Genetic reagent (D.                                            et al., 2021); available at http://​                 attP40; R69E06-­ZpGDBD
+melanogaster)                 Fudog split-­GAL4, SS35291       splitgal4.janelia.org                                in attP2
+
+                                                                                                                    Full genotype: w; R25A01-­
+                                                               Janelia Research Campus; Sterne                      p65ADZp in attP40;
+Genetic reagent (D.                                            et al., 2021; available at http://​                  VT058723-­ZpGDBD in
+melanogaster)                 Bract split-­GAL4, SS31320       splitgal4.janelia.org                                attP2
+
+                                                               Janelia Research Campus; Sterne                      Full genotype: w; R25A01-­
+Genetic reagent (D.                                            et al., 2021; available at http://​                  p65ADZp in attP40;
+melanogaster)                 Bract split-­GAL4, SS31386       splitgal4.janelia.org                                R37D11-­ZpGDBD in attP2
+
+                                                                                                                    Full genotype: w; R81E10-­
+                                                               Janelia Research Campus; Sterne                      p65ADZp in attP40;
+Genetic reagent (D.                                            et al., 2021; available at http://​                  VT037804-­ZpGDBD in
+melanogaster)                 Fdg split-­GAL4, SS31333         splitgal4.janelia.org                                attP2
+
+                                                               Janelia Research Campus; Sterne                      Full genotype: w; R81E10-­
+Genetic reagent (D.                                            et al., 2021; available at http://​                  p65ADZp in attP40;
+melanogaster)                 Fdg split-­GAL4, SS46913         splitgal4.janelia.org                                R88C07-­ZpGdbd in attP2
+
+Continued on next page
+
+
+
+
+Shiu, Sterne et al. eLife 2022;11:e79887. DOI: https://doi.org/10.7554/eLife.79887                                                    14 of 24
+            Research article﻿﻿﻿﻿﻿﻿                                                                                                      Neuroscience
+
+Continued
+Reagent type
+(species) or resource         Designation                         Source or reference                   Identifiers        Additional information
+
+                                                                                                                           Full genotype: w; R23G11-­
+                                                                  Janelia Research Campus; Sterne                          p65ADZp in attP40;
+Genetic reagent (D.                                               et al., 2021; available at http://​                      VT003236-­ZpGDBD in
+melanogaster)                 Roundup split-­GAL4, SS47744        splitgal4.janelia.org                                    attP2
+
+                                                                                                                           Full genotype: w; R11B11-­
+                                                                  Janelia Research Campus; Sterne                          p65ADZp in attP40;
+Genetic reagent (D.                                               et al., 2021; available at http://​                      VT003236-­ZpGDBD in
+melanogaster)                 Roundup split-­GAL4, SS47745        splitgal4.janelia.org                                    attP2
+
+Genetic reagent (D.           20xUAS >dsFRT > csChrimson-­
+melanogaster)                 mVenus                              Wu et al., 2016
+
+Genetic reagent (D.
+melanogaster)                 8XLexAop2-­FLPL(attP40)             Bloomington Stock Center              RRID:BDSC_55820
+
+Genetic reagent (D.
+melanogaster)                 ;;Dfd-­LexA                         Simpson, 2016
+
+Genetic reagent (D.
+melanogaster)                 ;;Scr-­LexA                         Simpson, 2016
+
+Genetic reagent (D.           w[1118]; 20XUAS-­IVS-­
+melanogaster)                 GCaMP6s(attP40);                    Bloomington Stock Center              RRID: BDSC_42746
+
+Genetic reagent (D.
+melanogaster)                 Gr64f-­Gal4 (II)                    Kwon et al., 2011
+
+Genetic reagent (D.                                               Bloomington Stock Center; Cameron
+melanogaster)                 Ppk28-­Gal4                         et al., 2010                      RRID:BDSC_93020
+
+Genetic reagent (D.
+melanogaster)                 Gr64f-­LexA                         Miyamoto et al., 2012
+
+Genetic reagent (D.                                               Thistle et al., 2012; Bloomington
+melanogaster)                 Gr66a-­LexA(II)                     Stock Center;                         RRID:BDSC_93023
+
+Genetic reagent (D.
+melanogaster)                 Gr66a-­LexA5(III)                   Thistle et al., 2012
+
+Genetic reagent (D.
+melanogaster)                 UAS-­CD8-­tdTomato;;                Thistle et al., 2012
+
+Genetic reagent (D.           w[1118]; 20XUAS-­IVS-­
+melanogaster)                 GCaMP6s(attP40);                    Bloomington Drosophila Stock Center RRID: BDSC_42746
+
+Genetic reagent (D.           w[1118];; 20XUAS-­
+melanogaster)                 IVSGCaMP6s(VK00005)                 Bloomington Drosophila Stock Center RRID: BDSC_42749
+
+Genetic reagent (D.
+melanogaster)                 Gr5a-­LexA-­VP16(II)                Gordon and Scott, 2009                RRID:BDSC_93014
+
+Genetic reagent (D.
+melanogaster)                 ppk28-­LexA(III)                    Thistle et al., 2012
+
+Genetic reagent (D.           13XLexAop2-­IVS-­p10-­ChrimsonR-­
+melanogaster)                 mCherry(attP18)                     Vivek Jarayaman
+
+Genetic reagent (D.
+melanogaster)                 20XUAS-­IVS-­jGCaMP7b(attP5)        Bloomington Stock Center              RRID:BDSC_80907
+
+Genetic reagent (D.
+melanogaster)                 20XUAS-­IVS-­jGCaMP7b(VK00005)      Bloomington Stock Center              RRID:BDSC_79029
+
+Genetic reagent (D.           20xUAS-­IVS-­Syn21-­Syt::Op-­
+melanogaster)                 jGCaMP7b(attP18)                    Vivek Jarayaman, Chuntao Dan
+
+Software, Algorithm           Fiji                                https://fiji.sc/                      RRID: SCR_002285
+
+                              Computational Morphometry
+Software, Algorithm           Toolkit (CMTK)                      Masse et al., 2012
+
+Continued on next page
+
+
+
+
+Shiu, Sterne et al. eLife 2022;11:e79887. DOI: https://doi.org/10.7554/eLife.79887                                                           15 of 24
+            Research article﻿﻿﻿﻿﻿﻿                                                                                                      Neuroscience
+
+Continued
+Reagent type
+(species) or resource         Designation                      Source or reference                        Identifiers       Additional information
+
+                                                               Costa et al., 2016; http://nblast.​
+                                                               virtualflybrain.org:8080/NBLAST_on-​
+                                                               the-fly/; http://flybrain.mrc-lmb.cam.​
+Software, Algorithm           NBLAST                           ac.uk/si/nblast/www/
+
+                                                               Otsuna et al., 2018; https://github.​
+Software, Algorithm           VVDviewer                        com/takashi310/VVD_Viewr
+
+                                                               Graphpad Software; https://www.​
+                                                               graphpad.com/scientific-software/​
+Software, Algorithm           GraphPad Prism                   prism/                                     RRID:SCR_002798
+
+                                                               Python Software Foundation; https://
+Software, Algorithm           Python                           www.python.org/downloads/
+
+Software, Algorithm           Flywire                          Flywire; https://flywire.ai/               RRID:SCR_019205
+
+                                                               Adobe Software; https://www.adobe.​
+Software, Algorithm           Adobe Illustrator                com/products/illustrator.html
+
+                                                               Saalfeld et al., 2009; https://catmaid.​
+Software, Algorithm           CATMAID                          org
+
+                                                               https://github.com/seung-lab/​
+                              CAVE (connectome annotation      CAVEclient/blob/master/FlyWireS​
+Software, Algorithm           versioning engine)               ynapseTutorial.ipynb
+
+Software, Algorithm           R Project for Statistical Computing R Development Core Team, 2018           RRID:SCR_001905
+
+                                                               Bushey, 2019; https://github.com/​
+Software, Algorithm           CircuitCatcher                   DanBushey/CircuitCatcher
+
+                                                               Pohlert, 2021; https://CRAN.R-​
+Software, Algorithm           PMCMRplus package                project.org/package=PMCMRplus
+
+                                                               Virtanen et al., 2020; https://scipy.​
+Software, Algorithm           SciPy package                    org/
+
+                                                               Terpilowski, 2018; https://scikit-​
+Software, Algorithm           scikit-­posthocs package         posthocs.readthedocs.io/en/latest/
+
+
+                                          Experimental model and subject details
+                                          Rearing conditions and strains
+                                          All experiments were performed in the fruit fly Drosophila melanogaster. The key resources table
+                                          lists the transgenic lines used in this study. Flies were reared on standard cornmeal-­yeast-­molasses
+                                          media at 25°C with 65% humidity and a 12 hr: 12 hr light: dark cycle unless stated otherwise. Flies for
+                                          optogenetic experiments were raised on standard food in darkness. Upon eclosion, adult flies were
+                                          collected and maintained on standard food supplemented with 0.4 mM all-­trans-­retinal in darkness
+                                          prior to experiments. Adult mated female flies were used for all experiments.
+
+
+                                          Method details
+                                          EM neural reconstructions
+                                          Neurons were reconstructed in a serial section transmission electron volume (Full Adult Female Brain,
+                                          Zheng et al., 2018) using the CATMAID software (Saalfeld et al., 2009). Fully manual reconstructions
+                                          were generated by following the branches of the neuron and marking the center of each branch,
+                                          thereby creating a ‘skeleton’ of each neuron. In addition to fully manual reconstructions, segments
+                                          of an automated segmentation (Li et al., 2019) were proofread and expanded to generate complete
+                                          reconstructions.
+                                             Seventeen candidate sugar GRNs in the right hemisphere were previously identified in the EM
+                                          connectome by clustering GRNs using morphology and connectivity data and comparing the resulting
+                                          clusters with immunostained GRNs responding to different taste categories (Engert et al., 2021). We
+                                          specifically reconstructed second-­order sugar neurons downstream of the candidate sugar GRNs in
+                                          the right hemisphere using two different methods. First, random presynapses of skeleton 7349219
+
+
+Shiu, Sterne et al. eLife 2022;11:e79887. DOI: https://doi.org/10.7554/eLife.79887                                                          16 of 24
+           Research article﻿﻿﻿﻿﻿﻿                                                                                                Neuroscience
+
+                                    (Engert et al., 2021) were chosen using the reconstruction sampler function of CATMAID and down-
+                                    stream partners were reconstructed. Second, large automatically generated fragments downstream
+                                    of sugar GRN axons were found and expanded. Chemical synapses were annotated as previously
+                                    described (Zheng et al., 2018); specifically, at least three of four elements of a synapse were needed
+                                    to call a synapse: a T-­bar, postsynaptic density, synaptic vesicles, and a synaptic cleft. All reconstruc-
+                                    tions for which there is a corresponding split-­Gal4 were assembled and proofread to near completion.
+
+
+                                    Neuron nomenclature
+                                    The vast majority of the neurons referred to here were named in Sterne et al., 2021. Zorro was named
+                                    because the proximal neurite forms a ‘Z.’ Scapula was named due to its resemblance to an inverted
+                                    scapula bone, and Sternum was named due to its appearance, connectivity, and proximity to Clavicle.
+                                    Roundtree and Rounddown were named because they, like Roundup (named in Sterne et al., 2021),
+                                    are premotor neurons.
+
+
+                                    Flywire connectivity analysis
+                                    Neurons corresponding to those traced in CATMAID were located in Flywire (​Flywire.​ai); both recon-
+                                    structions use the same underlying EM data (Zheng et al., 2018). To identify neurons upstream or
+                                    downstream of a set of Flywire neurons, we used CAVE (connectome annotation versioning engine;
+                                    Buhmann et al., 2021; Heinrich et al., 2018). To identify synapses of fairly high confidence, we chose
+                                    a ‘cleft_score’ cutoff of 100 (Heinrich et al., 2018).
+                                        The CATMAID skeleton IDs and Flywire IDs for each reconstructed neurons are listed here: Billiards
+                                    (CATMAID: 8606542, Flywire: 720575940634231886), Bract1 (17024882, 720575940625204508),
+                                    Bract2     (17542353,      720575940637873717),         Clavicle   (10150139,      720575940620111024),
+                                    Dandelion      (17249809,      720575940628601052),         Fdg    (16783943,      720575940632291554),
+                                    FMIn (8952676, 720575940645551748), Fuchs (7929209, 720575940623691196), Fudog
+                                    (7983275, 720575940630459463), G2N-­         1 (15079937, 720575940606258268), MN9 (16866694,
+                                    720575940616055252), Phantom (16762541, 720575940618879604), Quasimodo (8275570,
+                                    720575940619419814), Rattle (16238926, 720575940608777796), Rounddown (16886973,
+                                    720575940609112018), Roundup (16002203, 720575940620364549), Scapula (16887116,
+                                    720575940624539966), Specter (17579359, 720575940616547141), Sternum (17533840,
+                                    720575940643288356), Usnea (14890522, 720575940615947993), Zorro L (7574284,
+                                    720575940643219566), and Zorro R (7899212, 720575940629888530). FAFB neuronal reconstruc-
+                                    tions will be available from Virtual Fly Brain (https://fafb.catmaid.virtualflybrain.org/).
+
+
+                                    Genetic access to Cleaver
+                                    To gain specific genetic access to Cleaver, we used a triple intersection approach. In this approach,
+                                    CsChrimson-­mVenus will only be expressed where the expression patterns of the AD, DBD, and LexA
+                                    overlap. SS31022 (Sterne et al., 2021) labels both Cleaver and Usnea. To specifically access Cleaver,
+                                    virgins of 20xUAS >dsFRT > csChrimson-­mVenus;8XLexAop2-­FLPL(attP40);Dfd-­LexA were crossed to
+                                    males of SS31022. To specifically access Usnea in SS31022, virgins of 20xUAS >dsFRT > csChrimson-­
+                                    mVenus;8XLexAop2-­FLPL(attP40);Scr-­LexA were crossed to males of SS31022. For each intersection,
+                                    female progeny without balancers were selected for behavioral analysis.
+                                       To visualize triple intersection expression patterns, brains were dissected as described (https://
+                                    www.janelia.org/project-team/flylight/protocols, ‘Dissection and Fixation 1.2% PFA’).
+                                       The following primary antibodies were used:
+                                       •   –1:40 mouse α-Brp (nc82) (DSHB, University of Iowa, USA).
+                                       •   –1:1000 chicken α-GFP (Invitrogen A10262).
+
+                                       The following secondary antibodies were used:
+                                       •   –1:500 α-mouse AF647 (Invitrogen, A21236).
+                                       •   –1:1000 α-chicken AF488 (Life Technologies, A11039).
+
+                                       Immunohistochemistry was carried out as described (https://www.janelia.org/project-team/flylight/​
+                                    protocols, ‘IHC-­Anti-­GFP’) substituting the above antibodies and eschewing the pre-­embedding fixa-
+                                    tion steps. Ethanol dehydration and DPX mounting was carried out as described (https://www.janelia.​
+
+
+Shiu, Sterne et al. eLife 2022;11:e79887. DOI: https://doi.org/10.7554/eLife.79887                                                    17 of 24
+           Research article﻿﻿﻿﻿﻿﻿                                                                                                  Neuroscience
+
+                                    org/project-team/flylight/protocols, ‘DPX Mounting’). Images were acquired with a Zeiss LSM 880
+                                    NLO AxioExaminer at the Berkeley Molecular Imaging Center. A Plan-­Apochromat 25×/0.8 objective
+                                    was used at zoom 0.7. Acquired images had a voxel size of 0.59 μm × 0.59 μm × 1.50 μm.
+
+                                    Identification of split-GAL4 lines from EM reconstructions
+                                    NBLAST analysis was used to match neurons reconstructed in EM to neurons labeled by split-­GAL4
+                                    lines (Costa et al., 2016). Reconstructed neurons from CATMAID were transformed into the JRC2018U
+                                    template space using NAVIS (Bates et al., 2020a; Schlegel et al., 2021) and compared to a light-­
+                                    level library of 122 SEZ cell types in the SEZ split-­GAL4 collection (Sterne et al., 2021). In addition,
+                                    we added a representative image from a split-­GAL4 we designed to cover a cell type reported here,
+                                    Zorro, using previously described methods (Sterne et al., 2021). Each reconstructed neuron on the
+                                    right of the brain was compared to every SEZ cell type in the library using the natverse toolkit in
+                                    R (Bates et al., 2020b). Normalized, mean scores were calculated to control for neuron size and
+                                    segment number. The highest scoring light-­level cell type for each reconstructed neuron was consid-
+                                    ered a match if the normalized, mean NBLAST score was greater than 0.4.
+                                        Reconstructed cell types with matches include the following FAFB IDs (Top match cell type, NBLAST
+                                    score): Bract1 (Bract, 0.58), Bract2 (Bract, 0.57), Clavicle (Clavicle, 0.54), Cleaver (Cleaver, 0.57), Fdg
+                                    (Fdg, 0.64), FMIn (FMIn, 0.61), Fudog R (Fudog, 0.43), G2N-­1 (G2N-­1, 0.49), Phantom (Phantom,
+                                    0.67), Rattle (Rattle, 0.60), Roundup (0.63), Usnea (Usnea, 0.50), Zorro R (Zorro, 0.54).
+                                        Reconstructed cell types which did not return matches include the following FAFB IDs (Top match
+                                    cell type, NBLAST score): Billiards (Phantom, 0.17), Buster (Marge, 0.30), Dandelion (Clavicle, –0.16),
+                                    Fuchs (Phantom, 0.37), Quasimodo (Puddle, 0.32), Rounddown (Roundup, 0.28), Roundtree (Puddle,
+                                    0.27), Specter (Usnea, 0.16), Sternum (Rattle, 0.10).
+                                        Flywire dense reconstructions of second- and third-­order neurons (Figure 1—figure supplement
+                                    1F; Figure 2—figure supplement 1B) identified no anatomically indistinguishable neurons, except
+                                    for Bract 1 and Bract 2. Therefore, the high similarity in projection patterns between the split-­GAL4
+                                    lines and the EM neurons, as well as the functional and behavioral responses of the split-­GAL4 lines,
+                                    provide confidence that the neurons labeled by the split-­Gal4 lines match the EM neurons.
+
+                                    Optogenetic activation
+                                    PER was scored as previously described (Mann et al., 2013). Female flies were raised on standard
+                                    cornmeal-­yeast-­molasses medium, until 48 hr before experiments, when flies were placed on molasses
+                                    food with 0.4 mM retinal. Three- to five-­day-­old flies were anesthetized with carbon dioxide, mounted
+                                    onto a glass slide with nail polish, and allowed to recover for 2 hr in a humidified chamber at 22°C. For
+                                    optogenetic activation experiments, 153 uW/mm2 635 nm laser light was used (Laserglow). Flies were
+                                    scored for whether they extended their proboscis within a 5 s period in response to light. Experiments
+                                    were performed blind to genotype.
+                                        For food-­deprivation experiments, flies were raised as above, except 48 hr before experiments,
+                                    flies were wet-­starved by placing them in a vial with a water saturated kimwipe supplemented with
+                                    0.4 mM retinal. Flies were activated with a 635 nm laser at four different light intensities: 1.8, 8.9, 17.8,
+                                    and 153 uW/mm2.
+
+                                    GtACR1 silencing
+                                    Three-­day-­old female flies were raised on standard food, and transferred to standard food with
+                                    0.4 mM all-­trans retinal for 2 days. Next, flies were wet-­starved with 0.4 mM retinal in water for 24 hr
+                                    in order to identify decreases in proboscis extension. Flies were anesthetized with carbon dioxide,
+                                    mounted onto a glass slide with nail polish, and allowed to recover for 2 hr in a humidified chamber at
+                                    22°C. A green laser (532 nm, LaserGlow LBS-­532) was used to acutely silence neurons using GtACR1
+                                    (Mohammad et al., 2017). Flies were water satiated, then presented with either 50 mM sucrose or
+                                    100 mM sucrose three times to the proboscis, and the number of flies that extended at least once
+                                    was recorded.
+
+
+
+
+Shiu, Sterne et al. eLife 2022;11:e79887. DOI: https://doi.org/10.7554/eLife.79887                                                      18 of 24
+           Research article﻿﻿﻿﻿﻿﻿                                                                                               Neuroscience
+
+                                    In vivo sample preparation for calcium imaging
+                                    Mated female flies were dissected for calcium imaging studies 14–21 days post-­eclosion as previously
+                                    described (Harris et al., 2015) with the following modifications. Flies were briefly anesthetized with
+                                    ice as they were placed in a custom plastic holder at the cervix to isolate the head from the rest of the
+                                    body. The head was then immobilized using UV glue, and the esophagus was cut to provide unob-
+                                    structed imaging access to the SEZ. Flies in fed, food-­deprived, desiccated, and thirsty-­like (pseudo-
+                                    dessicated) conditions were generated as follows:
+                                       Fed: Flies were placed in a fresh vial containing standard cornmeal-­yeast-­molasses media 18–24 hr
+                                    prior to imaging. Following dissection, samples were bathed in ~250 mOsmo Artificial Hemolymph-­
+                                    Like solution (AHL) (‘artificial hemolymph’) and imaged immediately.
+                                       Food-­deprived: Flies were food-­deprived in a vial containing a wet kimwipe for 18–24 hr prior to
+                                    imaging. Following dissection, samples were bathed in ~250 mOsmo AHL and imaged immediately.
+                                       Desiccated: Flies were placed in a vial containing 5 grams of Drierite for 2 hr. A cotton ball was used
+                                    to isolate flies from the desiccant inside the vial, and the vial was closed with parafilm to create a dry
+                                    chamber. Following dissection, samples were bathed in ~250 mOsmo AHL and imaged immediately.
+                                    Hemolymph signals of thirst, such as osmolality, may be perturbed in our calcium imaging studies,
+                                    limiting our ability to accurately assess a thirsty state (Jourjine et al., 2016).
+                                       Thirsty-­like (Pseudodessicated): Flies were placed in a fresh vial containing standard cornmeal-­
+                                    yeast-­molasses media 18–24 hr prior to imaging. Following dissection, samples were bathed in ~350
+                                    mOsmo AHL (‘high osmolality artificial hemolymph’) and allowed to rest for 1 hr prior to imaging.
+
+                                    Calcium imaging with taste stimulation
+                                    For imaging responses to taste solutions, females of UAS-­                CD8-­tdTomato;20XUAS-­   IVS-­
+                                    GCaMP6s(attP5);20XUAS-­IVS-­GCaMP6s(VK00005) were crossed to males for each split-­GAL4 line,
+                                    and female progeny without balancers were selected for imaging. We found that the arborizations
+                                    of single neurons were easier to locate in vivo when two copies of GCaMP6s were used, likely due to
+                                    weaker GAL4 expression in the split-­GAL4 lines. The following tastants were used: double-­distilled
+                                    water (‘water’), 1 M sucrose (‘sugar’), or 10 mM denatonium plus 100 mM caffeine in 20% polyeth-
+                                    ylene glycol (PEG) (‘bitter’). Taste solutions were delivered to the proboscis using a glass capillary
+                                    (1.0 mm OD/ 0.78 mm ID) filled with ~4 µL of taste solution and positioned at the tip of the proboscis
+                                    using a micromanipulator. Taste solutions were drawn away from the tip of the capillary at the begin-
+                                    ning of each imaging trial using slight suction generated by an attached 1 mL syringe, and delivered
+                                    to the proboscis at the relevant time during imaging with light pressure applied to the syringe.
+                                       Calcium imaging was performed using either a 1- or 2-­photon microscope. For cell types in close
+                                    proximity to the surface of the SEZ, 1-­photon imaging was performed using a 3i spinning disc confocal
+                                    microscope with a piezo drive and a 20 × water immersion objective (NA = 1.0) with a 2.5 × magnifi-
+                                    cation changer. 55 frames of 8 z sections spaced at 1 µM intervals were binned 4 × 4 and acquired at
+                                    0.8 Hz using a 488 nm laser. Taste solutions were in contact with the proboscis labellum from frame
+                                    20 to frame 25. Cell types imaged using a 1-­photon microscope are Clavicle, Fdg, FMIn, G2N-­1,
+                                    Phantom, Usnea, and Zorro. For cell types that arborize deeper in the SEZ, 2-­photon imaging was
+                                    performed using a Scientifica Hyperscope with resonant scanning, a piezo drive, and a 20× water
+                                    immersion objective (NA = 1.0) with 4× digital zoom. 80 stacks of 20 z sections spaced at 2 µM inter-
+                                    vals were acquired at 0.667 Hz using a 920 nm laser. Taste solutions were in contact with the proboscis
+                                    labellum from frame 30 to frame 40. Cell types imaged using a 2-­photon microscope are Bract, Rattle,
+                                    and Roundup.
+
+                                    Calcium imaging with optogenetic activation of GRNs
+                                    For imaging responses in the Fdg cell type to optogenetic activation of GRNs, females of
+                                    13XLexAop2-­IVS-­p10-­ChrimsonR-­mCherry(attP18); Gr5a-­LexA; 20XUAS-­IVS-­jGCaMP7b(VK00005),
+                                    13XLexAop2-­IVS-­p10-­ChrimsonR-­mCherry(attP18); 20XUAS-­IVS-­jGCaMP7b(attP5); ppk28-­LexA, or
+                                    13XLexAop2-­IVS-­p10-­ChrimsonR-­mCherry(attP18); 20XUAS-­IVS-­jGCaMP7b(attP5); Gr66a-­LexA were
+                                    crossed to males of SS46913 (Sterne et al., 2021). For sugar and bitter integration experiments, virgins
+                                    of a stock composed of either SS47082 (G2N-­1) or SS47744 (Roundup) and 20xUAS-­IVS-­Syn21-­Syt::Op-­
+                                    jGCaMP7b(attP18) were crossed to males of 13XLexAop2-­IVS-­p10-­ChrimsonR-­mCherry(attP18);
+                                    Gr5a-­LexA::VP16(12-­1);, 13XLexAop2-­IVS-­p10-­ChrimsonR-­mCherry(attP18);Gr5a-­LexA::VP16(12-­1);
+
+
+Shiu, Sterne et al. eLife 2022;11:e79887. DOI: https://doi.org/10.7554/eLife.79887                                                  19 of 24
+           Research article﻿﻿﻿﻿﻿﻿                                                                                                Neuroscience
+
+                                    Gr66a-­LexA, or 13XLexAop2-­IVS-­p10-­ChrimsonR-­mCherry(attP18);;Gr66a-­LexA; and female progeny
+                                    without balancers were selected for imaging. 2-­photon imaging was performed as described above
+                                    for imaging with taste stimulation, but 660 nm light was used to activate GRNs in place of direct
+                                    stimulation of the proboscis with taste solutions. Two-­second light pulses were delivered three times
+                                    at 10 s intervals during imaging, and light was delivered through the objective in a widefield fashion
+                                    under the control of a custom ScanImage plugin.
+
+                                    Calcium imaging analysis
+                                    Image analysis was carried out in Fiji (Schindelin et al., 2012), CircuitCatcher (a customized Python
+                                    program by Daniel Bushey Dag et al., 2019), Python, and R. First, in Fiji, Z stacks for each time point
+                                    were maximum intensity projected and then movement corrected using the StackReg plugin with
+                                    ‘Rigid Body’ or ‘Translation’ transformation (Thévenaz et al., 1998). Next, using CircuitCatcher, an
+                                    ROI containing the neurites of the cell type of interest was selected along with a background ROI,
+                                    and average fluorescence intensity for each ROI at each timepoint was retrieved. Then, in Python,
+                                    background subtraction was carried out for each timepoint (Ft). To calculate Finitial, initial fluorescence
+                                    intensity was calculated as the mean corrected average fluorescence intensity from frame 9–18
+                                    (for 1-­photon imaging) or frame 0–19 (for 2-­photon imaging and optogenetic imaging). Finally, the
+                                    following formula was used to calculate ΔF/F: Ft-­Finitial/Finitial. Area under the curve was approximated
+                                    with the trapezoidal rule in Python using the ​NumPy.​trapz function. Area under the curve was assessed
+                                    from frames 20–25 (for 1-­photon imaging), from frames 30–40 (for 2-­photon imaging with taste stim-
+                                    ulation), and from frames 15–18 (for 2-­photon imaging with optogenetic activation).
+
+                                    Quantification and statistical analysis
+                                    Statistical tests for behavioral assays were performed in Prism. For analysis of Proboscis Extension
+                                    Response assays, Fisher’s Exact Test was used in comparing the fraction of PER responses in experi-
+                                    mental versus control flies. Statistical analysis of calcium imaging was carried out in R and Python. For
+                                    imaging experiments carried out in a block design with three treatments, Quade tests were carried
+                                    out in R using the PMCMRplus package (Pohlert, 2021). Quade test was chosen because it is more
+                                    powerful than Friedman for a block-­design experiment with three treatments (Conover, 1999). Other
+                                    statistical analyses of calcium imaging were carried out in Python using the SciPy (Virtanen et al.,
+                                    2020) and scikit-­posthocs packages (Terpilowski, 2018).
+
+
+                                    Acknowledgements
+                                    We thank Lori Horhor, Jolie Huang, Neil Ming, Vivian Nguyen, Andrea Sandoval, Neha Simha, Rivka
+                                    Steinberg, and Parisa Vaziri for EM tracing contributions. We thank David T Harris for his initial studies
+                                    on FMIn. We thank the FlyLight Project Team (https://www.janelia.org/project-team/flylight) for
+                                    performing brain dissections, immunohistochemistry, and confocal imaging for split-­GAL4 screening.
+                                    Vivek Jayaraman provided unpublished fly lines used in this study. This work was supported by NIH
+                                    R01DC013280 (KS), NIH F32DK117671 (GRS) and NIH F32DC018225 (PS). Neuronal reconstruction
+                                    for this project took place in a collaborative CATMAID environment in which 27 labs are participating
+                                    to build connectomes for specific circuits. Development and administration of the FAFB tracing envi-
+                                    ronment and analysis tools were funded in part by National Institutes of Health BRAIN Initiative grant
+                                    1RF1MH120679-­01 to Davi Bock and Greg Jefferis, with software development effort and administra-
+                                    tive support provided by Tom Kazimiers (Kazmos GmbH) and Eric Perlman (Yikes LLC). Peter Li, Viren
+                                    Jain and colleagues at Google Research shared automatic segmentation (Li et al., 2019). We acknowl-
+                                    edge the Princeton FlyWire team and members of the Murthy and Seung labs for development and
+                                    maintenance of FlyWire (supported by BRAIN Initiative grant MH117815 to Murthy and Seung). We
+                                    thank Drs. Stefanie Hampel, Jinseop Kim, Mala Murthy, Andrew Seeds, Sebastian Seung, Ibrahim
+                                    Tastekin and Rachel Wilson and members of their laboratories for FlyWire tracing. We thank K Eichler
+                                    and members of the Connectomics Group in the Dept Zoology, University of Cambridge (G. Jefferis,
+                                    M Costa) for FlyWire tracing and sharing some neurons ahead of publication. Confocal imaging for
+                                    triple intersection characterization was conducted at the CRL Molecular Imaging Center, supported by
+                                    the Helen Wills Neuroscience Institute and NSF DBI-­1041078. We would also like to thank Holly Aaron
+                                    and Feather Ives for their microscopy training and assistance. Members of the Scott lab provided
+                                    comments on the manuscript.
+
+
+Shiu, Sterne et al. eLife 2022;11:e79887. DOI: https://doi.org/10.7554/eLife.79887                                                    20 of 24
+           Research article﻿﻿﻿﻿﻿﻿                                                                                                     Neuroscience
+
+                                    Additional information
+
+                                    Funding
+                                    Funder                      Grant reference number       Author
+
+                                    National Institutes of      R01DC013280                  Kristin Scott
+                                    Health
+
+                                    National Institutes of      F32DK117671                  Gabriella R Sterne
+                                    Health
+
+                                    National Institutes of      F32DC018225                  Philip K Shiu
+                                    Health
+
+                                    The funders had no role in study design, data collection and interpretation, or the
+                                    decision to submit the work for publication.
+
+
+                                    Author contributions
+                                    Philip K Shiu, Gabriella R Sterne, Conceptualization, Resources, Formal analysis, Funding acquisi-
+                                    tion, Validation, Investigation, Visualization, Methodology, Writing - original draft, Writing – review
+                                    and editing; Stefanie Engert, Conceptualization, Resources, Validation, Investigation, Visualization,
+                                    Writing – review and editing; Barry J Dickson, Resources, Supervision, Writing – review and editing;
+                                    Kristin Scott, Conceptualization, Resources, Supervision, Funding acquisition, Writing - original draft,
+                                    Project administration, Writing – review and editing
+
+                                    Author ORCIDs
+                                    Philip K Shiu ‍ ‍http://orcid.org/0000-0002-8794-5474
+                                    Gabriella R Sterne ‍ ‍http://orcid.org/0000-0002-7221-648X
+                                    Stefanie Engert ‍ ‍http://orcid.org/0000-0003-0644-8116
+                                    Kristin Scott ‍ ‍http://orcid.org/0000-0003-3150-7210
+
+                                    Decision letter and Author response
+                                    Decision letter https://doi.org/10.7554/eLife.79887.sa1
+                                    Author response https://doi.org/10.7554/eLife.79887.sa2
+
+
+
+                                    Additional files
+                                    Supplementary files
+                                    •  MDAR checklist
+
+                                    Data availability
+                                    All data is included in the manuscript or available at https://catmaid-fafb.virtualflybrain.org.
+
+
+                                    References
+                                    Augustine V, Gokce SK, Oka Y. 2018. Peripheral and central nutrient sensing underlying appetite regulation.
+                                     Trends in Neurosciences 41:526–539. DOI: https://doi.org/10.1016/j.tins.2018.05.003, PMID: 29914721
+                                    Bates AS, Manton JD, Jagannathan SR, Costa M, Schlegel P, Rohlfing T, Jefferis GS. 2020a. The natverse, a
+                                     versatile toolbox for combining and analysing neuroanatomical data. eLife 9:e53350. DOI: https://doi.org/10.​
+                                     7554/eLife.53350, PMID: 32286229
+                                    Bates AS, Schlegel P, Roberts RJV, Drummond N, Tamimi IFM, Turnbull R, Zhao X, Marin EC, Popovici PD,
+                                     Dhawan S, Jamasb A, Javier A, Serratosa Capdevila L, Li F, Rubin GM, Waddell S, Bock DD, Costa M,
+                                     Jefferis G. 2020b. Complete connectomic reconstruction of olfactory projection neurons in the fly brain.
+                                     Current Biology 30:3183–3199. DOI: https://doi.org/10.1016/j.cub.2020.06.042, PMID: 32619485
+                                    Buhmann J, Sheridan A, Malin-­Mayor C, Schlegel P, Gerhard S, Kazimiers T, Krause R, Nguyen TM, Heinrich L,
+                                     Lee WCA, Wilson R, Saalfeld S, Jefferis G, Bock DD, Turaga SC, Cook M, Funke J. 2021. Automatic detection
+                                     of synaptic partners in a whole-­brain Drosophila electron microscopy data set. Nature Methods 18:771–774.
+                                     DOI: https://doi.org/10.1038/s41592-021-01183-7, PMID: 34168373
+                                    Bushey D. 2019. CircuitCatcher. GitHub. https://github.com/DanBushey/CircuitCatcher
+                                    Cameron P, Hiroi M, Ngai J, Scott K. 2010. The molecular basis for water taste in drosophila. Nature 465:91–95.
+                                     DOI: https://doi.org/10.1038/nature09011, PMID: 20364123
+
+
+
+
+Shiu, Sterne et al. eLife 2022;11:e79887. DOI: https://doi.org/10.7554/eLife.79887                                                        21 of 24
+           Research article﻿﻿﻿﻿﻿﻿                                                                                                    Neuroscience
+
+                                    Chalasani SH, Kato S, Albrecht DR, Nakagawa T, Abbott LF, Bargmann CI. 2010. Neuropeptide feedback
+                                      modifies odor-­evoked dynamics in Caenorhabditis elegans olfactory neurons. Nature Neuroscience 13:615–
+                                      621. DOI: https://doi.org/10.1038/nn.2526, PMID: 20364145
+                                    Chen TW, Wardill TJ, Sun Y, Pulver SR, Renninger SL, Baohan A, Schreiter ER, Kerr RA, Orger MB, Jayaraman V,
+                                      Looger LL, Svoboda K, Kim DS. 2013. Ultrasensitive fluorescent proteins for imaging neuronal activity. Nature
+                                      499:295–300. DOI: https://doi.org/10.1038/nature12354, PMID: 23868258
+                                    Chu B, Chui V, Mann K, Gordon MD. 2014. Presynaptic gain control drives sweet and bitter taste integration in
+                                      Drosophila. Current Biology 24:1978–1984. DOI: https://doi.org/10.1016/j.cub.2014.07.020, PMID: 25131672
+                                    Conover WJ. 1999. Practical Nonparametric Statistical. John Wiley & Sons Inc.
+                                    Costa M, Manton JD, Ostrovsky AD, Prohaska S, Jefferis G. 2016. NBLAST: Rapid, sensitive comparison of
+                                      neuronal structure and construction of neuron family databases. Neuron 91:293–311. DOI: https://doi.org/10.​
+                                      1016/j.neuron.2016.06.012, PMID: 27373836
+                                    Dag U, Lei Z, Le JQ, Wong A, Bushey D, Keleman K. 2019. Neuronal reactivation during post-­learning sleep
+                                      consolidates long-­term memory in Drosophila. eLife 8:e42786. DOI: https://doi.org/10.7554/eLife.42786,
+                                      PMID: 30801246
+                                    Dethier VG. 1976. The Hungry Fly: A Physiological Study of the Behavior Associated with Feeding. Cambridge,
+                                      Mass: Harvard University Press.
+                                    Dionne H, Hibbard KL, Cavallaro A, Kao JC, Rubin GM. 2018. Genetic reagents for Making Split-­GAL4 lines in
+                                      Drosophila. Genetics 209:31–35. DOI: https://doi.org/10.1534/genetics.118.300682, PMID: 29535151
+                                    Dorkenwald S, McKellar CE, Macrina T, Kemnitz N, Lee K, Lu R, Wu J, Popovych S, Mitchell E, Nehoran B, Jia Z,
+                                      Bae JA, Mu S, Ih D, Castro M, Ogedengbe O, Halageri A, Kuehner K, Sterling AR, Ashwood Z, et al. 2022.
+                                      FlyWire: online community for whole-­brain connectomics. Nature Methods 19:119–128. DOI: https://doi.org/​
+                                      10.1038/s41592-021-01330-0, PMID: 34949809
+                                    Eckstein N, Bates AS, Du M, Hartenstein V, Jefferis G, Funke J. 2020. Neurotransmitter Classification from
+                                      Electron Microscopy Images at Synaptic Sites in Drosophila. bioRxiv. DOI: https://doi.org/10.1101/2020.06.12.​
+                                      148775
+                                    Engert S, Sterne GR, Bock DD, Scott K. 2021. Drosophila gustatory projections are segregated by taste modality
+                                      and connectivity. bioRxiv. DOI: https://doi.org/10.1101/2021.12.08.471796
+                                    Flood TF, Iguchi S, Gorczyca M, White B, Ito K, Yoshihara M. 2013. A single pair of interneurons commands the
+                                      Drosophila feeding motor program. Nature 499:83–87. DOI: https://doi.org/10.1038/nature12208, PMID:
+                                      23748445
+                                    French AS, Sellier MJ, Ali Agha M, Moutaz AA, Guigue A, Chabaud MA, Reeb PD, Mitra A, Grau Y, Soustelle L,
+                                      Marion-­Poll F. 2015. Dual mechanism for bitter avoidance in Drosophila. The Journal of Neuroscience 35:3990–
+                                      4004. DOI: https://doi.org/10.1523/JNEUROSCI.1312-14.2015, PMID: 25740527
+                                    Gordon MD, Scott K. 2009. Motor control in a Drosophila taste circuit. Neuron 61:373–384. DOI: https://doi.org/​
+                                      10.1016/j.neuron.2008.12.033, PMID: 19217375
+                                    Harris DT, Kallman BR, Mullaney BC, Scott K. 2015. Representations of taste modality in the Drosophila brain.
+                                      Neuron 86:1449–1460. DOI: https://doi.org/10.1016/j.neuron.2015.05.026, PMID: 26051423
+                                    Heinrich L, Funke J, Pape C, Nunez-­Iglesias J, Saalfeld S. 2018. Synaptic Cleft Segmentation in Non-­Isotropic
+                                      Volume Electron Microscopy of the Complete Drosophila Brain. arXiv. DOI: https://doi.org/10.48550/arXiv.​
+                                      1805.02718, PMID: 29388045
+                                    Inagaki HK, Ben-­Tabou de-­Leon S, Wong AM, Jagadish S, Ishimoto H, Barnea G, Kitamoto T, Axel R,
+                                      Anderson DJ. 2012. Visualizing neuromodulation in vivo: TANGO-­mapping of dopamine signaling reveals
+                                      appetite control of sugar sensing. Cell 148:583–595. DOI: https://doi.org/10.1016/j.cell.2011.12.022, PMID:
+                                      22304923
+                                    Inagaki HK, Panse KM, Anderson DJ. 2014. Independent, reciprocal neuromodulatory control of sweet and
+                                      bitter taste sensitivity during starvation in Drosophila. Neuron 84:806–820. DOI: https://doi.org/10.1016/j.​
+                                      neuron.2014.09.032, PMID: 25451195
+                                    Jeong YT, Shim J, Oh SR, Yoon HI, Kim CH, Moon SJ, Montell C. 2013. An odorant-­binding protein required for
+                                      suppression of sweet taste by bitter chemicals. Neuron 79:725–737. DOI: https://doi.org/10.1016/j.neuron.​
+                                      2013.06.025, PMID: 23972598
+                                    Jin H, Fishman ZH, Ye M, Wang L, Zuker CS. 2021. Top-­down control of sweet and bitter taste in the mammalian
+                                      brain. Cell 184:257–271. DOI: https://doi.org/10.1016/j.cell.2020.12.014, PMID: 33417862
+                                    Jourjine N, Mullaney BC, Mann K, Scott K. 2016. Coupled sensing of hunger and thirst signals balances sugar
+                                      and water consumption. Cell 166:855–866. DOI: https://doi.org/10.1016/j.cell.2016.06.046, PMID: 27477513
+                                    Kain P, Dahanukar A. 2015. Secondary taste neurons that convey sweet taste and starvation in the Drosophila
+                                      brain. Neuron 85:819–832. DOI: https://doi.org/10.1016/j.neuron.2015.01.005, PMID: 25661186
+                                    Kawai K, Sugimoto K, Nakashima K, Miura H, Ninomiya Y. 2000. Leptin as a modulator of sweet taste sensitivities
+                                      in mice. PNAS 97:11044–11049. DOI: https://doi.org/10.1073/pnas.190066697, PMID: 10995460
+                                    Kendroud S, Bohra AA, Kuert PA, Nguyen B, Guillermin O, Sprecher SG, Reichert H, VijayRaghavan K,
+                                      Hartenstein V. 2018. Structure and development of the subesophageal zone of the Drosophila brain. II. Sensory
+                                      compartments. The Journal of Comparative Neurology 526:33–58. DOI: https://doi.org/10.1002/cne.24316,
+                                      PMID: 28875566
+                                    Klapoetke NC, Murata Y, Kim SS, Pulver SR, Birdsey-­Benson A, Cho YK, Morimoto TK, Chuong AS,
+                                      Carpenter EJ, Tian Z, Wang J, Xie Y, Yan Z, Zhang Y, Chow BY, Surek B, Melkonian M, Jayaraman V,
+                                      Constantine-­Paton M, Wong GKS, et al. 2014. Independent optical excitation of distinct neural populations.
+                                      Nature Methods 11:338–346. DOI: https://doi.org/10.1038/nmeth.2836, PMID: 24509633
+
+
+
+Shiu, Sterne et al. eLife 2022;11:e79887. DOI: https://doi.org/10.7554/eLife.79887                                                        22 of 24
+           Research article﻿﻿﻿﻿﻿﻿                                                                                                        Neuroscience
+
+                                    Kwon JY, Dahanukar A, Weiss LA, Carlson JR. 2011. Molecular and cellular organization of the taste system in
+                                      the drosophila larva. The Journal of Neuroscience 31:15300–15309. DOI: https://doi.org/10.1523/JNEUROSCI.​
+                                      3363-11.2011, PMID: 22031876
+                                    LeDue EE, Mann K, Koch E, Chu B, Dakin R, Gordon MD. 2016. Starvation-­induced depotentiation of bitter taste
+                                      in Drosophila. Current Biology 26:2854–2861. DOI: https://doi.org/10.1016/j.cub.2016.08.028, PMID:
+                                      27720624
+                                    Leopold P, Perrimon N. 2007. Drosophila and the genetics of the internal milieu. Nature 450:186–188. DOI:
+                                      https://doi.org/10.1038/nature06286, PMID: 17994083
+                                    Li PH, Lindsey LF, Januszewski M, Zheng Z, Bates AS, Taisz I, Tyka M, Nichols M, Li F, Perlman E,
+                                      Maitin-­Shepard J, Blakely T, Leavitt L, Jefferis G, Bock D, Jain V. 2019. Automated Reconstruction of a
+                                      Serial-­Section EM Drosophila Brain with Flood-­Filling Networks and Local Realignment. bioRxiv. DOI: https://​
+                                      doi.org/10.1101/605634
+                                    Liman ER, Zhang YV, Montell C. 2014. Peripheral coding of taste. Neuron 81:984–1000. DOI: https://doi.org/10.​
+                                      1016/j.neuron.2014.02.022, PMID: 24607224
+                                    Liu WW, Wilson RI. 2013. Glutamate is an inhibitory neurotransmitter in the Drosophila olfactory system. PNAS
+                                      110:10294–10299. DOI: https://doi.org/10.1073/pnas.1220560110, PMID: 23729809
+                                    Luan H, Peabody NC, Vinson CR, White BH. 2006. Refined spatial manipulation of neuronal function by
+                                      combinatorial restriction of transgene expression. Neuron 52:425–436. DOI: https://doi.org/10.1016/j.neuron.​
+                                      2006.08.028, PMID: 17088209
+                                    Mann K, Gordon MD, Scott K. 2013. A pair of interneurons influences the choice between feeding and
+                                      locomotion in Drosophila. Neuron 79:754–765. DOI: https://doi.org/10.1016/j.neuron.2013.06.018, PMID:
+                                      23972600
+                                    Marella S, Mann K, Scott K. 2012. Dopaminergic modulation of sucrose acceptance behavior in Drosophila.
+                                      Neuron 73:941–950. DOI: https://doi.org/10.1016/j.neuron.2011.12.032, PMID: 22405204
+                                    Masse NY, Cachero S, Ostrovsky AD, Jefferis GSXE. 2012. A mutual information approach to automate
+                                      identification of neuronal clusters in drosophila brain images. Frontiers in Neuroinformatics 6:21. DOI: https://​
+                                      doi.org/10.3389/fninf.2012.00021, PMID: 22675299
+                                    McKellar CE, Siwanowicz I, Dickson BJ, Simpson JH. 2020. Controlling motor neurons of every muscle for fly
+                                      proboscis reaching. eLife 9:e54978. DOI: https://doi.org/10.7554/eLife.54978, PMID: 32584254
+                                    Meunier N, Marion-­Poll F, Rospars JP, Tanimura T. 2003. Peripheral coding of bitter taste in Drosophila. Journal
+                                      of Neurobiology 56:139–152. DOI: https://doi.org/10.1002/neu.10235, PMID: 12838579
+                                    Miroschnikow A, Schlegel P, Schoofs A, Hueckesfeld S, Li F, Schneider-­Mizell CM, Fetter RD, Truman JW,
+                                      Cardona A, Pankratz MJ. 2018. Convergence of monosynaptic and polysynaptic sensory paths onto common
+                                      motor outputs in a Drosophila feeding connectome. eLife 7:e40247. DOI: https://doi.org/10.7554/eLife.40247,
+                                      PMID: 30526854
+                                    Miyamoto T, Slone J, Song X, Amrein H. 2012. A fructose receptor functions as A nutrient sensor in the
+                                      drosophila brain. Cell 151:1113–1125. DOI: https://doi.org/10.1016/j.cell.2012.10.024, PMID: 23178127
+                                    Miyazaki T, Ito K. 2010. Neural architecture of the primary gustatory center of Drosophila melanogaster
+                                      visualized with GAL4 and LexA enhancer-­trap systems. The Journal of Comparative Neurology 518:4147–4181.
+                                      DOI: https://doi.org/10.1002/cne.22433, PMID: 20878781
+                                    Miyazaki T, Lin TY, Ito K, Lee CH, Stopfer M. 2015. A gustatory second-­order neuron that connects sucrose-­
+                                      sensitive primary neurons and A distinct region of the gnathal ganglion in the Drosophila brain. Journal of
+                                      Neurogenetics 29:144–155. DOI: https://doi.org/10.3109/01677063.2015.1054993, PMID: 26004543
+                                    Mohammad F, Stewart JC, Ott S, Chlebikova K, Chua JY, Koh TW, Ho J, Claridge-­Chang A. 2017. Optogenetic
+                                      inhibition of behavior with anion channelrhodopsins. Nature Methods 14:271–274. DOI: https://doi.org/10.​
+                                      1038/nmeth.4148, PMID: 28114289
+                                    Montell C. 2021. Drosophila sensory receptors-­a set of molecular Swiss Army Knives. Genetics 217:1–34. DOI:
+                                      https://doi.org/10.1093/genetics/iyaa011, PMID: 33683373
+                                    Nässel DR, Zandawala M. 2019. Recent advances in neuropeptide signaling in Drosophila, from genes to
+                                      physiology and behavior. Progress in Neurobiology 179:101607. DOI: https://doi.org/10.1016/j.pneurobio.​
+                                      2019.02.003, PMID: 30905728
+                                    Ohyama T, Schneider-­Mizell CM, Fetter RD, Aleman JV, Franconville R, Rivera-­Alba M, Mensh BD, Branson KM,
+                                      Simpson JH, Truman JW, Cardona A, Zlatic M. 2015. A multilevel multimodal circuit enhances action selection
+                                      in Drosophila. Nature 520:633–639. DOI: https://doi.org/10.1038/nature14297, PMID: 25896325
+                                    Otsuna H, Rokicki K, Kawase T. 2018. VVDViewer. GitHub. https://github.com/takashi310/VVD_Viewer
+                                    Pohlert T. 2021. PMCMRplus: Calculate pairwise multiple comparisons of mean rank sums extended. CRAN.
+                                      https://cran.r-project.org/web/packages/PMCMRplus/index.html
+                                    Pool AH, Scott K. 2014. Feeding regulation in Drosophila. Current Opinion in Neurobiology 29:57–63. DOI:
+                                      https://doi.org/10.1016/j.conb.2014.05.008, PMID: 24937262
+                                    R Development Core Team. 2018. R: A language and environment for statistical computing. Vienna, Austria. R
+                                      Foundation for Statistical Computing. http://www.R-project.org
+                                    Root CM, Ko KI, Jafari A, Wang JW. 2011. Presynaptic facilitation by neuropeptide signaling mediates odor-­
+                                      driven food search. Cell 145:133–144. DOI: https://doi.org/10.1016/j.cell.2011.02.008, PMID: 21458672
+                                    Saalfeld S, Cardona A, Hartenstein V, Tomancak P. 2009. CATMAID: collaborative annotation toolkit for massive
+                                      amounts of image data. Bioinformatics 25:1984–1986. DOI: https://doi.org/10.1093/bioinformatics/btp266,
+                                      PMID: 19376822
+
+
+
+Shiu, Sterne et al. eLife 2022;11:e79887. DOI: https://doi.org/10.7554/eLife.79887                                                            23 of 24
+           Research article﻿﻿﻿﻿﻿﻿                                                                                                         Neuroscience
+
+                                    Sareen PF, McCurdy LY, Nitabach MN. 2021. A neuronal ensemble encoding adaptive choice during sensory
+                                      conflict in Drosophila. Nature Communications 12:4131. DOI: https://doi.org/10.1038/s41467-021-24423-y,
+                                      PMID: 34226544
+                                    Savigner A, Duchamp-­Viret P, Grosmaitre X, Chaput M, Garcia S, Ma M, Palouzier-­Paulignan B. 2009. Modulation
+                                      of spontaneous and odorant-­evoked activity of rat olfactory sensory neurons by two anorectic peptides, insulin
+                                      and leptin. Journal of Neurophysiology 101:2898–2906. DOI: https://doi.org/10.1152/jn.91169.2008, PMID:
+                                      19297511
+                                    Schindelin J, Arganda-­Carreras I, Frise E, Kaynig V, Longair M, Pietzsch T, Preibisch S, Rueden C, Saalfeld S,
+                                      Schmid B, Tinevez JY, White DJ, Hartenstein V, Eliceiri K, Tomancak P, Cardona A. 2012. Fiji: an open-­source
+                                      platform for biological-­image analysis. Nature Methods 9:676–682. DOI: https://doi.org/10.1038/nmeth.2019,
+                                      PMID: 22743772
+                                    Schlegel P, Bates AS, Stürner T, Jagannathan SR, Drummond N, Hsu J, Serratosa Capdevila L, Javier A,
+                                      Marin EC, Barth-­Maron A, Tamimi IF, Li F, Rubin GM, Plaza SM, Costa M, Jefferis G. 2021. Information flow, cell
+                                      types and stereotypy in a full olfactory connectome. eLife 10:e66018. DOI: https://doi.org/10.7554/eLife.​
+                                      66018, PMID: 34032214
+                                    Schwarz O, Bohra AA, Liu X, Reichert H, VijayRaghavan K, Pielage J. 2017. Motor control of Drosophila feeding
+                                      behavior. eLife 6:e19892. DOI: https://doi.org/10.7554/eLife.19892
+                                    Scott K. 2018. Gustatory processing in Drosophila melanogaster. Annual Review of Entomology 63:15–30. DOI:
+                                      https://doi.org/10.1146/annurev-ento-020117-043331, PMID: 29324046
+                                    Sengupta P. 2013. The belly rules the nose: feeding state-­dependent modulation of peripheral chemosensory
+                                      responses. Current Opinion in Neurobiology 23:68–75. DOI: https://doi.org/10.1016/j.conb.2012.08.001,
+                                      PMID: 22939570
+                                    Simpson JH. 2016. Rationally subdividing the fly nervous system with versatile expression reagents. Journal of
+                                      Neurogenetics 30:185–194. DOI: https://doi.org/10.1080/01677063.2016.1248761, PMID: 27846759
+                                    Sterne GR, Otsuna H, Dickson BJ, Scott K. 2021. Classification and genetic targeting of cell types in the primary
+                                      taste and premotor center of the adult Drosophila brain. eLife 10:e71679. DOI: https://doi.org/10.7554/eLife.​
+                                      71679, PMID: 34473057
+                                    Stocker RF, Schorderet M. 1981. Cobalt filling of sensory projections from internal and external mouthparts in
+                                      Drosophila. Cell and Tissue Research 216:513–523. DOI: https://doi.org/10.1007/BF00238648, PMID: 6786751
+                                    Stocker RF. 1994. The organization of the chemosensory system in Drosophila melanogaster: a review. Cell and
+                                      Tissue Research 275:3–26. DOI: https://doi.org/10.1007/BF00305372, PMID: 8118845
+                                    Talay M, Richman EB, Snell NJ, Hartmann GG, Fisher JD, Sorkaç A, Santoyo JF, Chou-­Freed C, Nair N,
+                                      Johnson M, Szymanski JR, Barnea G. 2017. Transsynaptic mapping of second-­order taste neurons in flies by
+                                      trans-­tango. Neuron 96:783–795. DOI: https://doi.org/10.1016/j.neuron.2017.10.011, PMID: 29107518
+                                    Terpilowski M. 2018. scikit-­posthocs: Pairwise multiple comparison tests in Python. Journal of Open Source
+                                      Software 4:1169. DOI: https://doi.org/10.21105/joss.01169
+                                    Thévenaz P, Ruttimann UE, Unser M. 1998. A pyramid approach to subpixel registration based on intensity. IEEE
+                                      Transactions on Image Processing 7:27–41. DOI: https://doi.org/10.1109/83.650848, PMID: 18267377
+                                    Thistle R, Cameron P, Ghorayshi A, Dennison L, Scott K. 2012. Contact chemoreceptors mediate male-­male
+                                      repulsion and male-­female attraction during drosophila courtship. Cell 149:1140–1151. DOI: https://doi.org/​
+                                      10.1016/j.cell.2012.03.045, PMID: 22632976
+                                    Virtanen P, Gommers R, Oliphant TE, Haberland M, Reddy T, Cournapeau D, Burovski E, Peterson P,
+                                      Weckesser W, Bright J, van der Walt SJ, Brett M, Wilson J, Millman KJ, Mayorov N, Nelson ARJ, Jones E,
+                                      Kern R, Larson E, Carey CJ, et al. 2020. SciPy 1.0: fundamental algorithms for scientific computing in Python.
+                                      Nature Methods 17:261–272. DOI: https://doi.org/10.1038/s41592-019-0686-2, PMID: 32015543
+                                    Wu M, Nern A, Williamson WR, Morimoto MM, Reiser MB, Card GM, Rubin GM. 2016. Visual projection neurons
+                                      in the drosophila lobula link feature detection to distinct behavioral programs. eLife 5:e21022. DOI: https://doi.​
+                                      org/10.7554/eLife.21022, PMID: 28029094
+                                    Yarmolinsky DA, Zuker CS, Ryba NJP. 2009. Common sense about taste: from mammals to insects. Cell
+                                      139:234–244. DOI: https://doi.org/10.1016/j.cell.2009.10.001, PMID: 19837029
+                                    Zheng Z, Lauritzen JS, Perlman E, Robinson CG, Nichols M, Milkie D, Torrens O, Price J, Fisher CB, Sharifi N,
+                                      Calle-­Schuler SA, Kmecova L, Ali IJ, Karsh B, Trautman ET, Bogovic JA, Hanslovsky P, Jefferis G, Kazhdan M,
+                                      Khairy K, et al. 2018. A complete electron microscopy volume of the brain of adult Drosophila melanogaster.
+                                      Cell 174:730–743. DOI: https://doi.org/10.1016/j.cell.2018.06.019, PMID: 30033368
+
+
+
+
+Shiu, Sterne et al. eLife 2022;11:e79887. DOI: https://doi.org/10.7554/eLife.79887                                                            24 of 24
+
