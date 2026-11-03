@@ -1,0 +1,58 @@
+{
+ "shiu": {
+  "lam50": 86.98874292490365,
+  "O_max": 109.06666666666666,
+  "lambda_hz": [
+   43.49,
+   55.65,
+   71.22,
+   91.13,
+   116.6,
+   149.2,
+   190.92,
+   244.3,
+   312.6,
+   400.0
+  ],
+  "non_physiological": [
+   false,
+   false,
+   false,
+   false,
+   false,
+   false,
+   false,
+   true,
+   true,
+   true
+  ]
+ },
+ "pure": {
+  "lam50": 63.16052962559558,
+  "O_max": 109.03333333333335,
+  "lambda_hz": [
+   31.58,
+   41.87,
+   55.52,
+   73.61,
+   97.61,
+   129.42,
+   171.6,
+   227.52,
+   301.68,
+   400.0
+  ],
+  "non_physiological": [
+   false,
+   false,
+   false,
+   false,
+   false,
+   false,
+   false,
+   true,
+   true,
+   true
+  ]
+ }
+}
