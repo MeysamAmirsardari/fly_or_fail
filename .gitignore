@@ -218,3 +218,11 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# --- fly_or_fail project-specific ---
+# Large external data / third-party clones live outside the repo (see README)
+external/
+data/raw/
+feasibility/sim_output/
+*.parquet
+!feasibility/ids/*.parquet
