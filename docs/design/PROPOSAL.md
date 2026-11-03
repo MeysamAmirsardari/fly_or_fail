@@ -2,7 +2,7 @@
 title: "Silencing as Input Rescaling: Predicting the Intensity-Dependent Effects of Neuron Loss from Connectome Structure"
 ---
 
-<p class="byline">Project proposal · BIOE689N/NACS728Z Network Neuroscience and Brain Dynamic Analysis · Fall 2026</p>
+<p class="byline">Project proposal</p>
 
 ## 1. Background and motivation
 
