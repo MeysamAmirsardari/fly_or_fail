@@ -49,3 +49,16 @@ _Each entry gives: context, decision, alternatives considered, consequences, sta
   - C6, Shapley/MSA: costly, and less directly tied to the student's question.
   - C5, cross-connectome: data-heavy for 5 weeks; kept for the paper.
 - **Status.** Proposed, pending red-team review (2026-11-03).
+
+## D-007: Whole project due 2026-11-05; scope unchanged
+- **Context.** The user clarified that the WHOLE project (not only the design) must be finished by
+  2026-11-05, and said: "Don't change the plan or feasibility! We'll work harder!"
+- **Decision.** Keep the full MVP scope: RQ1–RQ3, the RQ4 pilot, and the RQ5 robustness slices. Compress
+  the timeline:
+  - Nov 3: red team, design freeze, validated simulator.
+  - Nov 3–4: calibration, predictors, screens (fast simulator, parallel batches).
+  - Nov 4–5: analysis, figures, report and slides.
+
+  The critical path is simulator validation followed by the screens. Scope cuts happen only if the
+  user agrees.
+- **Status.** Accepted (2026-11-03).

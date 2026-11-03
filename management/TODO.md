@@ -50,6 +50,6 @@ _Status: `[ ]` open · `[~]` in progress · `[x]` done · `[!]` blocked. Owner i
 
 ## User inputs (2026-11-03)
 - Compute: here first, then Colab, then MacBook Pro M5
-- Deadline: finish by 2026-11-05 (read as design + proposal; simulations started early)
+- Deadline: the WHOLE project by 2026-11-05 (user clarification); scope unchanged (D-007)
 - Pairs: keep a small pilot
 - Full texts: links sent; the user will upload PDFs
