@@ -108,3 +108,19 @@ _Each entry gives: context, decision, alternatives considered, consequences, sta
 
   Disclosed limitation: for the free model, the 0.9 criterion is met automatically when the grid ends
   at 400 Hz.
+
+## D-010: MN9 self-silencing unit check: exact equality replaced by a null effect (2026-11-03)
+- **Context.** `run_screens.py` asserted that silencing MN9 leaves MN9's own counts bit-identical to the intact run
+  (PROJECT_DESIGN §5.2, "silencing T itself gives f = 0"). Both checks failed (primary 261 of 300 trial-λ cells differ,
+  max 19 spikes; secondary 267 of 300, max 15). Diagnosis: neither MN9 is a pure sink. The primary has out-degree 82,
+  the secondary 76, and both reach themselves again within 5 hops, so removing their output perturbs their own input
+  trial by trial even under common random numbers. The exact-equality check assumed no feedback onto T; it was a
+  test-specification error, not a simulator fault (the outgoing-weight zeroing and all-S checks pass).
+- **Evidence the control holds in substance.** Paired mean change per λ is within about 2 SE of 0 with mixed signs
+  (primary: max 2.37 ± 1.20 at 71 Hz; secondary: max |−1.37| ± 1.08), |N| ≤ 0.06, no λ significant after Holm.
+  The ENG check on the authors' v630 Brian2 runs also found an unchanged MN9 rate when MN9 is silenced. Only the
+  three control conditions (intact, ctl_T, ctl_T_ipsi) were inspected; no candidate condition was viewed.
+- **Decision.** The T-control criterion is "silencing T is classed `none` by the effect gate (§6.1, Holm across λ)
+  and f̂(T) ≈ 0", reported with the paired differences above. `run_screens.py` is unchanged; its FAIL lines are kept
+  in the log.
+- **Status.** Accepted (2026-11-03), before any candidate screen result was viewed.

@@ -225,3 +225,20 @@ _Append-only, newest entries at the bottom. Times are 2026-11-03 session times (
   - fastlif is ACCEPTED for the screens.
   - Model fact added to the theory: input arriving while a neuron is refractory is discarded, so GRNs
     fire at ≈ λ(1 − λ·dt).
+
+## 2026-11-03: Screens complete on the local Mac; predictors frozen
+
+- Environment moved to the user's Mac (15 CPU, Python 3.14, Brian2 2.11, numba 0.68). A rerun of 4 λ × 10 seeds of
+  the v783 S_shiu intact curve reproduced the committed counts exactly.
+- **Screens.** `screen_single_shiu` (597 conditions: intact, 24 controls, 573 singles; 10 λ × 30 seeds) and
+  `screen_types_pure` (intact + 10 types) written; `validate_screen` OK; wall 49 min. The first launch died silently
+  after 270 conditions (likely killed with its parent shell) and resumed from the checkpoint in a detached session.
+- **Unit checks.** Outgoing zeroing PASS; all-S silenced gives zero output PASS; MN9 self-silencing exact-equality
+  FAIL for both readouts, diagnosed as feedback onto MN9 and resolved in D-010.
+- **Predictors.** v783 (23,439 rows) and v630 (22,386 rows) × 115 columns, plus v630 intact curves and finalize.
+  Negative controls pass (f = 0 exactly without an S→T path). Results block rendered into `PREDICTORS.md`.
+  f^LIN-A is computed as specified, but the active linearization is unstable at λ50 (v783 shiu_contra ρ = 3.19,
+  max Re λ = 2.99), so f^LIN-A is an exact linear-response ratio, not a convergent walk sum (flag already in
+  PREDICTORS.md §4.4). To be weighed when interpreting P-A.
+- **Freeze.** Predictor tables and screen outputs committed with md5 checksums (`analysis/out/FROZEN_MANIFEST.md5`)
+  before any candidate screen result was viewed.

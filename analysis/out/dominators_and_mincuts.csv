@@ -1,0 +1,33 @@
+ver,input,readout,graph,dominators,crosscheck_agree,dominator_types,kappa_min_vertex_cut,n_min_cuts,enumeration_complete,n_nodes_in_some_min_cut
+v783,shiu,contra,whole-brain unsigned,,True,,,,,
+v783,shiu,contra,whole-brain excitatory,,True,,,,,
+v783,shiu,contra,excitatory corridor L5,,True,,,,,
+v783,shiu,contra,"excitatory active at lambda50 (GRNs, T excluded)",,True,,33.0,1.0,True,33.0
+v783,shiu,ipsi,whole-brain unsigned,,True,,,,,
+v783,shiu,ipsi,whole-brain excitatory,,True,,,,,
+v783,shiu,ipsi,excitatory corridor L5,,True,,,,,
+v783,shiu,ipsi,"excitatory active at lambda50 (GRNs, T excluded)",,True,,38.0,1.0,True,38.0
+v783,pure,contra,whole-brain unsigned,,True,,,,,
+v783,pure,contra,whole-brain excitatory,,True,,,,,
+v783,pure,contra,excitatory corridor L5,,True,,,,,
+v783,pure,contra,"excitatory active at lambda50 (GRNs, T excluded)",,True,,31.0,1.0,True,31.0
+v783,pure,ipsi,whole-brain unsigned,,True,,,,,
+v783,pure,ipsi,whole-brain excitatory,,True,,,,,
+v783,pure,ipsi,excitatory corridor L5,,True,,,,,
+v783,pure,ipsi,"excitatory active at lambda50 (GRNs, T excluded)",,True,,33.0,1.0,True,33.0
+v630,shiu,contra,whole-brain unsigned,,True,,,,,
+v630,shiu,contra,whole-brain excitatory,,True,,,,,
+v630,shiu,contra,excitatory corridor L5,,True,,,,,
+v630,shiu,contra,"excitatory active at lambda50 (GRNs, T excluded)",,True,,32.0,1.0,True,32.0
+v630,shiu,ipsi,whole-brain unsigned,,True,,,,,
+v630,shiu,ipsi,whole-brain excitatory,,True,,,,,
+v630,shiu,ipsi,excitatory corridor L5,,True,,,,,
+v630,shiu,ipsi,"excitatory active at lambda50 (GRNs, T excluded)",,True,,38.0,1.0,True,38.0
+v630,pure,contra,whole-brain unsigned,,True,,,,,
+v630,pure,contra,whole-brain excitatory,,True,,,,,
+v630,pure,contra,excitatory corridor L5,,True,,,,,
+v630,pure,contra,"excitatory active at lambda50 (GRNs, T excluded)",,True,,31.0,1.0,True,31.0
+v630,pure,ipsi,whole-brain unsigned,,True,,,,,
+v630,pure,ipsi,whole-brain excitatory,,True,,,,,
+v630,pure,ipsi,excitatory corridor L5,,True,,,,,
+v630,pure,ipsi,"excitatory active at lambda50 (GRNs, T excluded)",,True,,34.0,1.0,True,34.0

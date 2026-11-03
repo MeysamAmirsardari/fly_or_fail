@@ -15,3 +15,257 @@
 [00:28:38] shiu: conds 9/90 (900 jobs, 19s, net 21423, exp 0)
 [00:28:56] shiu: conds 12/90 (900 jobs, 18s, net 21423, exp 0)
 [00:29:14] shiu: conds 15/90 (900 jobs, 18s, net 21423, exp 0)
+[00:29:34] shiu: conds 18/90 (900 jobs, 20s, net 21423, exp 0)
+[00:29:53] [reduce] boundary check fired in 2 job(s); 2 leaking spiking neuron(s); closure 21423 -> 22384
+[00:29:53] shiu: conds 21/90 (900 jobs, 19s, net 22384, exp 1)
+[00:30:12] shiu: conds 24/90 (900 jobs, 19s, net 22384, exp 0)
+[00:30:31] shiu: conds 27/90 (900 jobs, 19s, net 22384, exp 0)
+[00:30:50] [reduce] boundary check fired in 1 job(s); 1 leaking spiking neuron(s); closure 22384 -> 22421
+[00:30:50] shiu: conds 30/90 (900 jobs, 19s, net 22421, exp 1)
+[00:31:09] shiu: conds 33/90 (900 jobs, 19s, net 22421, exp 0)
+[00:31:28] shiu: conds 36/90 (900 jobs, 19s, net 22421, exp 0)
+[00:31:47] shiu: conds 39/90 (900 jobs, 18s, net 22421, exp 0)
+[00:32:05] shiu: conds 42/90 (900 jobs, 18s, net 22421, exp 0)
+[00:32:23] shiu: conds 45/90 (900 jobs, 19s, net 22421, exp 0)
+[00:32:42] shiu: conds 48/90 (900 jobs, 19s, net 22421, exp 0)
+[00:33:02] shiu: conds 51/90 (900 jobs, 20s, net 22421, exp 0)
+[00:33:22] shiu: conds 54/90 (900 jobs, 20s, net 22421, exp 0)
+[00:33:41] shiu: conds 57/90 (900 jobs, 20s, net 22421, exp 0)
+[00:34:01] shiu: conds 60/90 (900 jobs, 20s, net 22421, exp 0)
+[00:34:22] shiu: conds 63/90 (900 jobs, 20s, net 22421, exp 0)
+[00:34:42] shiu: conds 66/90 (900 jobs, 20s, net 22421, exp 0)
+[00:35:03] shiu: conds 69/90 (900 jobs, 21s, net 22421, exp 0)
+[00:35:22] shiu: conds 72/90 (900 jobs, 20s, net 22421, exp 0)
+[00:35:42] shiu: conds 75/90 (900 jobs, 19s, net 22421, exp 0)
+[00:36:01] shiu: conds 78/90 (900 jobs, 19s, net 22421, exp 0)
+[00:36:19] [reduce] boundary check fired in 1 job(s); 1 leaking spiking neuron(s); closure 22421 -> 22424
+[00:36:19] shiu: conds 81/90 (900 jobs, 19s, net 22424, exp 1)
+[00:36:38] shiu: conds 84/90 (900 jobs, 19s, net 22424, exp 0)
+[00:36:57] shiu: conds 87/90 (900 jobs, 19s, net 22424, exp 0)
+[00:37:16] [reduce] boundary check fired in 143 job(s); 1 leaking spiking neuron(s); closure 22424 -> 22426
+[00:37:18] shiu: conds 90/90 (900 jobs, 21s, net 22426, exp 1)
+[00:37:37] shiu: conds 3/90 (900 jobs, 18s, net 22426, exp 0)
+[00:37:55] shiu: conds 6/90 (900 jobs, 18s, net 22426, exp 0)
+[00:38:13] [reduce] boundary check fired in 1 job(s); 18 leaking spiking neuron(s); closure 22426 -> 23527
+[00:38:14] shiu: conds 9/90 (900 jobs, 19s, net 23527, exp 1)
+[00:38:34] shiu: conds 12/90 (900 jobs, 21s, net 23527, exp 0)
+[00:38:53] shiu: conds 15/90 (900 jobs, 19s, net 23527, exp 0)
+[00:39:13] shiu: conds 18/90 (900 jobs, 19s, net 23527, exp 0)
+[00:39:33] shiu: conds 21/90 (900 jobs, 20s, net 23527, exp 0)
+[00:39:53] shiu: conds 24/90 (900 jobs, 20s, net 23527, exp 0)
+[00:40:12] shiu: conds 27/90 (900 jobs, 19s, net 23527, exp 0)
+[00:40:31] shiu: conds 30/90 (900 jobs, 19s, net 23527, exp 0)
+[00:40:49] shiu: conds 33/90 (900 jobs, 19s, net 23527, exp 0)
+[00:41:08] shiu: conds 36/90 (900 jobs, 18s, net 23527, exp 0)
+[00:41:27] shiu: conds 39/90 (900 jobs, 19s, net 23527, exp 0)
+[00:41:47] shiu: conds 42/90 (900 jobs, 19s, net 23527, exp 0)
+[00:42:06] shiu: conds 45/90 (900 jobs, 19s, net 23527, exp 0)
+[00:42:24] shiu: conds 48/90 (900 jobs, 18s, net 23527, exp 0)
+[00:42:44] [reduce] boundary check fired in 1 job(s); 178 leaking spiking neuron(s); closure 23527 -> 32806
+[00:42:45] [reduce] boundary check fired in 1 job(s); 1 leaking spiking neuron(s); closure 32806 -> 33369
+[00:42:45] shiu: conds 51/90 (900 jobs, 21s, net 33369, exp 2)
+[00:43:10] shiu: conds 54/90 (900 jobs, 25s, net 33369, exp 0)
+[00:43:37] shiu: conds 57/90 (900 jobs, 26s, net 33369, exp 0)
+[00:44:03] shiu: conds 60/90 (900 jobs, 26s, net 33369, exp 0)
+[00:44:30] shiu: conds 63/90 (900 jobs, 27s, net 33369, exp 0)
+[00:44:56] shiu: conds 66/90 (900 jobs, 26s, net 33369, exp 0)
+[00:45:23] shiu: conds 69/90 (900 jobs, 27s, net 33369, exp 0)
+[00:45:49] shiu: conds 72/90 (900 jobs, 26s, net 33369, exp 0)
+[00:46:15] shiu: conds 75/90 (900 jobs, 26s, net 33369, exp 0)
+[00:46:42] shiu: conds 78/90 (900 jobs, 27s, net 33369, exp 0)
+[00:47:08] shiu: conds 81/90 (900 jobs, 26s, net 33369, exp 0)
+[00:47:35] shiu: conds 84/90 (900 jobs, 27s, net 33369, exp 0)
+[00:48:01] shiu: conds 87/90 (900 jobs, 26s, net 33369, exp 0)
+[00:48:28] shiu: conds 90/90 (900 jobs, 27s, net 33369, exp 0)
+[00:48:55] shiu: conds 3/90 (900 jobs, 27s, net 33369, exp 0)
+[00:49:21] shiu: conds 6/90 (900 jobs, 26s, net 33369, exp 0)
+[00:49:49] [reduce] boundary check fired in 69 job(s); 1 leaking spiking neuron(s); closure 33369 -> 33371
+[00:49:51] shiu: conds 9/90 (900 jobs, 30s, net 33371, exp 1)
+[00:50:18] shiu: conds 12/90 (900 jobs, 27s, net 33371, exp 0)
+[00:50:45] shiu: conds 15/90 (900 jobs, 27s, net 33371, exp 0)
+[00:51:12] shiu: conds 18/90 (900 jobs, 27s, net 33371, exp 0)
+[00:51:39] shiu: conds 21/90 (900 jobs, 27s, net 33371, exp 0)
+[00:52:06] shiu: conds 24/90 (900 jobs, 27s, net 33371, exp 0)
+[00:52:33] shiu: conds 27/90 (900 jobs, 27s, net 33371, exp 0)
+[00:53:00] shiu: conds 30/90 (900 jobs, 27s, net 33371, exp 0)
+[00:53:29] shiu: conds 33/90 (900 jobs, 28s, net 33371, exp 0)
+[00:53:57] shiu: conds 36/90 (900 jobs, 28s, net 33371, exp 0)
+[00:54:26] [reduce] boundary check fired in 6 job(s); 1 leaking spiking neuron(s); closure 33371 -> 33374
+[00:54:27] shiu: conds 39/90 (900 jobs, 30s, net 33374, exp 1)
+[00:54:57] shiu: conds 42/90 (900 jobs, 30s, net 33374, exp 0)
+[00:55:27] shiu: conds 45/90 (900 jobs, 29s, net 33374, exp 0)
+[00:55:55] shiu: conds 48/90 (900 jobs, 28s, net 33374, exp 0)
+[00:56:23] shiu: conds 51/90 (900 jobs, 28s, net 33374, exp 0)
+[00:56:51] shiu: conds 54/90 (900 jobs, 28s, net 33374, exp 0)
+[00:57:19] shiu: conds 57/90 (900 jobs, 28s, net 33374, exp 0)
+[00:57:47] shiu: conds 60/90 (900 jobs, 28s, net 33374, exp 0)
+[00:58:14] shiu: conds 63/90 (900 jobs, 27s, net 33374, exp 0)
+[00:58:41] shiu: conds 66/90 (900 jobs, 27s, net 33374, exp 0)
+[00:59:09] shiu: conds 69/90 (900 jobs, 27s, net 33374, exp 0)
+[00:59:36] shiu: conds 72/90 (900 jobs, 28s, net 33374, exp 0)
+[01:00:04] [reduce] boundary check fired in 7 job(s); 1 leaking spiking neuron(s); closure 33374 -> 33383
+[01:00:05] shiu: conds 75/90 (900 jobs, 28s, net 33383, exp 1)
+[01:00:34] [reduce] boundary check fired in 1 job(s); 1 leaking spiking neuron(s); closure 33383 -> 33385
+[01:00:34] shiu: conds 78/90 (900 jobs, 29s, net 33385, exp 1)
+[01:01:03] shiu: conds 81/90 (900 jobs, 29s, net 33385, exp 0)
+[01:01:31] shiu: conds 84/90 (900 jobs, 28s, net 33385, exp 0)
+[01:01:58] shiu: conds 87/90 (900 jobs, 28s, net 33385, exp 0)
+[01:02:26] shiu: conds 90/90 (900 jobs, 28s, net 33385, exp 0)
+[01:02:55] shiu: conds 3/90 (900 jobs, 29s, net 33385, exp 0)
+=== resume (detached) Tue Nov  3 01:14:49 EST 2026 ===
+[01:14:50] S_shiu: |S|=20 active=595 candidates=573; grid sha a041d755bbd4f1d0d19ea1b1d071e859
+[01:14:51] zeroing check 720575940623888397: out-degree full 3082 in-closure 737 zeroed 737; counts identical=True
+[01:14:51] zeroing check 720575940625111223: out-degree full 150 in-closure 150 zeroed 150; counts identical=True
+[01:14:51] zeroing check 720575940626279742: out-degree full 119 in-closure 119 zeroed 119; counts identical=True
+[01:15:08] [reduce] boundary check fired in 3 job(s); 1 leaking spiking neuron(s); closure 20359 -> 20365
+[01:15:08] shiu: conds 3/90 (900 jobs, 17s, net 20365, exp 1)
+[01:15:26] [reduce] boundary check fired in 1 job(s); 1 leaking spiking neuron(s); closure 20365 -> 21423
+[01:15:27] shiu: conds 6/90 (900 jobs, 18s, net 21423, exp 1)
+[01:15:47] shiu: conds 9/90 (900 jobs, 20s, net 21423, exp 0)
+[01:16:07] shiu: conds 12/90 (900 jobs, 20s, net 21423, exp 0)
+[01:16:27] shiu: conds 15/90 (900 jobs, 20s, net 21423, exp 0)
+[01:16:47] shiu: conds 18/90 (900 jobs, 20s, net 21423, exp 0)
+[01:17:07] shiu: conds 21/90 (900 jobs, 20s, net 21423, exp 0)
+[01:17:27] shiu: conds 24/90 (900 jobs, 20s, net 21423, exp 0)
+[01:17:48] shiu: conds 27/90 (900 jobs, 21s, net 21423, exp 0)
+[01:18:09] shiu: conds 30/90 (900 jobs, 21s, net 21423, exp 0)
+[01:18:28] shiu: conds 33/90 (900 jobs, 20s, net 21423, exp 0)
+[01:18:49] [reduce] boundary check fired in 4 job(s); 2 leaking spiking neuron(s); closure 21423 -> 21515
+[01:18:49] shiu: conds 36/90 (900 jobs, 21s, net 21515, exp 1)
+[01:19:10] shiu: conds 39/90 (900 jobs, 21s, net 21515, exp 0)
+[01:19:30] [reduce] boundary check fired in 11 job(s); 2 leaking spiking neuron(s); closure 21515 -> 21553
+[01:19:31] shiu: conds 42/90 (900 jobs, 20s, net 21553, exp 1)
+[01:19:50] shiu: conds 45/90 (900 jobs, 19s, net 21553, exp 0)
+[01:20:09] [reduce] boundary check fired in 4 job(s); 1 leaking spiking neuron(s); closure 21553 -> 21555
+[01:20:10] shiu: conds 48/90 (900 jobs, 20s, net 21555, exp 1)
+[01:20:29] [reduce] boundary check fired in 67 job(s); 1 leaking spiking neuron(s); closure 21555 -> 21599
+[01:20:30] shiu: conds 51/90 (900 jobs, 21s, net 21599, exp 1)
+[01:20:50] shiu: conds 54/90 (900 jobs, 19s, net 21599, exp 0)
+[01:21:09] [reduce] boundary check fired in 1 job(s); 21 leaking spiking neuron(s); closure 21599 -> 23167
+[01:21:09] shiu: conds 57/90 (900 jobs, 19s, net 23167, exp 1)
+[01:21:30] shiu: conds 60/90 (900 jobs, 21s, net 23167, exp 0)
+[01:21:51] shiu: conds 63/90 (900 jobs, 21s, net 23167, exp 0)
+[01:22:12] shiu: conds 66/90 (900 jobs, 21s, net 23167, exp 0)
+[01:22:32] shiu: conds 69/90 (900 jobs, 20s, net 23167, exp 0)
+[01:22:52] shiu: conds 72/90 (900 jobs, 20s, net 23167, exp 0)
+[01:23:14] shiu: conds 75/90 (900 jobs, 21s, net 23167, exp 0)
+[01:23:34] shiu: conds 78/90 (900 jobs, 21s, net 23167, exp 0)
+[01:23:56] shiu: conds 81/90 (900 jobs, 21s, net 23167, exp 0)
+[01:24:18] shiu: conds 84/90 (900 jobs, 22s, net 23167, exp 0)
+[01:24:38] shiu: conds 87/90 (900 jobs, 21s, net 23167, exp 0)
+[01:24:59] shiu: conds 90/90 (900 jobs, 21s, net 23167, exp 0)
+[01:25:20] [reduce] boundary check fired in 1 job(s); 1 leaking spiking neuron(s); closure 23167 -> 24072
+[01:25:20] shiu: conds 3/90 (900 jobs, 21s, net 24072, exp 1)
+[01:25:41] shiu: conds 6/90 (900 jobs, 21s, net 24072, exp 0)
+[01:26:02] shiu: conds 9/90 (900 jobs, 21s, net 24072, exp 0)
+[01:26:23] shiu: conds 12/90 (900 jobs, 22s, net 24072, exp 0)
+[01:26:45] shiu: conds 15/90 (900 jobs, 21s, net 24072, exp 0)
+[01:27:06] shiu: conds 18/90 (900 jobs, 21s, net 24072, exp 0)
+[01:27:27] shiu: conds 21/90 (900 jobs, 21s, net 24072, exp 0)
+[01:27:48] shiu: conds 24/90 (900 jobs, 21s, net 24072, exp 0)
+[01:28:10] shiu: conds 27/90 (900 jobs, 22s, net 24072, exp 0)
+[01:28:30] shiu: conds 30/90 (900 jobs, 21s, net 24072, exp 0)
+[01:28:50] shiu: conds 33/90 (900 jobs, 20s, net 24072, exp 0)
+[01:29:11] shiu: conds 36/90 (900 jobs, 21s, net 24072, exp 0)
+[01:29:32] shiu: conds 39/90 (900 jobs, 21s, net 24072, exp 0)
+[01:29:52] [reduce] boundary check fired in 1 job(s); 1 leaking spiking neuron(s); closure 24072 -> 24082
+[01:29:53] shiu: conds 42/90 (900 jobs, 21s, net 24082, exp 1)
+[01:30:14] shiu: conds 45/90 (900 jobs, 21s, net 24082, exp 0)
+[01:30:36] [reduce] boundary check fired in 12 job(s); 1 leaking spiking neuron(s); closure 24082 -> 24094
+[01:30:36] shiu: conds 48/90 (900 jobs, 23s, net 24094, exp 1)
+[01:30:58] shiu: conds 51/90 (900 jobs, 21s, net 24094, exp 0)
+[01:31:19] shiu: conds 54/90 (900 jobs, 21s, net 24094, exp 0)
+[01:31:41] shiu: conds 57/90 (900 jobs, 22s, net 24094, exp 0)
+[01:32:02] shiu: conds 60/90 (900 jobs, 21s, net 24094, exp 0)
+[01:32:23] shiu: conds 63/90 (900 jobs, 21s, net 24094, exp 0)
+[01:32:44] [reduce] boundary check fired in 229 job(s); 2 leaking spiking neuron(s); closure 24094 -> 24124
+[01:32:49] shiu: conds 66/90 (900 jobs, 27s, net 24124, exp 1)
+[01:33:11] shiu: conds 69/90 (900 jobs, 21s, net 24124, exp 0)
+[01:33:32] [reduce] boundary check fired in 2 job(s); 187 leaking spiking neuron(s); closure 24124 -> 34387
+[01:33:33] [reduce] boundary check fired in 1 job(s); 24 leaking spiking neuron(s); closure 34387 -> 35471
+[01:33:33] shiu: conds 72/90 (900 jobs, 22s, net 35471, exp 2)
+[01:34:04] shiu: conds 75/90 (900 jobs, 31s, net 35471, exp 0)
+[01:34:35] shiu: conds 78/90 (900 jobs, 31s, net 35471, exp 0)
+[01:35:06] shiu: conds 81/90 (900 jobs, 31s, net 35471, exp 0)
+[01:35:37] shiu: conds 84/90 (900 jobs, 31s, net 35471, exp 0)
+[01:36:08] shiu: conds 87/90 (900 jobs, 31s, net 35471, exp 0)
+[01:36:38] shiu: conds 90/90 (900 jobs, 30s, net 35471, exp 0)
+[01:37:09] shiu: conds 3/90 (900 jobs, 30s, net 35471, exp 0)
+[01:37:39] shiu: conds 6/90 (900 jobs, 30s, net 35471, exp 0)
+[01:38:10] shiu: conds 9/90 (900 jobs, 31s, net 35471, exp 0)
+[01:38:41] shiu: conds 12/90 (900 jobs, 31s, net 35471, exp 0)
+[01:39:12] [reduce] boundary check fired in 1 job(s); 1 leaking spiking neuron(s); closure 35471 -> 35473
+[01:39:12] shiu: conds 15/90 (900 jobs, 31s, net 35473, exp 1)
+[01:39:44] shiu: conds 18/90 (900 jobs, 31s, net 35473, exp 0)
+[01:40:14] [reduce] boundary check fired in 1 job(s); 1 leaking spiking neuron(s); closure 35473 -> 35474
+[01:40:15] shiu: conds 21/90 (900 jobs, 31s, net 35474, exp 1)
+[01:40:46] shiu: conds 24/90 (900 jobs, 31s, net 35474, exp 0)
+[01:41:17] shiu: conds 27/90 (900 jobs, 31s, net 35474, exp 0)
+[01:41:48] shiu: conds 30/90 (900 jobs, 31s, net 35474, exp 0)
+[01:42:19] shiu: conds 33/90 (900 jobs, 31s, net 35474, exp 0)
+[01:42:50] shiu: conds 36/90 (900 jobs, 31s, net 35474, exp 0)
+[01:43:21] shiu: conds 39/90 (900 jobs, 31s, net 35474, exp 0)
+[01:43:52] shiu: conds 42/90 (900 jobs, 31s, net 35474, exp 0)
+[01:44:23] shiu: conds 45/90 (900 jobs, 31s, net 35474, exp 0)
+[01:44:54] shiu: conds 48/90 (900 jobs, 31s, net 35474, exp 0)
+[01:45:25] shiu: conds 51/90 (900 jobs, 31s, net 35474, exp 0)
+[01:45:56] shiu: conds 54/90 (900 jobs, 31s, net 35474, exp 0)
+[01:46:27] shiu: conds 57/90 (900 jobs, 31s, net 35474, exp 0)
+[01:46:58] shiu: conds 60/90 (900 jobs, 31s, net 35474, exp 0)
+[01:47:29] shiu: conds 63/90 (900 jobs, 31s, net 35474, exp 0)
+[01:48:00] shiu: conds 66/90 (900 jobs, 31s, net 35474, exp 0)
+[01:48:31] shiu: conds 69/90 (900 jobs, 31s, net 35474, exp 0)
+[01:49:01] shiu: conds 72/90 (900 jobs, 31s, net 35474, exp 0)
+[01:49:33] shiu: conds 75/90 (900 jobs, 31s, net 35474, exp 0)
+[01:50:04] shiu: conds 78/90 (900 jobs, 31s, net 35474, exp 0)
+[01:50:34] shiu: conds 81/90 (900 jobs, 31s, net 35474, exp 0)
+[01:51:05] shiu: conds 84/90 (900 jobs, 31s, net 35474, exp 0)
+[01:51:36] shiu: conds 87/90 (900 jobs, 31s, net 35474, exp 0)
+[01:52:07] shiu: conds 90/90 (900 jobs, 31s, net 35474, exp 0)
+[01:52:38] shiu: conds 3/57 (900 jobs, 31s, net 35474, exp 0)
+[01:53:09] shiu: conds 6/57 (900 jobs, 31s, net 35474, exp 0)
+[01:53:40] shiu: conds 9/57 (900 jobs, 31s, net 35474, exp 0)
+[01:54:11] [reduce] boundary check fired in 4 job(s); 5 leaking spiking neuron(s); closure 35474 -> 35508
+[01:54:11] shiu: conds 12/57 (900 jobs, 31s, net 35508, exp 1)
+[01:54:42] [reduce] boundary check fired in 1 job(s); 1 leaking spiking neuron(s); closure 35508 -> 35510
+[01:54:42] shiu: conds 15/57 (900 jobs, 31s, net 35510, exp 1)
+[01:55:13] shiu: conds 18/57 (900 jobs, 31s, net 35510, exp 0)
+[01:55:44] shiu: conds 21/57 (900 jobs, 31s, net 35510, exp 0)
+[01:56:15] shiu: conds 24/57 (900 jobs, 31s, net 35510, exp 0)
+[01:56:45] shiu: conds 27/57 (900 jobs, 31s, net 35510, exp 0)
+[01:57:16] shiu: conds 30/57 (900 jobs, 31s, net 35510, exp 0)
+[01:57:47] shiu: conds 33/57 (900 jobs, 31s, net 35510, exp 0)
+[01:58:18] shiu: conds 36/57 (900 jobs, 31s, net 35510, exp 0)
+[01:58:49] shiu: conds 39/57 (900 jobs, 31s, net 35510, exp 0)
+[01:59:20] shiu: conds 42/57 (900 jobs, 31s, net 35510, exp 0)
+[01:59:51] shiu: conds 45/57 (900 jobs, 31s, net 35510, exp 0)
+[02:00:22] shiu: conds 48/57 (900 jobs, 31s, net 35510, exp 0)
+[02:00:53] shiu: conds 51/57 (900 jobs, 31s, net 35510, exp 0)
+[02:01:24] shiu: conds 54/57 (900 jobs, 31s, net 35510, exp 0)
+[02:01:55] shiu: conds 57/57 (900 jobs, 31s, net 35510, exp 0)
+[02:01:55] UNIT CHECK outgoing_zeroing: PASS
+[02:01:55] UNIT CHECK silence_MN9_primary_unchanged: FAIL
+[02:01:55] UNIT CHECK silence_MN9_secondary_unchanged: FAIL
+[02:01:55] UNIT CHECK silence_all_S_zero: PASS
+[02:01:56] wrote screen_single_shiu.parquet (179100 rows, 597 conditions) + conditions; validate_screen OK
+[02:01:56] S_pure: |S|=33
+[02:01:56] Zorro: not a key in sez_neurons.pickle; STRUCT mapping in analysis/common.py (cell_type CB0192, seed id 720575940629888530 from Jacobs 2024), not in analysis/out; used it
+[02:01:56] type Rattle: 2 ids, 2 present in v783
+[02:01:56] type Usnea: 2 ids, 2 present in v783
+[02:01:56] type Zorro: 2 ids, 2 present in v783
+[02:01:56] type Clavicle: 2 ids, 2 present in v783
+[02:01:56] type G2N-1: 2 ids, 2 present in v783
+[02:01:56] type FMIn: 2 ids, 2 present in v783
+[02:01:56] type Phantom: 2 ids, 2 present in v783
+[02:01:56] type Bract: 4 ids, 4 present in v783
+[02:01:56] type Fdg: 2 ids, 2 present in v783
+[02:01:56] type Roundup: 2 ids, 2 present in v783
+[02:02:14] [reduce] boundary check fired in 809 job(s); 49 leaking spiking neuron(s); closure 20369 -> 24581
+[02:02:34] pure: conds 3/11 (900 jobs, 38s, net 24581, exp 1)
+[02:02:57] [reduce] boundary check fired in 1 job(s); 1 leaking spiking neuron(s); closure 24581 -> 24586
+[02:02:57] pure: conds 6/11 (900 jobs, 23s, net 24586, exp 1)
+[02:03:19] [reduce] boundary check fired in 60 job(s); 2 leaking spiking neuron(s); closure 24586 -> 24598
+[02:03:21] pure: conds 9/11 (900 jobs, 24s, net 24598, exp 1)
+[02:03:37] pure: conds 11/11 (600 jobs, 16s, net 24598, exp 0)
+[02:03:37] wrote screen_types_pure.parquet (3300 rows, 11 conditions) + conditions; validate_screen OK
+[02:03:37] DONE total wall 2926s; conditions shiu 597 pure 11; checks {'outgoing_zeroing': True, 'silence_MN9_primary_unchanged': False, 'silence_MN9_secondary_unchanged': False, 'silence_all_S_zero': True}
