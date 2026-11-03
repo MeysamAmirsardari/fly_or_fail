@@ -187,3 +187,19 @@ _Append-only, newest entries at the bottom. Times are 2026-11-03 session times (
   synthetic data.
 - **STRUCT updated by message:** primary T is the single contralateral MN9; S_pure input set;
   set-level structural f for the 10 external types; dominators and min-cut counts.
+
+## 2026-11-03: Shiu archive Fig. 1F data received (partial)
+
+- **Received:** `fig_1f_{50,60,70,80,90}_hz_rate.csv` and the matching `_std.csv` files, in
+  `data/shiu_archive/` (git-ignored). The user's zip contained exactly these 10 files, byte-identical
+  to the individual uploads. The 100, 110 and 120 Hz files were not included.
+- **Content:** per-condition MN9 (`720575940660219265`) mean and SD over 30 trials, for 200
+  single-neuron silencings, v630, Shiu's Brian2 runs.
+- **Use (PROJECT_DESIGN §10, C3):** independent replication of RQ2 and RQ3 on the authors' own
+  simulations. Not part of the confirmatory family.
+- **Sanity checks seen while saving:**
+  - silencing MN9 itself gives an unchanged MN9 rate at 90 Hz (63.5 Hz; f = 0 as required);
+  - silencing 720575940607272649 (Roundup R, per `sez_neurons`) gives 45.5 Hz vs about 63 Hz for most
+    other conditions.
+
+  Treat these as observations only. No analysis has been run yet.
