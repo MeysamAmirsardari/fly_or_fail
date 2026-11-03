@@ -98,9 +98,13 @@ def test_shift_fit_means_equal_per_seed_and_brent():
 
 
 def test_zero_curve_plateau_upper_end():
-    I = noise_free_intact()
+    I = noise_free_intact()                       # Hill: O > 0 for every lam > 0 -> unique minimiser f = 1
     fs = C.fit_shift_many(I.train, LAM, np.zeros((1, LAM.size)), np.ones((1, LAM.size)))
-    assert fs.plateau[0] and fs.f[0] == 1.0 and fs.plateau_lo[0] < 1.0
+    assert fs.f[0] == 1.0 and fs.at_bound[0] and not fs.plateau[0]
+    thr = lambda lam: np.where(lam > 20, O_HILL(lam - 20), 0.0)     # exact zeros below 20 Hz (as in MN9)
+    I2 = C.IntactData(S.INTACT_LAM, np.tile(thr(S.INTACT_LAM), (60, 1)), np.arange(60))
+    fs = C.fit_shift_many(I2.train, LAM, np.zeros((1, LAM.size)), np.ones((1, LAM.size)))
+    assert fs.plateau[0] and fs.f[0] == 1.0 and abs(fs.plateau_lo[0] - (1 - 20 / 400)) < 2e-3
 
 
 def test_gain_and_free_noise_free():
