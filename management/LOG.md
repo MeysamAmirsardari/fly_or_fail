@@ -217,3 +217,11 @@ _Append-only, newest entries at the bottom. Times are 2026-11-03 session times (
   - MN9 onset is between 30 and 40 Hz.
   - Ipsilateral MN9 in v783 = 720575940618238523, as pre-registered (inferred by connectivity cosine).
   - Original Brian2 cannot run the screen in time (≈93 CPU-h), so SIM's fast simulator is required.
+- **SIM done** (`sim_validation.md`):
+  - G0, G2, G3 and G4 pass.
+  - G1 passes after pooling all independent Brian2 trials. The two strict misses at 100 Hz on the
+    primary MN9 were in opposite directions and are consistent with sampling noise.
+  - G5: 0.13–0.17 s per trial-condition under load, so a full screen takes ≤ 73 min.
+  - fastlif is ACCEPTED for the screens.
+  - Model fact added to the theory: input arriving while a neuron is refractory is discarded, so GRNs
+    fire at ≈ λ(1 − λ·dt).

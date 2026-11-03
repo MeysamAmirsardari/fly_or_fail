@@ -12,7 +12,7 @@ fastlif reproduces the original Brian2 model **spike for spike** when given the 
 
 | Gate | What | Result |
 |---|---|---|
-| G0 (extra) | Original Brian2 objects + identical input trains vs fastlif, full network, 9 cases | **PASS**: 9/9 spike trains identical (0 differing spikes out of 149,481) |
+| G0 (extra) | Original Brian2 objects + identical input trains vs fastlif, full network, 9 cases | **PASS**: 9/9 spike trains identical (0 differing spikes out of 132,881) |
 | G1 | vs ENG Brian2 refs (20 trials each), λ = 50/100/200, v630 + v783, + 3 v630 silencings at 100 Hz | **PASS on r (≥ 0.9989), slope (0.985–1.003) and active set in 9/9.** MN9-in-CI strict check: 2 misses of 15 (MN9_L at 100 Hz in both versions, in opposite directions). Re-tested with 90 / 55 Brian2 trials vs 2,000 fastlif trials: **both within CI (p = 0.21, 0.16)**. Verdict: PASS with documented re-test |
 | G2 | vs the authors' stored outputs (30 trials; 200 Hz, 100 Hz, 3 silencings at 100 Hz; v630) | **PASS** 5/5 (r ≥ 0.9997, MN9 L+R within CI) |
 | G3 | closure vs full network inside fastlif, 116 jobs/version (intact + 27 silencing conditions), v630 + v783 | **PASS**: bit-identical spike trains; the boundary check fired and expanded correctly; a deliberately truncated closure also converges to identical results |
@@ -300,7 +300,7 @@ Logs: `06_g4_g5_v630_2threads.log`, `09_g5_single_thread.log`, `11_g5_4threads.l
    identical (S11), so results are statistically, not bitwise, comparable to Brian2 runs. Given identical input
    trains they are bitwise identical (G0).
 2. **Floating point.** The arithmetic mirrors Brian2's generated Cython (same constants and operation order, no
-   fastmath). G0 shows identical spike trains over 149k spikes. Platform libm differences in `exp` could in principle
+   fastmath). G0 shows identical spike trains over 132,881 spikes. Platform libm differences in `exp` could in principle
    change L2/L8–L10 by an ulp on other machines; constants are asserted against Brian2 in `g0_brian2_exact.py`.
 3. **MN9_R** has no v783 id in `feasibility/ids` (the right MN9 changed id between versions). It is reported as N/A
    for v783; identifying its v783 successor is a data task, not a simulator issue.
