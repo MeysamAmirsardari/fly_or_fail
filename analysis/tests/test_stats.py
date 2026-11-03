@@ -1,6 +1,6 @@
 """Tests for analysis/stats.py on synthetic data with known ground truth.
 
-Run:  OMP_NUM_THREADS=1 /home/user/venv-fly/bin/python -m pytest -q analysis/tests/test_stats.py
+Run:  OMP_NUM_THREADS=1 venv/bin/python -m pytest -q analysis/tests/test_stats.py
 """
 import itertools
 import math

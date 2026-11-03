@@ -51,10 +51,12 @@ L10 = math.exp(_l6)
 
 SIM = os.path.dirname(os.path.abspath(__file__))
 OUT = os.path.join(SIM, 'out')
-DATA = '/home/user/external/Drosophila_brain_model/'
+REPO = os.path.dirname(SIM) + '/'
+EXTERNAL = os.path.abspath(os.environ.get('NJ_EXTERNAL', REPO + '../external')) + '/'   # see README
+DATA = EXTERNAL + 'Drosophila_brain_model/'
 PATHS = {'v630': (DATA + '2023_03_23_completeness_630_final.csv', DATA + '2023_03_23_connectivity_630_final.parquet'),
          'v783': (DATA + 'Completeness_783.csv', DATA + 'Connectivity_783.parquet')}
-IDS = '/home/user/fly_or_fail/feasibility/ids/'
+IDS = REPO + 'feasibility/ids/'
 MN9_L, MN9_R = 720575940660219265, 720575940645521262
 
 

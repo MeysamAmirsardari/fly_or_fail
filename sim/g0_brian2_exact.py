@@ -4,9 +4,9 @@
 # ('v += 68.75*mV * X' in the 'synapses' slot, order 0, conditional on not_refractory), where X(t) is the Bernoulli
 # train fastlif generates for the same (trial seed, neuron). Then compare spike trains spike-for-spike with fastlif.
 # usage: g0_brian2_exact.py <ver> <rate> <trial_seed> [silence_fid]
-import sys, time, json
-sys.path.insert(0, '/home/user/external/Drosophila_brain_model')
-sys.path.insert(0, '/home/user/fly_or_fail/sim')
+import sys, os, time, json
+sys.path.insert(0, os.path.join(os.environ.get('NJ_EXTERNAL', os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..', 'external')), 'Drosophila_brain_model'))
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import numpy as np
 import model as M
 from brian2 import Network, TimedArray, defaultclock, ms, mV, Hz, prefs

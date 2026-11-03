@@ -2,7 +2,7 @@
 
 Writes analysis/out/validation_synthetic.json (all numbers quoted in ANALYSIS_VALIDATION.md).
 Run (single core):
-  OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 /home/user/venv-fly/bin/python analysis/tests/run_validation.py [M]
+  OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 venv/bin/python analysis/tests/run_validation.py [M]
 """
 import json
 import os

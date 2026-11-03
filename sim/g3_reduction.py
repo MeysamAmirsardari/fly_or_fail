@@ -4,9 +4,9 @@
 # Part B: deliberately TRUNCATED closure (stim + active only, no out-neighbours) -> boundary check must fire, and
 #         the expanded result must still be bit-identical to the full network.
 # usage: g3_reduction.py <ver> <threads>
-import sys, json, time
+import sys, os, json, time
 import numpy as np
-sys.path.insert(0, '/home/user/fly_or_fail/sim')
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import fastlif as F, reduce as R
 
 ver, threads = sys.argv[1], int(sys.argv[2])

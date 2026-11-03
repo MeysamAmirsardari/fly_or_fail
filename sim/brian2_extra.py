@@ -2,14 +2,14 @@
 # brian2.seed(seed) before each trial. Seeds disjoint from ENG's (0..19). Output: sim/out/brian2_extra/<ver>_<rate>Hz.parquet
 # usage: brian2_extra.py <ver> <rate> <seed0> <n>
 import sys, os, copy, time
-sys.path.insert(0, '/home/user/fly_or_fail/feasibility')
+sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'feasibility'))
 import simlib as S, brian2, pandas as pd
 from brian2 import Hz
 ver, rate, s0, n = sys.argv[1], float(sys.argv[2]), int(sys.argv[3]), int(sys.argv[4])
 p = copy.deepcopy(S.M.default_params); p['r_poi'] = rate * Hz
 f2i = S.flyid2i_map(ver); i2f = {v: k for k, v in f2i.items()}
 exc = [f2i[i] for i in S.sugar_right(ver)]; pc, pn = S.PATHS[ver]
-od = '/home/user/fly_or_fail/sim/out/brian2_extra'; os.makedirs(od, exist_ok=True)
+od = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'out', 'brian2_extra'); os.makedirs(od, exist_ok=True)
 sd = f'{od}/_shards_{ver}_{rate:g}Hz'; os.makedirs(sd, exist_ok=True)
 for t in range(n):                      # per-trial shards (resume-safe; a killed process loses at most one trial)
     sf = f'{sd}/trial_{t:03d}.parquet'

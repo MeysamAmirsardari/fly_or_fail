@@ -1,6 +1,6 @@
 """Unit and Monte Carlo tests for analysis/curves.py on SYNTHETIC data with known ground truth.
 
-Run:  OMP_NUM_THREADS=1 /home/user/venv-fly/bin/python -m pytest -q analysis/tests/test_curves.py
+Run:  OMP_NUM_THREADS=1 venv/bin/python -m pytest -q analysis/tests/test_curves.py
 The larger Monte Carlo numbers reported in ANALYSIS_VALIDATION.md come from run_validation.py.
 """
 import numpy as np

@@ -8,7 +8,7 @@ output: analysis/out/intact_curve_<ver>_<input>.npz
 """
 import sys, os, time, json
 import numpy as np
-sys.path.insert(0, '/home/user/fly_or_fail/sim'); sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'sim'));sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import common as C
 
 LAM = np.arange(0, 401, 5).astype(float)

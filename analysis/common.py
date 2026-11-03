@@ -9,14 +9,17 @@ Left/right convention (fixed HERE, asserted in check_conventions()):
 import os, hashlib
 import numpy as np, pandas as pd
 
-DATA = '/home/user/external/Drosophila_brain_model/'
+# Paths: repo-relative; external clones live in $NJ_EXTERNAL (default: <repo>/../external, see README).
+REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__))) + '/'
+EXTERNAL = os.path.abspath(os.environ.get('NJ_EXTERNAL', REPO + '../external')) + '/'
+DATA = EXTERNAL + 'Drosophila_brain_model/'
 PATHS = {'v630': (DATA + '2023_03_23_completeness_630_final.csv', DATA + '2023_03_23_connectivity_630_final.parquet'),
          'v783': (DATA + 'Completeness_783.csv', DATA + 'Connectivity_783.parquet')}
-ANNOT = '/home/user/external/flywire_annotations/supplemental_files/Supplemental_file1_neuron_annotations.tsv'
-IDS = '/home/user/fly_or_fail/feasibility/ids/'
-ROOT = '/home/user/fly_or_fail/analysis/'
+ANNOT = EXTERNAL + 'flywire_annotations/supplemental_files/Supplemental_file1_neuron_annotations.tsv'
+IDS = REPO + 'feasibility/ids/'
+ROOT = REPO + 'analysis/'
 OUT = ROOT + 'out/'
-SIMDIR = '/home/user/fly_or_fail/sim/'
+SIMDIR = REPO + 'sim/'
 
 MN9_CONTRA = 720575940660219265                      # primary T (both versions)
 MN9_IPSI = {'v783': 720575940618238523, 'v630': 720575940645521262}

@@ -1,8 +1,8 @@
 # G4 (CRN sanity) and G5 (speed) for fastlif on the closure network.
 # usage: g4_g5.py <ver> <threads>
-import sys, json, time
+import sys, os, json, time
 import numpy as np
-sys.path.insert(0, '/home/user/fly_or_fail/sim')
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import fastlif as F, reduce as R
 
 ver, threads = sys.argv[1], int(sys.argv[2])

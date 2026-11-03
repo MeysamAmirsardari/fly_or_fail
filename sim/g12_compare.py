@@ -3,10 +3,10 @@
 # Metrics: per-neuron mean-rate Pearson r and OLS slope (fastlif ~ brian2) over neurons with mean > 5 Hz in either;
 #          MN9 (L and R) fastlif mean vs Brian2 mean +- 95% CI (t-based); Welch t-test p-value as extra info;
 #          active-set agreement: every neuron with mean >= 1 Hz in one simulator spikes at least once in the other.
-import sys, json, time
+import sys, os, json, time
 import numpy as np, pandas as pd
 from scipy import stats
-sys.path.insert(0, '/home/user/fly_or_fail/sim')
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import fastlif as F, reduce as R
 
 gate, ver, rate, refp, nref, slid, nmy, threads = sys.argv[1], sys.argv[2], float(sys.argv[3]), sys.argv[4], \

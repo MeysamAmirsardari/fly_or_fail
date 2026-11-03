@@ -1,5 +1,5 @@
 # Probe: dump Brian2 scheduling + generated abstract/target code for the exact model.py equations (tiny network).
-import sys; sys.path.insert(0, '/home/user/external/Drosophila_brain_model')
+import sys, os; sys.path.insert(0, os.path.join(os.environ.get('NJ_EXTERNAL', os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..', 'external')), 'Drosophila_brain_model'))
 import model as M
 from brian2 import *
 p = M.default_params

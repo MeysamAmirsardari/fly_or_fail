@@ -2,10 +2,10 @@
 # Per-neuron z = (mean_f - mean_b) / sqrt(se_f^2 + se_b^2) for neurons > 5 Hz; under H0 (same model) z ~ N(0,1)
 # (marginally). Reports MN9, GRN rates, z distribution, and heterogeneity among the Brian2 sets themselves.
 # usage: g1_power.py <ver> <rate> <n_my> <threads> <name=path:ntrials> ...
-import sys, json, time
+import sys, os, json, time
 import numpy as np, pandas as pd
 from scipy import stats
-sys.path.insert(0, '/home/user/fly_or_fail/sim')
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import fastlif as F, reduce as R
 
 ver, rate, nmy, threads = sys.argv[1], float(sys.argv[2]), int(sys.argv[3]), int(sys.argv[4])

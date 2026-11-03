@@ -1,7 +1,7 @@
 #!/bin/bash
 # G0 suite: Brian2 (original objects, injected CRN input) vs fastlif, spike-for-spike, full networks.
-cd /home/user/fly_or_fail/sim
-PY=/home/user/venv-fly/bin/python
+cd "$(dirname "$0")"
+PY=${PY:-../venv/bin/python}
 $PY g0_brian2_exact.py v783 100 0
 $PY g0_brian2_exact.py v630 200 1
 $PY g0_brian2_exact.py v783 200 2
