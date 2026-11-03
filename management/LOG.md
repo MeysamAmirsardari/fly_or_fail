@@ -120,3 +120,27 @@ _Append-only, newest entries at the bottom. Times are 2026-11-03 session times (
   workers rebuild and compile per process. A persistent process costs about 5 s per trial
   (stateupdate 1.9 s and threshold 0.6 s over 127k neurons). That makes network reduction the main
   speed-up.
+
+## 2026-11-03: Full texts received; agents relaunched
+
+- **Uploads.** The user uploaded 9 PDFs and 3 Fig. 1E CSVs from the Shiu archive. They are stored
+  locally in `literature/pdfs/` and `data/shiu_archive/` (git-ignored: copyright and size), with
+  text extracted into `literature/text/`.
+- **Verified against full text** (`docs/research/fulltext_verification.md`):
+  - Shiu 2024 explicitly states that redundancy increases with stimulation. **The qualitative H-B is
+    pre-empted**, which confirms D-006.
+  - W_syn is calibrated so that 100 Hz input gives about 80% of maximal MN9.
+  - **Shiu & Sterne 2022 is a two-concentration silencing dataset.** At 50 mM, 6 of 7 second-order
+    neurons reduce PER; at 100 mM, only Rattle and Usnea; third-order and premotor neurons have no
+    effect at 50 mM. This is a new external test for the f-ranking. LIT-C missed it at abstract level.
+  - Jacobs 2024: singles and pairs at 50/100/200 Hz, read out at stopping neurons, descriptive only.
+  - Male-CNS Cell 2026 uses population-level max-flow.
+  - Minnick 2026: output synapses predict single-type silencing effects (ρ = 0.78), joint silencing
+    is supra-additive.
+- **Agents stopped.** The user's interrupt stopped ENG, RED and SIM before they delivered. With the
+  user's explicit approval, all three were relaunched:
+  - ENG (Sonnet/high): Brian2 reference dataset, reproduction gate, MN9 ID mapping, report.
+  - SIM (Opus/high): fast batched simulator plus gates G1–G5, using ENG's references.
+  - RED (Fable/high): review, now including the full-text facts and an external-validation design for
+    the two-concentration data.
+- **CPU split:** ENG ≤ 2 processes, SIM ≤ 2 cores while ENG is running.
