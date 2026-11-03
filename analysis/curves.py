@@ -1,7 +1,8 @@
 """curves.py -- pre-registered curve estimation and per-neuron classification.
 
 Implements PROJECT_DESIGN.md v1.0 (commit e051e08) Sec. 3, 5.3, 6.1, 6.2, 6.3 and the pointwise
-inversion used by S6 (Sec. 7.3).  Every analysis choice that the pre-registration leaves open is a
+inversion used by S6 (Sec. 7.3), with the DECISIONS D-009 amendments to Sec. 6.1 (Holm across lambda)
+and Sec. 6.2 (informativeness under the CV-selected model).  Every analysis choice that the pre-registration leaves open is a
 module constant below and is listed in analysis/ANALYSIS_VALIDATION.md ("Implementation choices").
 
 Conventions
@@ -356,10 +357,29 @@ def gof_shift(lam, Ysil, fhat, indep: MonotoneCurve, duration_s=1.0):
 
 
 # ------------------------------------------------------------------------------------------ gates
+def holm_adjust(p):
+    """Holm step-down adjusted p-values for a 1-D array (NaN entries are outside the family)."""
+    p = np.asarray(p, float)
+    out = np.full(p.shape, np.nan)
+    ok = np.flatnonzero(np.isfinite(p))
+    m = ok.size
+    if m == 0:
+        return out
+    order = ok[np.argsort(p[ok], kind='stable')]
+    run = 0.0
+    for i, j in enumerate(order):
+        run = max(run, min(1.0, (m - i) * p[j]))
+        out[j] = run
+    return out
+
+
 def effect_gate(Ysil, Yint, B=EFFECT_BOOT, rng=None, alpha=0.05):
-    """Sec. 6.1.  Ysil, Yint: (n_seeds, L), rows paired by seed (CRN).  Effect-bearing iff at >= 1 grid
-    lambda with intact mean O >= 5 Hz BOTH the 95% seed-bootstrap percentile CI of the paired mean
-    difference excludes 0 AND |N_k| >= 0.05.  Seeds are resampled jointly across lambda."""
+    """Sec. 6.1 as amended by DECISIONS D-009.  Ysil, Yint: (n_seeds, L), rows paired by seed (CRN).
+    Per grid lambda: two-sided seed-bootstrap p of the paired mean difference,
+    p = min(1, 2*(1 + min(#{d* <= 0}, #{d* >= 0}))/(B + 1)) (the percentile-CI test inverted).
+    The family = grid lambdas with intact mean O >= 5 Hz; Holm across that family (D-009).
+    Effect-bearing iff >= 1 family lambda has Holm-adjusted p < alpha AND |N_k| >= 0.05.
+    Seeds are resampled jointly across lambda.  The unadjusted percentile CI is also returned."""
     Ysil = np.asarray(Ysil, float); Yint = np.asarray(Yint, float)
     if Ysil.shape != Yint.shape:
         raise ValueError('paired arrays must have equal shape')
@@ -369,21 +389,37 @@ def effect_gate(Ysil, Yint, B=EFFECT_BOOT, rng=None, alpha=0.05):
     idx = rng.integers(0, S, size=(B, S))
     boot = D[idx].mean(1)
     lo, hi = np.percentile(boot, [100 * alpha / 2, 100 * (1 - alpha / 2)], axis=0)
-    ci_excl = (lo > 0) | (hi < 0)
+    n_le = (boot <= 0).sum(0); n_ge = (boot >= 0).sum(0)
+    p_raw = np.minimum(1.0, 2.0 * (1 + np.minimum(n_le, n_ge)) / (B + 1))
     O = Yint.mean(0)
     with np.errstate(divide='ignore', invalid='ignore'):
         w = np.where(O > 0, Ysil.mean(0) / O, np.nan)
     Nk = 1.0 - w
     elig = O >= EFFECT_MIN_RATE
-    hit = elig & ci_excl & (np.abs(np.nan_to_num(Nk)) >= EFFECT_MIN_N)
-    return dict(effect=bool(hit.any()), hit=hit, ci_lo=lo, ci_hi=hi, dbar=D.mean(0), w=w, N=Nk,
-                eligible=elig)
+    p_holm = holm_adjust(np.where(elig, p_raw, np.nan))
+    sig = elig & (np.nan_to_num(p_holm, nan=1.0) < alpha)
+    hit = sig & (np.abs(np.nan_to_num(Nk)) >= EFFECT_MIN_N)
+    return dict(effect=bool(hit.any()), hit=hit, ci_lo=lo, ci_hi=hi, p_raw=p_raw, p_holm=p_holm,
+                dbar=D.mean(0), w=w, N=Nk, eligible=elig)
 
 
-def informativeness(curve: MonotoneCurve, lam, fhat):
-    """Sec. 6.2: >= 2 lambda with O-hat((1-f)lam) in [0.2, 0.8] O_max and >= 1 with >= 0.9 O_max."""
-    p = curve((1.0 - fhat) * np.asarray(lam, float))
-    rel = p / curve.O_max
+def informativeness(curve: MonotoneCurve, lam, fhat, model='shift', params=None):
+    """Sec. 6.2 as amended by DECISIONS D-009: evaluated under the CV-selected model.
+    pred = the selected model's fitted curve on the grid; ref = that model's own maximum attainable
+    output (shift: O_max; gain: gamma*O_max; free: Hill E).  Informative iff >= 2 lambda with
+    pred in [0.2, 0.8]*ref and >= 1 with pred >= 0.9*ref.  For shift this is exactly v1.0 Sec. 6.2."""
+    lam = np.asarray(lam, float)
+    if model == 'shift' or params is None:
+        p, ref = curve((1.0 - fhat) * lam), curve.O_max
+    elif model == 'gain':
+        p, ref = params[1] * curve((1.0 - params[0]) * lam), params[1] * curve.O_max
+    elif model == 'free':
+        p, ref = hill(lam, *params), params[0]
+    else:
+        raise ValueError(model)
+    if not ref > 0:
+        return dict(informative=False, n_mid=0, n_high=0)
+    rel = p / ref
     n_mid = int(((rel >= INFO_BAND[0]) & (rel <= INFO_BAND[1])).sum())
     n_high = int((rel >= INFO_HIGH).sum())
     return dict(informative=(n_mid >= 2 and n_high >= 1), n_mid=n_mid, n_high=n_high)
@@ -464,13 +500,13 @@ def analyze_condition(lam, Ysil, Yint, seeds, intact: IntactData, rng=None, do_c
     sf = fit_shift_many(cur, lam, ybar[None], W[None])
     fhat = float(sf.f[0])
     eg = effect_gate(Ysil, Yint, rng=rng)
-    inf = informativeness(cur, lam, fhat)
+    inf_shift = informativeness(cur, lam, fhat)
     norec = no_recovery(cur, Ysil)
     gof = gof_shift(lam, Ysil, fhat, intact.indep, dur)
     out = dict(fhat=fhat, ssr_shift=float(sf.ssr[0]), f_plateau=bool(sf.plateau[0]),
                f_plateau_lo=float(sf.plateau_lo[0]), f_at_bound=bool(sf.at_bound[0]),
                f_extrap_frac=float(sf.extrap[0]), effect=eg['effect'], n_effect_hits=int(eg['hit'].sum()),
-               informative=inf['informative'], n_mid=inf['n_mid'], n_high=inf['n_high'],
+               informative_shift=inf_shift['informative'],
                no_recovery=norec, gof_chi2=gof['chi2'], gof_df=gof['df'], gof_p=gof['p'],
                gof_extrap=gof['gof_extrap'])
     fg, gg, sg = fit_gain(cur, lam, ybar, W)
@@ -484,6 +520,10 @@ def analyze_condition(lam, Ysil, Yint, seeds, intact: IntactData, rng=None, do_c
                    **{f'cv_se_{m}': cv['cv_se'][m] for m in MODEL_ORDER})
     else:
         out['selected'] = None
+    sel = out['selected'] or 'shift'
+    sel_params = {'shift': (fhat,), 'gain': (fg, gg), 'free': (E, l50, nh)}[sel]
+    inf = informativeness(cur, lam, fhat, sel, sel_params)          # D-009: under the CV-selected model
+    out.update(informative=inf['informative'], n_mid=inf['n_mid'], n_high=inf['n_high'])
     out['cls'] = assign_class(eg['effect'], norec, inf['informative'], out['selected'], gof['p'])
     # split-half (odd vs even seeds), each half against the intact curve built from the same half
     for name, par in (('odd', 1), ('even', 0)):

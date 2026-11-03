@@ -195,6 +195,18 @@ def full_condition_timing():
     return (time.time() - t0) / 20
 
 
+if __name__ == '__main__' and len(sys.argv) > 2 and sys.argv[2] == 'curves':
+    # D-009 re-run: only the per-condition pipeline changed (effect gate, informativeness gate)
+    OUT = os.path.join(ROOT, 'analysis', 'out', 'validation_synthetic_d009.json')
+    res['note'] = 'D-009 re-run of the curve scenarios; GOF size, P-A and nested results unchanged (see validation_synthetic.json)'
+    res['curves_hill'] = run_curve_family('hill', S.hill_curve())
+    res['curves_two_route'] = run_curve_family('two_route', S.two_route_curve())
+    res['runtime_s'] = time.time() - t_start
+    with open(OUT, 'w') as fh:
+        json.dump(res, fh, indent=1, default=lambda o: o.tolist() if hasattr(o, 'tolist') else str(o))
+    log('wrote', OUT)
+    sys.exit(0)
+
 if __name__ == '__main__':
     res['fano_realised'] = fano_check(S.hill_curve())
     res['sec_per_condition'] = full_condition_timing()

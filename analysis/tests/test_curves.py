@@ -161,6 +161,25 @@ def test_effect_gate():
     assert C.effect_gate(Ys, Yi)['effect']
 
 
+def test_holm_adjust_matches_statsmodels():
+    from statsmodels.stats.multitest import multipletests
+    rng = np.random.default_rng(70)
+    for _ in range(50):
+        pv = rng.uniform(0, 0.2, 10)
+        np.testing.assert_allclose(C.holm_adjust(pv), multipletests(pv, method='holm')[1])
+    pv = np.array([0.01, np.nan, 0.02])                        # NaN = outside the family (O < 5 Hz)
+    np.testing.assert_allclose(C.holm_adjust(pv), [0.02, np.nan, 0.02])
+
+
+def test_effect_gate_familywise_null_rate():
+    """D-009: with f = 0 and non-identical (CRN rho = 0.5) noise, the per-neuron false-positive rate of
+    the Holm-corrected gate must be <= ~0.05 (it was 0.15-0.24 without the correction)."""
+    rng = np.random.default_rng(71)
+    fp = [C.effect_gate(*S.screen_pair(O_HILL, LAM, rng, 'shift', 0.0, crn_rho=0.5),
+                        rng=np.random.default_rng(i))['effect'] for i in range(300)]
+    assert np.mean(fp) <= 0.07, np.mean(fp)
+
+
 def test_informativeness_hand_cases():
     I = noise_free_intact()
     assert C.informativeness(I.train, LAM, 0.2)['informative']
@@ -168,6 +187,12 @@ def test_informativeness_hand_cases():
     assert not C.informativeness(I.train, LAM, 0.9)['informative']           # never reaches 0.9 O_max
     sat = np.geomspace(300, 400, 10)
     assert C.informativeness(I.train, sat, 0.6)['n_mid'] == 0                   # saturated grid
+    # D-009: under the selected model, thresholds are relative to that model's own maximum
+    assert C.informativeness(I.train, LAM, None, 'gain', (0.2, 0.5))['informative']        # gamma*O_max ref
+    assert not C.informativeness(I.train, sat, None, 'gain', (0.6, 0.5))['informative']
+    assert C.informativeness(I.train, LAM, None, 'free', (80.0, 90.0, 2.0))['informative']
+    assert not C.informativeness(I.train, LAM, None, 'free', (80.0, 2000.0, 2.0))['informative']
+    np.testing.assert_equal(C.informativeness(I.train, LAM, 0.2), C.informativeness(I.train, LAM, 0.2, 'shift', (0.2,)))
 
 
 def test_class_precedence():
@@ -221,6 +246,8 @@ def test_mc_classes_shift_and_none():
 
 def test_mc_gain_and_other_detected():
     d = _mc('gain', 0.2, gamma=0.6, reps=15, seed=21)
+    assert (d['cls'] == 'gain').mean() >= 0.8
+    d = _mc('gain', 0.2, gamma=0.5, reps=15, seed=23)             # D-009: no longer masked as uninformative
     assert (d['cls'] == 'gain').mean() >= 0.8
     other = lambda lam: C.hill(lam, 85.0, 63.0 / 0.8, 1.2)        # shallower slope, shifted lam50
     d = _mc('other', 0.0, reps=15, seed=22, other=other)

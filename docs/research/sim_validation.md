@@ -6,18 +6,18 @@ _SIM, 2026-11-03. Code: `sim/fastlif.py` (simulator), `sim/reduce.py` (exact red
 
 ## 0. Verdict
 
-fastlif reproduces the original Brian2 model **spike for spike** (G0). The exact network reduction is
+fastlif reproduces the original Brian2 model **spike for spike** when given the same input trains (G0). The exact network reduction is
 **bit-identical** to the full network (G3). CRN works as specified (G4). One 1-s trial of one condition costs about
 0.1–0.25 core-seconds, against about 6–13 s for Brian2 (G5). **The simulator is usable for the production runs.**
 
 | Gate | What | Result |
 |---|---|---|
 | G0 (extra) | Original Brian2 objects + identical input trains vs fastlif, full network, 9 cases | **PASS**: 9/9 spike trains identical (0 differing spikes out of 149,481) |
-| G1 | vs ENG Brian2 refs (20 trials each), λ = 50/100/200, v630 + v783, + 3 v630 silencings at 100 Hz | **PASS on r, slope, active set in 9/9.** MN9-in-CI strict check: 2 misses of 15 (v630 100 Hz MN9_L, v783 100 Hz MN9_L). Re-tested with 50–90 Brian2 trials and 2,000 fastlif trials: **v630 PASS, v783: see §4.2** |
+| G1 | vs ENG Brian2 refs (20 trials each), λ = 50/100/200, v630 + v783, + 3 v630 silencings at 100 Hz | **PASS on r (≥ 0.9989), slope (0.985–1.003) and active set in 9/9.** MN9-in-CI strict check: 2 misses of 15 (MN9_L at 100 Hz in both versions, in opposite directions). Re-tested with 90 / 55 Brian2 trials vs 2,000 fastlif trials: **both within CI (p = 0.21, 0.16)**. Verdict: PASS with documented re-test |
 | G2 | vs the authors' stored outputs (30 trials; 200 Hz, 100 Hz, 3 silencings at 100 Hz; v630) | **PASS** 5/5 (r ≥ 0.9997, MN9 L+R within CI) |
 | G3 | closure vs full network inside fastlif, 116 jobs/version (intact + 27 silencing conditions), v630 + v783 | **PASS**: bit-identical spike trains; the boundary check fired and expanded correctly; a deliberately truncated closure also converges to identical results |
 | G4 | CRN sanity | **PASS** (all 5 sub-checks) |
-| G5 | speed | 0.05 s/job amortized at 2 threads on the 9.2k closure, about 0.24 s/job/thread on the grown 19k closure (under load average 7 on 4 cores, shared with other agents). Projections in §6 |
+| G5 | speed | Measured with 4 threads on the grown closures (18.5–19.3k neurons) under load average about 7 (other agents' jobs): **0.13–0.17 s per 1-s trial per condition**. Projected 3,200×8 = 25,600 jobs: **≤ 73 min**; 480×8 = 3,840 jobs: **≤ 11 min** (about 2–3× less on an idle machine). Brian2: 5.8–13.5 s per trial per process at about 3 GB |
 
 ## 1. Model semantics replicated, with sources
 
@@ -195,12 +195,33 @@ with more data rather than assuming it:
   strongly correlated across neurons through shared trial-level fluctuations, which explains their mean of −0.50 and
   SD of 0.75.
 - **PASS.**
+- Intermediate result, for transparency: fastlif's first 200-trial sample (67.13 ± 0.34) against ENG + new (50 trials,
+  69.20 [67.98, 70.42]) was also outside (p = 0.004). With the 30 new trials alone it was inside (68.67
+  [67.00, 70.34], p = 0.09). The 2,000-trial estimate shows that the 200-trial sample was low by about 1.4 SE.
 
 **v783, 100 Hz.** See 4.2.
 
 #### 4.2 v783, 100 Hz follow-up
 
-_(filled in below once the extra Brian2 trials finish)_
+Same procedure (log `10_g1_power_v783.log`). fastlif: 2,000 trials. Brian2: 55 trials. ENG 20, 25 new ones from
+the original path (seeds 100–124; the run was OOM-killed twice by other jobs in the shared cgroup and resumed from
+per-trial shards, and 25 of the planned 30 were used), and the feasibility repro 10. The authors stored no v783 files.
+
+- MN9_L: fastlif **61.79 ± 0.11** vs pooled Brian2 **60.76 [59.33, 62.19]**, within the CI (Welch p = 0.16).
+- MN9_L by Brian2 set: ENG 59.85, new 60.72, repro 62.70 (ANOVA p = 0.39).
+- GRN rate: 99.08 vs 99.14 Hz.
+- Over 261 neurons > 5 Hz: r = 0.99976, slope = 0.996. z mean +0.11, SD 1.14; 11.1% of |z| > 1.96 but only 0.8% of
+  |z| > 2.58. The excess at 1.96 is not matched in the tail, and v630 showed 2.6%. With z correlated across neurons
+  and Brian2 SEs estimated from 55 trials, I read this as noise. There is no mechanism for a difference: G0 is
+  bit-identical on v783 in 3 cases. The largest |z| was 2.94 (27.9 vs 28.6 Hz).
+- **PASS.**
+
+**G1 summary.**
+- The pre-specified strict criterion passes in 7/9 comparisons. The two MN9_L misses are explained by reference
+  sampling noise.
+- Both pass when re-tested at higher power (v630: 90 Brian2 vs 2,000 fastlif trials; v783: 55 vs 2,000).
+- r, slope and active-set criteria pass in 9/9.
+- I call G1 **PASS (with the documented re-test)**. The PI may prefer to record it as "7/9 strict + 2 re-tested".
 
 ### G2. vs the authors' stored outputs (`results/example/`, v630, 30 trials each)
 
@@ -254,7 +275,24 @@ converges to the bit-identical full-network result.
 | fastlif, closure 9.2k neurons, 2 threads, 512 jobs | **0.048 s/job (100 Hz), 0.051 s/job (400 Hz)** amortized |
 | fastlif, grown closure 19.3k (v630) / 18.5k (v783), 1 thread | 0.235–0.282 s/job (measured under load average 7 on 4 cores) |
 
-_(4-thread measurement and projections in §6.)_
+| fastlif, grown closure, **4 threads**, 400 single-silencing jobs (50 neurons × 8 trials), load average 6.5–7.8 | v630: 0.171 (100 Hz), 0.132 (400 Hz); v783: 0.136 (100 Hz), 0.138 (400 Hz) s/job |
+
+**Projections** (worst measured 0.171 s/job, contended):
+- 3,200 conditions × 8 trials = 25,600 jobs → **73 min**;
+- 480 pair conditions × 8 trials = 3,840 jobs → **11 min**.
+
+On an idle machine (single-thread 0.24 s/job ÷ 4) these become about 26 min and 4 min. Add a few % for boundary
+re-runs: at 400 Hz, 4–18% of jobs flagged against the current closure in this benchmark. Each flagged job is re-run
+once after expansion, and the closure persists, so this rate falls over time.
+
+**Speed-up.**
+- Per core: Brian2 about 6 core-s per trial vs fastlif 0.05–0.24 core-s, i.e. **≈ 25× (19k closure) to ≈ 100×
+  (9k closure)**.
+- At machine level: Brian2 can run at most about 4 processes in the 15 GB cgroup (≈ 1.5–3 s/job amortized at best)
+  vs fastlif 0.13–0.17 s/job under contention. That is about **10–20×**, and fastlif uses about 1 process and
+  < 4 GB.
+
+Logs: `06_g4_g5_v630_2threads.log`, `09_g5_single_thread.log`, `11_g5_4threads.log`.
 
 ## 5. Deviations from the original and known limitations
 
