@@ -191,7 +191,9 @@ def test_informativeness_hand_cases():
     assert C.informativeness(I.train, LAM, None, 'gain', (0.2, 0.5))['informative']        # gamma*O_max ref
     assert not C.informativeness(I.train, sat, None, 'gain', (0.6, 0.5))['informative']
     assert C.informativeness(I.train, LAM, None, 'free', (80.0, 90.0, 2.0))['informative']
-    assert not C.informativeness(I.train, LAM, None, 'free', (80.0, 2000.0, 2.0))['informative']
+    assert not C.informativeness(I.train, LAM, None, 'free', (80.0, 2000.0, 2.0))['informative']   # no mid-range
+    # free reference = fitted Hill at 400 Hz, not E: a shallow curve still rising at 400 Hz qualifies
+    assert C.informativeness(I.train, LAM, None, 'free', (85.0, 63.0 / 0.8, 1.2))['informative']
     np.testing.assert_equal(C.informativeness(I.train, LAM, 0.2), C.informativeness(I.train, LAM, 0.2, 'shift', (0.2,)))
 
 

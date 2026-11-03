@@ -405,16 +405,18 @@ def effect_gate(Ysil, Yint, B=EFFECT_BOOT, rng=None, alpha=0.05):
 
 def informativeness(curve: MonotoneCurve, lam, fhat, model='shift', params=None):
     """Sec. 6.2 as amended by DECISIONS D-009: evaluated under the CV-selected model.
-    pred = the selected model's fitted curve on the grid; ref = that model's own maximum attainable
-    output (shift: O_max; gain: gamma*O_max; free: Hill E).  Informative iff >= 2 lambda with
-    pred in [0.2, 0.8]*ref and >= 1 with pred >= 0.9*ref.  For shift this is exactly v1.0 Sec. 6.2."""
+    pred = the selected model's fitted curve on the grid; ref = that model's maximum output within the
+    simulated intensity range (shift: O_max; gain: gamma*O_max; free: the fitted Hill at the top of the
+    intact grid, 400 Hz -- not the asymptote E, which is an extrapolation beyond the simulated range).
+    Informative iff >= 2 lambda with pred in [0.2, 0.8]*ref and >= 1 with pred >= 0.9*ref.
+    For shift this is exactly v1.0 Sec. 6.2."""
     lam = np.asarray(lam, float)
     if model == 'shift' or params is None:
         p, ref = curve((1.0 - fhat) * lam), curve.O_max
     elif model == 'gain':
         p, ref = params[1] * curve((1.0 - params[0]) * lam), params[1] * curve.O_max
     elif model == 'free':
-        p, ref = hill(lam, *params), params[0]
+        p, ref = hill(lam, *params), float(hill(curve.lam_max, *params))
     else:
         raise ValueError(model)
     if not ref > 0:
