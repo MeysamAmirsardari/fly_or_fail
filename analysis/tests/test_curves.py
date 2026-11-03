@@ -304,3 +304,26 @@ def test_io_contract_roundtrip(tmp_path):
     bad = bad[~((bad.condition_id == 'intact') & (bad.seed == 3))]
     with pytest.raises(ValueError):
         C.validate_screen(bad, rd('sc_conditions.parquet'))
+
+
+def test_io_contract_doc_example_and_grid(tmp_path):
+    counts = pd.DataFrame({'condition_id': ['intact', 'k_720575940600000001'] * 2,
+                           'input_set': 'S_shiu', 'lambda_hz': [31.42, 31.42, 41.68, 41.68],
+                           'seed': [0, 0, 0, 0], 'mn9_primary_count': [9, 7, 15, 12],
+                           'mn9_secondary_count': [8, 7, 14, 11]})
+    conds = pd.DataFrame([dict(condition_id='intact', kind='intact', silenced_ids=[], input_set='S_shiu',
+                               lambda_hz=[31.42, 41.68], duration_s=1.0, flywire_version='v783', label='intact'),
+                          dict(condition_id='k_720575940600000001', kind='single',
+                               silenced_ids=[720575940600000001], input_set='S_shiu',
+                               lambda_hz=[31.42, 41.68], duration_s=1.0, flywire_version='v783', label='CB1234')])
+    counts.to_parquet(tmp_path / 'x.counts.parquet'); conds.to_parquet(tmp_path / 'x.conditions.parquet')
+    assert C.validate_screen(pd.read_parquet(tmp_path / 'x.counts.parquet'),
+                             pd.read_parquet(tmp_path / 'x.conditions.parquet'))
+    bad = conds.copy(); bad.at[1, 'lambda_hz'] = [31.42]
+    with pytest.raises(ValueError, match='lambda_hz'):
+        C.validate_screen(counts, bad)
+    # grid freezing from an intact-curve file
+    _write_synthetic_screen(tmp_path, np.random.default_rng(62))
+    g = C.grid_from_intact(pd.read_parquet(tmp_path / 'ic.parquet'), pd.read_parquet(tmp_path / 'ic_conditions.parquet'),
+                           'S_shiu')
+    assert len(g['lambda_hz']) == 10 and abs(g['lam50'] - 63) < 3 and g['lambda_hz'][-1] == 400.0

@@ -20,6 +20,7 @@ from __future__ import annotations
 
 import itertools
 import math
+import warnings
 
 import numpy as np
 from scipy import stats
@@ -422,7 +423,8 @@ def s6_summation(lam, Ysil_C1, sil_seeds, intact, R=2000, seed=11, alpha=0.05):
         cc = np.where(ok_cols, c, np.nan)          # slope on the lambdas complete in the point estimate
         sl_b[r] = slope(cc)
     q = [100 * alpha / 2, 100 * (1 - alpha / 2)]
-    with np.errstate(all='ignore'):
+    with warnings.catch_warnings():
+        warnings.simplefilter('ignore', RuntimeWarning)      # all-NaN columns (lambda never complete)
         ci = np.nanpercentile(S_b, q, axis=0)
     sl0 = slope(comp0)
     slci = np.nanpercentile(sl_b, q) if np.isfinite(sl_b).any() else (np.nan, np.nan)

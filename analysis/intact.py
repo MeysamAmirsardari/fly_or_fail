@@ -32,7 +32,9 @@ def run_curve(ver, inp, threads=2, lam=LAM, seeds=SEEDS, chunk=6, log=print):
         net, res = R.run_exact(ver, stim, jobs, net=net, persist=False, log=log, trial_seeds=seeds, threads=threads, u=u)
         nexp += res['n_expansions']
         assert not res['nviol'].any()
-        parts.append((net.gidx.copy(), res['counts'].astype(np.int32), lc))
+        assert res['counts'].max() < 65535
+        parts.append((net.gidx.copy(), res['counts'].astype(np.uint16), lc))
+        del res
         log(f'[{ver}/{inp}] lam {lc[0]:.0f}-{lc[-1]:.0f} done, net {net.n}, {time.time()-t0:.0f}s')
     gidx = net.gidx
     counts = np.zeros((len(lam), len(seeds), len(gidx)), np.uint16)

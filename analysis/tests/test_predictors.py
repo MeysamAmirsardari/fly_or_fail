@@ -225,7 +225,8 @@ def test_dominators_three_ways(seed):
     cuts_mf = vc.cut_nodes_single(exhaustive=True)
     cuts_fast = vc.cut_nodes_single()
     brute = _brute_cuts(n, E, S, T)
-    assert d_ig == d_nx == cuts_mf == cuts_fast == brute
+    by_path = P.cut_nodes_by_path(P.csr_out(n, pre, post), S, T)
+    assert d_ig == d_nx == cuts_mf == cuts_fast == brute == by_path
 
 
 def test_dominator_hand():
@@ -319,3 +320,18 @@ def test_empirical_gains_hand():
     D, info = P.empirical_gains(W, r_a, r_b, active=np.array([False, True, True]))
     dmu = P.TAU_S * 10 * 0.275 * 10           # = 0.1375 mV
     assert D[2] == pytest.approx(4 / dmu) and D[0] == 0 and D[1] == 0 and info['n_dmu_zero'] == 1
+
+
+@pytest.mark.parametrize('seed', range(8))
+def test_min_cut_members_vs_enumeration(seed):
+    rng = np.random.default_rng(100 + seed); n = 14
+    E = sorted(set((a, b) for a in range(n) for b in range(n) if a != b and rng.random() < 0.2))
+    pre = np.array([a for a, b in E]); post = np.array([b for a, b in E])
+    S, T = [0, 1], [13]
+    vc = P.VertexCut(n, pre, post, S, T, uncut=S + T)
+    k0, cuts, complete = vc.all_min_cuts(exhaustive=True)
+    k1, memb = vc.min_cut_members()
+    k2, memb_ex = vc.min_cut_members(exhaustive=True)
+    assert k0 == k1 == k2
+    if 0 < k0 < vc.BIG:
+        assert sorted(set(v for c in cuts for v in c)) == memb == memb_ex

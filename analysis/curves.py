@@ -571,6 +571,13 @@ def validate_screen(counts, conditions):
     nmiss = int((miss['_merge'] == 'left_only').sum())
     if nmiss:
         errs.append(f'{nmiss} (input_set, lambda, seed) cells lack a paired intact baseline')
+    # lambda levels declared in the conditions table must equal those present in counts
+    declared = {c: set(np.round(np.asarray(l, float), 9)) for c, l in
+                zip(conditions['condition_id'], conditions['lambda_hz'])}
+    for cid, g in counts.groupby('condition_id'):
+        if set(np.round(g['lambda_hz'].unique(), 9)) != declared.get(cid, set()):
+            errs.append(f'{cid}: lambda_hz in counts differs from the conditions table')
+            break
     # complete factorial per condition
     for (cid, iset), g in counts.groupby(['condition_id', 'input_set']):
         nl, ns = g['lambda_hz'].nunique(), g['seed'].nunique()
@@ -622,3 +629,16 @@ def analyze_screen(counts, conditions, intact_counts, intact_conditions, input_s
         r['condition_id'] = cid
         rows.append(r)
     return pd.DataFrame(rows), intact, lam
+
+
+def grid_from_intact(intact_counts, intact_conditions, input_set, readout='primary'):
+    """Freeze the Sec. 5.3 silencing grid from the intact-curve files: lam50 of O-hat estimated on the
+    TRAINING seeds 0-29 (choice C-11), then silencing_grid().  Returns dict for the frozen JSON."""
+    validate_screen(intact_counts, intact_conditions)
+    dur = float(intact_conditions['duration_s'].iloc[0])
+    cid = intact_conditions.loc[intact_conditions['kind'] == 'intact', 'condition_id'].iloc[0]
+    lam, seeds, rates = condition_matrix(intact_counts, cid, input_set, readout, dur)
+    I = IntactData(lam, rates, seeds, dur)
+    g, nonphys = silencing_grid(I.train.lam50)
+    return dict(input_set=input_set, readout=readout, lam50=I.train.lam50, O_max=I.train.O_max,
+                lambda_hz=[float(x) for x in g], non_physiological=[bool(x) for x in nonphys])

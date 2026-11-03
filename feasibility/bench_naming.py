@@ -15,8 +15,8 @@ for k in range(n):
     neu, syn, mon = S.M.create_model(pc, pn, p)
     pois, neu = S.M.poi(neu, exc, [], p)
     net = Network(neu, syn, mon, *pois)
-    nm = [o.name for o in pois][:3]
+    nm = [o.name for o in pois][:3]; bn = [n for n in pois[-1].variables if 'binomial' in n]
     net.run(p['t_run'])
     spk = S.M.get_spk_trn(mon); w = time.perf_counter() - t0
-    print(f'trial {k}: wall {w:.1f}s | first PoissonInput names {nm} | new cython .so compiled this trial: {nfiles()-n0} | n_active {len(spk)}', flush=True)
+    print(f'trial {k}: wall {w:.1f}s | first PoissonInput names {nm} | last PoissonInput binomial-function name {bn} | new cython .so compiled this trial: {nfiles()-n0} | n_active {len(spk)}', flush=True)
     del neu, syn, mon, pois, net, spk; gc.collect()

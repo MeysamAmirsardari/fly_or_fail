@@ -12,7 +12,7 @@ import simlib as S
 R = '/home/user/external/Drosophila_brain_model/results/example/'
 OURS = '/home/user/fly_or_fail/feasibility/out/ref/v630/'
 SUF = sys.argv[1] if len(sys.argv) > 1 else ''     # '' = primary gate (seeds 0-19); '_rep2' = independent replicate (seeds 20-39), same criteria
-conds = [('200 Hz', 'sugarR.parquet', 'sugarR_200Hz.parquet'), ('100 Hz', 'sugarR_100Hz.parquet', f'sugarR_100Hz{SUF}.parquet')] + \
+conds = [('200 Hz', 'sugarR.parquet', f'sugarR_200Hz{SUF}.parquet'), ('100 Hz', 'sugarR_100Hz.parquet', f'sugarR_100Hz{SUF}.parquet')] + \
         [(f'100 Hz silence {s}', f'sugarR-{s}.parquet', f'sugarR-{s}_100Hz{SUF}.parquet') for s in (720575940617937543, 720575940621754367, 720575940622695448)]
 GRN = set(S.sugar_right('v630'))
 def counts(df, ntr):

@@ -47,23 +47,28 @@ def load_annotations():
 
 
 def load_graph(ver):
-    """Whole-brain connectome. Returns dict with
-    fid (n,) FlyWire ids in completeness row order (= Brian2 index); pre, post (m,) indices; nsyn (m,) synapse counts
-    n_ij >= 1; sign (m,) +-1 of the PRESYNAPTIC neuron. Asserts: no duplicate pairs, no self loops, sign per presyn."""
+    """Whole-brain connectome, memory-lean (int32/int8 arrays, read column by column). Returns dict with
+    fid (n,) FlyWire ids in completeness row order (= Brian2 index); pre, post (m,) int32 indices; nsyn (m,) int32
+    synapse counts n_ij >= 1; sign (m,) int8 +-1 of the PRESYNAPTIC neuron.
+    Asserts: rows sorted by presynaptic index, no duplicate pairs, no self loops, sign constant per presynaptic neuron,
+    'Excitatory x Connectivity' == sign * n."""
     if ('g', ver) in _CACHE: return _CACHE[('g', ver)]
+    import pyarrow.parquet as pq
     comp = pd.read_csv(PATHS[ver][0], index_col=0)
-    con = pd.read_parquet(PATHS[ver][1], columns=['Presynaptic_Index', 'Postsynaptic_Index', 'Connectivity', 'Excitatory',
-                                                   'Excitatory x Connectivity'])
-    pre = con.Presynaptic_Index.values.astype(np.int64); post = con.Postsynaptic_Index.values.astype(np.int64)
-    nsyn = con.Connectivity.values.astype(np.int64); sign = con.Excitatory.values.astype(np.int64)
     n = len(comp)
-    assert np.all(nsyn >= 1) and set(np.unique(sign)) <= {-1, 1}
-    assert np.array_equal(sign * nsyn, con['Excitatory x Connectivity'].values)
+    pf = pq.ParquetFile(PATHS[ver][1])
+    col = lambda c, dt: pf.read(columns=[c]).column(0).to_numpy().astype(dt)
+    pre = col('Presynaptic_Index', np.int32); post = col('Postsynaptic_Index', np.int32)
+    nsyn = col('Connectivity', np.int32); sign = col('Excitatory', np.int8)
+    exn = col('Excitatory x Connectivity', np.int32)
+    assert np.array_equal(sign.astype(np.int32) * nsyn, exn); del exn
+    assert np.all(nsyn >= 1) and set(np.unique(sign).tolist()) <= {-1, 1}
+    assert np.all(np.diff(pre) >= 0), 'not sorted by presynaptic index'
     assert not np.any(pre == post)
-    key = pre * n + post
-    assert len(np.unique(key)) == len(key), 'duplicate edges'
-    s_by_pre = np.zeros(n, np.int64); s_by_pre[pre] = sign
-    assert np.all(s_by_pre[pre] == sign), 'sign not constant per presynaptic neuron'
+    key = pre.astype(np.int64) * n + post
+    assert len(np.unique(key)) == len(key), 'duplicate edges'; del key
+    s_by_pre = np.zeros(n, np.int8); s_by_pre[pre] = sign
+    assert np.array_equal(s_by_pre[pre], sign), 'sign not constant per presynaptic neuron'
     g = dict(ver=ver, n=n, fid=comp.index.values.astype(np.int64), pre=pre, post=post, nsyn=nsyn, sign=sign,
              f2i=pd.Series(np.arange(n), index=comp.index.values.astype(np.int64)))
     _CACHE[('g', ver)] = g
@@ -79,9 +84,16 @@ def idx_of(g, fids, strict=True):
     return np.array(out, np.int64)
 
 
+def present_ids(ver):
+    """FlyWire ids in the completeness table (cheap; does not load the connectivity)."""
+    if ('present', ver) not in _CACHE:
+        _CACHE[('present', ver)] = set(pd.read_csv(PATHS[ver][0], index_col=0).index.astype(np.int64).tolist())
+    return _CACHE[('present', ver)]
+
+
 def S_shiu(ver):
     s = pd.read_csv(IDS + 'sugar_GRN_right.csv').flywire_id.astype(np.int64).tolist()
-    present = set(load_graph(ver)['fid'].tolist())
+    present = present_ids(ver)
     return [f for f in s if f in present]
 
 
@@ -94,7 +106,7 @@ def S_pure_all():
 
 
 def S_pure(ver):
-    present = set(load_graph(ver)['fid'].tolist())
+    present = present_ids(ver)
     return [f for f in S_pure_all() if f in present]
 
 
@@ -105,7 +117,7 @@ def ext_type_members(ver):
     import pickle
     d = pickle.load(open(DATA + 'sez_neurons.pickle', 'rb'))
     A = load_annotations()
-    present = set(load_graph(ver)['fid'].tolist())
+    present = present_ids(ver)
     out = {}
     for name, key in EXT_TYPES.items():
         if key is None:
