@@ -232,3 +232,5 @@ sim/out/
 literature/pdfs/
 literature/text/
 data/shiu_archive/
+feasibility/out/
+analysis/out/*.npz
