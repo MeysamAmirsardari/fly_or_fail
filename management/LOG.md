@@ -210,3 +210,10 @@ _Append-only, newest entries at the bottom. Times are 2026-11-03 session times (
 - **Update.** A second zip added `fig_1f_{100,110,120}_hz_rate.csv` and `_std.csv`. The Fig. 1F
   archive set is now **complete**: 8 intensities (50–120 Hz) × 200 silencings, mean and SD over 30
   trials. These files were not displayed; they were extracted with a script only.
+- **ENG done** (`feasibility_report.md`):
+  - Reproduction gate: 1 strict sub-criterion missed on the primary seeds (Spearman 0.9956 vs a 0.9960
+    floor); the independent replicate passes every criterion.
+  - Accepted, with the ≤5% MN9 offset noted as a limitation.
+  - MN9 onset is between 30 and 40 Hz.
+  - Ipsilateral MN9 in v783 = 720575940618238523, as pre-registered (inferred by connectivity cosine).
+  - Original Brian2 cannot run the screen in time (≈93 CPU-h), so SIM's fast simulator is required.

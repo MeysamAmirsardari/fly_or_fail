@@ -1001,7 +1001,10 @@ def stage_activity(ver, inp, ro, Z, WB, tset, log):
     vc = VertexCut(fma.n, ea, eb, fma.S, fma.T, uncut=np.concatenate([fma.S, fma.T]))
     kap, memb = vc.min_cut_members()
     WB[f'in_min_vertex_cut_lam50__{tag}'] = _mask(n, Va[memb])
-    kap_e, cuts, complete = vc.all_min_cuts(time_budget=60)
+    if 0 < kap < vc.BIG and len(memb) == kap:          # union of all minimum cuts has size kappa => the cut is unique
+        cuts, complete = [tuple(memb)], True
+    else:
+        kap_e, cuts, complete = vc.all_min_cuts(time_budget=60)
     cnt = np.full(n, np.nan)
     if complete:
         part = np.zeros(fma.n, np.int64)

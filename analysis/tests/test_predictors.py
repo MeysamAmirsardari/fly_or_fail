@@ -335,3 +335,11 @@ def test_min_cut_members_vs_enumeration(seed):
     assert k0 == k1 == k2
     if 0 < k0 < vc.BIG:
         assert sorted(set(v for c in cuts for v in c)) == memb == memb_ex
+
+
+def test_unique_min_cut_shortcut():
+    # S={0} -> {1,2} -> 3 -> {4,5} -> T=6 : kappa=1 via node 3 (unique); members == [3]
+    E = [(0, 1), (0, 2), (1, 3), (2, 3), (3, 4), (3, 5), (4, 6), (5, 6)]
+    vc = P.VertexCut(7, np.array([a for a, b in E]), np.array([b for a, b in E]), [0], [6], uncut=[0, 6])
+    k, m = vc.min_cut_members(); k2, cuts, comp = vc.all_min_cuts()
+    assert k == 1 and m == [3] and cuts == [(3,)] and comp
