@@ -295,7 +295,7 @@ def main(argv=None):
     ap.add_argument('--rec_cap', type=int, default=200000)
     ap.add_argument('--out', required=True, help='output .npz')
     a = ap.parse_args(argv)
-    net = load_full(a.ver) if a.net == 'full' else __import__('reduce').load_closure(a.ver)
+    sys.path.insert(0, SIM)
     conds = json.load(open(a.conditions)) if a.conditions else [dict(name='intact', silence=[])]
     rates = [float(x) for x in a.rates.split(',')]; trials = _parse_trials(a.trials)
     stim = sugar_right(a.ver)
@@ -303,8 +303,12 @@ def main(argv=None):
             for c in conds for r in rates for t in trials]
     rec = None if a.record is None else ('all' if a.record == 'all' else [int(x) for x in a.record.split(',')])
     t0 = time.time()
-    res = run(net, stim, jobs, trial_seeds=trials, salt=a.salt, record=rec, rec_cap=a.rec_cap, inout=a.inout,
-              threads=a.threads)
+    kw = dict(trial_seeds=trials, salt=a.salt, record=rec, rec_cap=a.rec_cap, inout=a.inout, threads=a.threads)
+    if a.net == 'full':
+        net = load_full(a.ver); res = run(net, stim, jobs, **kw); res['n_expansions'] = 0
+    else:   # closure + runtime boundary check + automatic exact expansion (reduce.run_exact)
+        import reduce
+        net, res = reduce.run_exact(a.ver, stim, jobs, **kw)
     wall = time.time() - t0
     if res['nviol'].any():
         bad = [jobs[i]['cond'] for i in np.flatnonzero(res['nviol'])]
@@ -312,13 +316,14 @@ def main(argv=None):
               sorted(set(bad))[:20], file=sys.stderr)
     save = dict(counts=res['counts'].astype(np.uint16), fid=res['fid'], nviol=res['nviol'],
                 job_cond=np.array([j['cond'] for j in jobs]), job_rate=np.array([j['rate'] for j in jobs]),
-                job_trial=np.array([j['trial'] for j in jobs]), salt=a.salt, inout=a.inout, ver=a.ver, net=a.net)
+                job_trial=np.array([j['trial'] for j in jobs]), salt=a.salt, inout=a.inout, ver=a.ver, net=a.net,
+                n_expansions=res['n_expansions'])
     assert res['counts'].max() < 65535
     if rec is not None:
         save['spk_job'] = np.concatenate([np.full(len(s), i) for i, (s, f) in enumerate(res['spikes'])])
         save['spk_step'] = np.concatenate([s for s, f in res['spikes']]); save['spk_fid'] = np.concatenate([f for s, f in res['spikes']])
     np.savez_compressed(a.out, **save)
-    print(f'{len(jobs)} jobs on {net.n} neurons / {net.nsyn()} synapses in {wall:.1f} s -> {a.out}')
+    print(f'{len(jobs)} jobs ({res["n_expansions"]} closure expansions) on {net.n} neurons / {net.nsyn()} synapses in {wall:.1f} s -> {a.out}')
 
 
 if __name__ == '__main__':

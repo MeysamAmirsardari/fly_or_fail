@@ -1,0 +1,8 @@
+v630 sugarR_40Hz 40 10 0 0
+v783 sugarR_40Hz 40 10 0 0
+v630 sugarR_75Hz 75 10 0 0
+v783 sugarR_75Hz 75 10 0 0
+v630 sugarR_150Hz 150 10 0 0
+v783 sugarR_150Hz 150 10 0 0
+v630 sugarR_60Hz 60 10 0 0
+v783 sugarR_60Hz 60 10 0 0

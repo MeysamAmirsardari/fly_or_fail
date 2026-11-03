@@ -13,9 +13,9 @@ for ver in ['v630', 'v783']:
         lam = float(re.search(r'_(\d+)Hz', f).group(1)); meta = json.load(open(f.replace('.parquet', '.meta.json'))); ntr = meta['n_trials']
         df = pd.read_parquet(f)
         ct = pd.crosstab(df.flywire_id, df.trial).reindex(columns=range(ntr), fill_value=0)
-        rate = ct.mean(1)   # t_run = 1 s -> Hz
-        row = dict(ver=ver, lam=lam, n_trials=ntr, n_ge1spike=int((ct.sum(1) > 0).sum()), n_ge1Hz=int((rate >= 1).sum()),
-                   n_ge1spike_first10=int((ct.iloc[:, :10].sum(1) > 0).sum()), n_ge1Hz_first10=int((ct.iloc[:, :10].mean(1) >= 1).sum()),
+        rate = ct.mean(axis=1)   # t_run = 1 s -> Hz
+        row = dict(ver=ver, lam=lam, n_trials=ntr, n_ge1spike=int((ct.sum(axis=1) > 0).sum()), n_ge1Hz=int((rate >= 1).sum()),
+                   n_ge1spike_first10=int((ct.iloc[:, :10].sum(axis=1) > 0).sum()), n_ge1Hz_first10=int((ct.iloc[:, :10].mean(axis=1) >= 1).sum()),
                    n_ge1Hz_excl_GRN=int((rate.drop(index=[i for i in GRN if i in rate.index]) >= 1).sum()),
                    spikes_per_trial=len(df) / ntr, grn_mean_rate=float(rate.reindex(list(GRN)).fillna(0).mean()))
         for nm, mid in MN9[ver].items():
