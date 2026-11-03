@@ -1,0 +1,3 @@
+flywire_id,name,class,side,source_notebook,cell_index,in_v630,in_v783
+720575940621326324,SEZ_good_dog_1,SEZ_good_dog,unspecified,sez_neurons.pickle,-1,True,False
+720575940631740497,SEZ_good_dog_2,SEZ_good_dog,unspecified,sez_neurons.pickle,-1,True,True

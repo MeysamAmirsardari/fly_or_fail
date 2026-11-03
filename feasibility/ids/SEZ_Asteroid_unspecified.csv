@@ -1,0 +1,4 @@
+flywire_id,name,class,side,source_notebook,cell_index,in_v630,in_v783
+720575940623697898,SEZ_Asteroid_1,SEZ_Asteroid,unspecified,sez_neurons.pickle,-1,True,True
+720575940614235323,SEZ_Asteroid_2,SEZ_Asteroid,unspecified,sez_neurons.pickle,-1,True,True
+720575940632835923,SEZ_Asteroid_3,SEZ_Asteroid,unspecified,sez_neurons.pickle,-1,True,False

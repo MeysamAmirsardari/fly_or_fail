@@ -1,0 +1,3 @@
+flywire_id,name,class,side,source_notebook,cell_index,in_v630,in_v783
+720575940645474583,SEZ_meteor_1,SEZ_meteor,unspecified,sez_neurons.pickle,-1,True,False
+720575940635112544,SEZ_meteor_2,SEZ_meteor,unspecified,sez_neurons.pickle,-1,True,False

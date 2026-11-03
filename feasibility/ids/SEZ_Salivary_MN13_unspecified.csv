@@ -1,0 +1,3 @@
+flywire_id,name,class,side,source_notebook,cell_index,in_v630,in_v783
+720575940619455879,SEZ_Salivary_MN13_1,SEZ_Salivary_MN13,unspecified,sez_neurons.pickle,-1,True,False
+720575940618864725,SEZ_Salivary_MN13_2,SEZ_Salivary_MN13,unspecified,sez_neurons.pickle,-1,True,False

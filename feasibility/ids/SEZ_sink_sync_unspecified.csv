@@ -1,0 +1,5 @@
+flywire_id,name,class,side,source_notebook,cell_index,in_v630,in_v783
+720575940622624214,SEZ_sink_sync_1,SEZ_sink_sync,unspecified,sez_neurons.pickle,-1,True,True
+720575940638001498,SEZ_sink_sync_2,SEZ_sink_sync,unspecified,sez_neurons.pickle,-1,True,True
+720575940628029180,SEZ_sink_sync_3,SEZ_sink_sync,unspecified,sez_neurons.pickle,-1,True,True
+720575940647560500,SEZ_sink_sync_4,SEZ_sink_sync,unspecified,sez_neurons.pickle,-1,True,True

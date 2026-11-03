@@ -1,0 +1,5 @@
+flywire_id,name,class,side,source_notebook,cell_index,in_v630,in_v783
+720575940629013199,SEZ_earmuff_1,SEZ_earmuff,unspecified,sez_neurons.pickle,-1,True,True
+720575940631448874,SEZ_earmuff_2,SEZ_earmuff,unspecified,sez_neurons.pickle,-1,True,False
+720575940611411057,SEZ_earmuff_3,SEZ_earmuff,unspecified,sez_neurons.pickle,-1,True,True
+720575940635642725,SEZ_earmuff_4,SEZ_earmuff,unspecified,sez_neurons.pickle,-1,True,True
