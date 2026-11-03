@@ -242,3 +242,15 @@ _Append-only, newest entries at the bottom. Times are 2026-11-03 session times (
   PREDICTORS.md §4.4). To be weighed when interpreting P-A.
 - **Freeze.** Predictor tables and screen outputs committed with md5 checksums (`analysis/out/FROZEN_MANIFEST.md5`)
   before any candidate screen result was viewed.
+
+## 2026-11-03: Pre-registered analysis (v783)
+
+- `analysis/run_analysis.py` (fit, boot, stats) applied curves.py / stats.py unchanged to the frozen inputs. Summary:
+  `analysis/RESULTS_v783.md`; numbers: `analysis/out/results_v783.json`.
+- **P-A passed:** Δρ = 0.30, one-sided lower bound 0.083 (2.5th pct. 0.054); ρ(f^LIN-A, f̂) = 0.37 vs ≤ 0.07 for every
+  classical centrality. Caveats: rank reliability of f̂ is modest (Spearman–Brown 0.60), and f^LIN-A comes from an
+  unstable linearization.
+- **Holm family:** nothing rejected (S1 p_adj 0.076, S2 0.249, S4 1.0, S5 1.0; S3 dropped, 0 dominators).
+- **External arm failed:** τ_b = −0.35; Roundup f̂ = 0.83, Rattle 0.02. Not confined to GABAergic types.
+- **RQ2:** 70 of 573 effect-bearing; collapse fraction 0.39 [0.27, 0.51]; gain is the most common class.
+- **S6:** the cut sum is far from 1; not supported in its simple form.
