@@ -5,6 +5,7 @@ sys.path.insert(0, '/home/user/external/Drosophila_brain_model')
 import numpy as np, pandas as pd
 import model as M, utils as U
 from brian2 import Network, ms, Hz, mV
+PROFILE = False
 D = '/home/user/external/Drosophila_brain_model/'
 PATHS = {
     'v630': (D + '2023_03_23_completeness_630_final.csv', D + '2023_03_23_connectivity_630_final.parquet'),
@@ -39,11 +40,16 @@ def timed_trial(exc, exc2, slnc, ver, params, flyid2i):
     syn = M.silence([flyid2i[n] for n in slnc], syn)
     t['silence'] = time.perf_counter() - t0
     net = Network(neu, syn, spk_mon, *poi_inp)
+    # split Brian2 preparation (before_run: code generation/linking, synapse index setup) from the actual simulation
     t0 = time.perf_counter()
-    net.run(duration=params['t_run'])
-    t['run'] = time.perf_counter() - t0
+    net.run(0 * ms)
+    t['prepare'] = time.perf_counter() - t0
+    t0 = time.perf_counter()
+    net.run(duration=params['t_run'], profile=PROFILE)
+    t['sim'] = time.perf_counter() - t0
+    if PROFILE: t['profile'] = net.profiling_info
     spk = M.get_spk_trn(spk_mon)
-    t['total'] = sum(t.values())
+    t['total'] = sum(v for k, v in t.items() if k not in ('profile',))
     t['rss_mb'] = rss_mb()
     return spk, t
 
