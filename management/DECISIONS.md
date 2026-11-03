@@ -30,3 +30,22 @@ _Each entry gives: context, decision, alternatives considered, consequences, sta
   `Co-Authored-By` or session trailers. Earlier commits were rewritten and force-pushed with the
   user's explicit approval (2026-11-03).
 - **Status.** Accepted (2026-11-03).
+
+## D-005: Push cadence
+- **Context.** The user asked for less frequent pushes (2026-11-03).
+- **Decision.** Commit locally as needed. Push to the remote only at milestones: after design synthesis, after the red-team review, and at the final deliverable.
+- **Status.** Accepted (2026-11-03).
+
+## D-006: Re-frame the core hypothesis as the input-rescaling law
+- **Context.** The prior-art audit shows two things. Intensity-swept single silencing is already in
+  the Shiu et al. 2024 design. Synergy among second-order sugar neurons is reported by Jacobs et al.
+  2024. "Synthetic essential" neuron pairs are framed by Towlson & Barabási 2020 (C. elegans).
+- **Decision.** The core claim becomes the quantitative law O_k(λ) = O((1 − f_k)λ) and its
+  consequences: curve collapse, the EC50-shift law, abolition = vertex cut, and parameter-free pair
+  interaction curves with a synergy window. The structural estimation of f_k is the "structure" half.
+  The centrality-vs-necessity comparison is kept as a baseline section (RQ1).
+- **Alternatives considered.**
+  - C1, centrality screen only: too incremental.
+  - C6, Shapley/MSA: costly, and less directly tied to the student's question.
+  - C5, cross-connectome: data-heavy for 5 weeks; kept for the paper.
+- **Status.** Proposed, pending red-team review (2026-11-03).

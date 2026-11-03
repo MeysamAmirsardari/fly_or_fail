@@ -72,3 +72,29 @@ _Append-only, newest entries at the bottom. Times are 2026-11-03 session times (
   - pairwise epistasis predictions by structural relation, including a closed form for synergy in EC50 space (P3).
 - **Caveat.** These are mean-field approximations. The transfer function and D* must be
   calibrated empirically before any predictor is used (theory note §8).
+
+## 2026-11-03: Phase 1 results (4 of 5) and synthesis
+
+- **Reports in:** LIT-A, LIT-B, LIT-C and NOV are in `docs/research/`. ENG is still running.
+- **Budget exhaustion.** WebSearch hit the shared limit and Consensus ran out of free credits
+  (they reset 2026-12-01) during Phase 1. Absence-of-prior-art claims are therefore weaker than
+  planned. This is logged as a limitation in PROJECT_DESIGN §1.2.
+- **PI verification of decision-critical claims:**
+  - **Jacobs et al. 2024, Cell Reports 43:114782.** Confirmed by the abstract (`[V-abs]`, via
+    WebSearch): "connectome-based simulations ... predict that second-order sugar neurons act
+    synergistically". The "all pairs" design is snippet-level only.
+  - **Shiu `figures.ipynb`** (`[V-src]`, read by the PI):
+    - sugar silencing screen at freqs = [50, 60, …, 120] Hz on the top 200 neurons, ranked by rate at 200 Hz;
+    - water at 160–220 Hz;
+    - JON at 140–180 Hz;
+    - intact sugar curve at 10–200 Hz.
+  - **Shiu & Sterne et al. 2022 eLife** (`[V-abs]`, peer-review text): only a subset of second-order
+    neurons, and none of the third-order or premotor neurons tested, are required for sugar PER.
+  - **Not verified:** whether Shiu 2024's text states that "redundancy increases with stimulation".
+    Snippet-level only.
+- **Decision (DECISIONS D-006).** Re-frame the project around the input-rescaling law (theory v0.2).
+  Drop "operating-point dependence" and "neural epistasis" as novelty claims.
+- **Drafts written:** `docs/design/PROJECT_DESIGN.md` v0.9 and `docs/design/PROPOSAL_1page.md` v0.9.
+- **Public bucket found by ENG.** `gs://lee-lab_brain-and-nerve-cord-fly-connectome/compiled_data/`
+  holds BANC, male CNS and FAFB-783 compiled data. This enables cross-connectome work in the paper
+  extension.
