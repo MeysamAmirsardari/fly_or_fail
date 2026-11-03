@@ -3,7 +3,7 @@
 _The user asked for "an office of subagents" with models and effort chosen to balance quality and
 usage, and zero tolerance for mistakes._
 
-## Model pricing basis (Anthropic API list prices, cached 2026-10-06; input/output per 1M tokens)
+## Model pricing basis (API list prices as of 2026-10-06; input/output per 1M tokens)
 
 | Model | Price | Use here |
 |---|---|---|
