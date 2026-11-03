@@ -207,3 +207,6 @@ _Append-only, newest entries at the bottom. Times are 2026-11-03 session times (
   displayed in full to the PI. This happened **after** the pre-registration freeze (e051e088). No
   hypothesis, label, threshold or analysis choice was changed afterwards; any later deviation will be
   logged in DECISIONS.md.
+- **Update.** A second zip added `fig_1f_{100,110,120}_hz_rate.csv` and `_std.csv`. The Fig. 1F
+  archive set is now **complete**: 8 intensities (50–120 Hz) × 200 silencings, mean and SD over 30
+  trials. These files were not displayed; they were extracted with a script only.
