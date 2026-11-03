@@ -166,3 +166,24 @@ _Append-only, newest entries at the bottom. Times are 2026-11-03 session times (
 - **STRUCT launched** (Opus/high): the structural-predictor pipeline (exact Sherman–Morrison and
   Woodbury walk-sum fractions, max-flow, dominators, empirical gains) and the intact λ-curve.
   Intact runs only.
+
+## 2026-11-03: Red-team review, pre-registration freeze
+
+- **RED verdict:** major revision. Key problems:
+  - C1: P1 could not fail;
+  - C4: notation clash between documents;
+  - C5: likelihood mis-specified (MN9 is under-dispersed, Fano ≈ 0.65);
+  - M3: abolition ⇏ cut;
+  - M4: averaging the two MN9 outputs manufactures a law violation;
+  - M7: n_eff ≈ 207 cell types, not ~400 neurons;
+  - M13: MCA bridge needed.
+
+  All were adopted (D-008).
+- **Labels corrected by the PI.** Reading the Shiu 2022 figure images corrected a text-layer error:
+  Phantom has no 50 mM phenotype; G2N-1 and FMIn are significant in one of two lines. The tiers were
+  frozen in `fulltext_verification.md` §8 before any f was computed.
+- **Pre-registration v1.0** committed as `e051e088` and pushed to the working branch and `main` (milestone).
+- **ANALYSIS launched** (Opus/high): pre-registered fitting and statistics code, validated on
+  synthetic data.
+- **STRUCT updated by message:** primary T is the single contralateral MN9; S_pure input set;
+  set-level structural f for the 10 external types; dominators and min-cut counts.
