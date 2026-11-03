@@ -1,4 +1,4 @@
-# Final Project Proposal (draft v0.9)
+# Final Project Proposal (draft v0.9; superseded by PROPOSAL.md / PROPOSAL.pdf)
 
 **Silencing as input rescaling: predicting the intensity-dependent consequences of neuron loss from connectome structure in a whole-brain *Drosophila* model**
 

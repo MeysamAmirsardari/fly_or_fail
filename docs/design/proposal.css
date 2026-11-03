@@ -1,0 +1,11 @@
+@page { size: letter; margin: 0.6in 0.7in; }
+body { font-family: "Times New Roman", Times, serif; font-size: 10.5pt; line-height: 1.28; color: #000; max-width: none; margin: 0; padding: 0; }
+header#title-block-header { margin: 0; }
+h1.title { font-size: 14pt; line-height: 1.2; margin: 0 0 3pt 0; text-align: left; }
+p.byline { text-align: left; font-size: 9.5pt; margin: 0 0 6pt 0; color: #333; }
+h2 { font-size: 11pt; margin: 7pt 0 2pt 0; }
+p { margin: 0 0 4pt 0; text-align: justify; hyphens: auto; }
+ul { margin: 0 0 4pt 0; padding-left: 14pt; }
+li { margin: 0 0 2pt 0; text-align: justify; hyphens: auto; }
+code { font-family: Menlo, monospace; font-size: 9pt; }
+p.refs { font-size: 9pt; margin-top: 6pt; }
