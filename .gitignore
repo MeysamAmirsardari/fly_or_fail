@@ -226,3 +226,4 @@ data/raw/
 feasibility/sim_output/
 *.parquet
 !feasibility/ids/*.parquet
+sim/out/
