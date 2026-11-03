@@ -34,6 +34,8 @@ out = dict(gate=gate, ver=ver, rate=rate, silence=sil, ref=refp.split('/')[-1], 
            closure=int(net.n), expansions=int(res['n_expansions']), wall_s=round(wall, 1))
 ok = (r >= 0.99) and (0.97 <= slope <= 1.03)
 for nm, f in (('MN9_L', F.MN9_L), ('MN9_R', F.MN9_R)):
+    if f not in set(F.load_full(ver).fid.tolist()):
+        out[nm] = f'N/A: id {f} not in {ver}'; continue
     b = ref_cnt.reindex([f], fill_value=0).iloc[0].values.astype(float); m = my_cnt.loc[f].values.astype(float)
     se = b.std(ddof=1) / np.sqrt(len(b)); h = stats.t.ppf(0.975, len(b) - 1) * se
     inci = bool(abs(m.mean() - b.mean()) <= h)
