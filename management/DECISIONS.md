@@ -62,3 +62,19 @@ _Each entry gives: context, decision, alternatives considered, consequences, sta
   The critical path is simulator validation followed by the screens. Scope cuts happen only if the
   user agrees.
 - **Status.** Accepted (2026-11-03).
+
+## D-008: Red-team resolutions and the v1.0 pre-registration freeze
+- **Context.** RED (Fable 5.1) returned "major revision before freeze": 5 Critical, 13 Major and
+  8 Minor issues (`docs/research/redteam_review.md`).
+- **Decision.** All issues are accepted and resolved in `PROJECT_DESIGN.md` v1.0 §10 and theory v0.3 §0.
+  - C2 (infeasible compute) is resolved by evidence, not by descoping: the validated fastlif
+    simulator is about 100× faster than Brian2 and spike-exact against Brian2 objects (G0). RED's
+    descoping ladder is retained as §9, in case the gates fail.
+  - One primary confirmatory test (P-A), a Holm family S1–S5, everything else exploratory.
+  - External labels were frozen from the figure **images** (`fulltext_verification.md` §8). This
+    corrected an earlier text-layer error: Phantom = no 50 mM phenotype.
+  - The bridge framing (MCA flux control coefficients and receptor reserve) replaces novelty claims.
+- **Not adopted as written.**
+  - RED's minimum design (Tier A 80–120 neurons, 12 trials). Compute is not binding, so the full
+    candidate set with 30 trials is pre-registered. This improves on RED's power estimates.
+- **Status.** Accepted (2026-11-03). The commit introducing v1.0 is the pre-registration timestamp.

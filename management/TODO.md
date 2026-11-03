@@ -25,8 +25,8 @@ _Status: `[ ]` open · `[~]` in progress · `[x]` done · `[!]` blocked. Owner i
 - [x] Execution roadmap, §7 (re-plan for the user's 2026-11-05 deadline)
 
 ## Phase 3: Red team
-- [~] [RED] Adversarial review of the design draft (Fable 5.1/high, running)
-- [ ] [PI] Resolve or accept each issue in DECISIONS.md
+- [x] [RED] Adversarial review of the design draft (Fable 5.1/high): major revision
+- [x] [PI] Resolve or accept each issue (D-008; PROJECT_DESIGN v1.0 §10)
 
 ## Phase 4: Verification
 - [ ] [CIT] Audit every citation in the final docs
@@ -42,7 +42,7 @@ _Status: `[ ]` open · `[~]` in progress · `[x]` done · `[!]` blocked. Owner i
 - [ ] [PI] Review sim_validation.md and accept or reject the simulator
 
 ## Phase 7: Pre-registered runs (after the design freeze)
-- [ ] Freeze the pre-registration (git commit of the final design and analysis plan)
+- [x] Freeze the pre-registration (PROJECT_DESIGN v1.0 commit)
 - [ ] Calibration: transfer function φ, D*, dense intact curve O(λ)
 - [ ] Structural predictors L0–L2 and all f estimators, frozen before viewing screen results
 - [ ] Single-neuron screen; pair pilot (~60 pairs); robustness subset

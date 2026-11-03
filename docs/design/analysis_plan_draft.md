@@ -1,3 +1,5 @@
+> **SUPERSEDED (2026-11-03)** by `PROJECT_DESIGN.md` v1.0, the pre-registration. Kept for history only. Its notation (f_k = O_k/O) conflicts with the frozen notation, so do not use it.
+
 # Analysis Plan: Building Blocks (PI draft v0.1)
 
 _Independent of the literature outcome. Items marked `[pending ENG]` wait for feasibility numbers.

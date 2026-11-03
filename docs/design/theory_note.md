@@ -1,4 +1,4 @@
-# Theory Note: Silencing as Input Rescaling (PI draft v0.2)
+# Theory Note: Silencing as Input Rescaling (v0.3; binding amendments in §0)
 
 _v0.2 (2026-11-03) replaces v0.1 after the prior-art audit. Changes from v0.1:_
 - _"Necessity depends on the operating point" is no longer a claim. It is a design premise of Shiu et al.
@@ -8,6 +8,58 @@ _v0.2 (2026-11-03) replaces v0.1 after the prior-art audit. Changes from v0.1:_
 - _The theory is recast as a **quantitative input-rescaling law**. It predicts the full
   intensity-dependent phenotype of single and paired silencing from one structurally estimable
   quantity per neuron._
+
+
+## §0. v0.3 amendments (2026-11-03, after red-team review). These override the text below where they conflict.
+
+1. **Notation.**
+   - f_k is the rescaling fraction only.
+   - w_k(λ) = O_k(λ)/O(λ) and N_k = 1 − w_k.
+   - ε_ab = w_ab − w_a·w_b.
+2. **Unmodelled nonlinearities in Approximation A** (`[V-src]`, Brian2 2.11 generated code via SIM):
+   - g is frozen during the 2.2 ms refractory period;
+   - synaptic and Poisson inputs arriving while a neuron is refractory, or in its spike step, are
+     **dropped**;
+   - g is reset to 0 at a spike.
+
+   All three break exact rate-linearity.
+3. **Exact and trivial cases** of the law, excluded from the RQ2 tallies by pre-registration:
+   - stimulated GRNs (approximately exact by construction: positive controls);
+   - f = 0 neurons (effect gate);
+   - curves that are flat or saturated over the grid (informativeness gate).
+4. **Predicted failure modes.** These are hypotheses, not caveats:
+   - (a) λ-gated inhibitory neurons: silent below their recruitment intensity, so silencing them
+     changes the curve's *shape*;
+   - (b) routes with different thresholds;
+   - (c) coincidence-driven transmission. About 162 synchronous synapses are needed to fire from
+     rest, so coincidence rates scale super-linearly with λ.
+
+   Collapse should fail preferentially for neurons upstream of high-convergence targets operating
+   near threshold.
+5. **EC50 law.** It is stated on the **GRN firing-rate axis**: λ50′/λ50 = 1/(1 − f). It is invariant
+   to any monotone MN9→behaviour link h, provided h is unchanged and the target output is still
+   attainable after silencing. It is **not** invariant to the concentration→rate map. A
+   concentration-space statement needs a GRN dose–response and is only a conditional corollary.
+   Since f̂ is *defined* as the best rescaling factor, C2 is a reparameterization, not an independent
+   test. The real tests are collapse (RQ2) and the structural prediction of f (RQ3).
+6. **Abolition and cuts.** Cut ⇒ no recovery is sound. No recovery ⇏ cut, because parallel routes may
+   never cross threshold. "Abolition" is renamed **no recovery within λ ≤ λ_max** and is
+   range-dependent.
+7. **Pairs.** With walk sums, f_ab = f_a + f_b − f_{a∧b} is an identity (inclusion–exclusion over sets
+   of walks), not a prediction. Pair content comes only from T5a (single-neuron f̂ plus a structural
+   overlap) and T5b (structural pair fraction) feeding the law (PROJECT_DESIGN §6.5). The
+   "no free parameters" claim is withdrawn.
+8. **Bridge framing.**
+   - f_k is a finite-change analogue of a **flux control coefficient** (metabolic control analysis;
+     Kacser & Burns 1981 `[V-abs]`).
+   - For conservative transmission, the **summation theorem** gives Σ_{k∈cut} f_k = 1. Departures
+     measure non-conservative transmission. A decline of Σ f_k(λ) with λ quantifies Shiu 2024's
+     "redundancy increases with stimulation" `[V-full]`.
+   - The EC50 shift with the maximum preserved is the pharmacological **receptor-reserve** argument
+     `[MEM]`. Cited as an analogy only.
+9. **f < 0** for inhibitory neurons is not generally well defined (failure mode 4a). Sign predictions
+   are made only at type level, and the external-test sign handling is pre-declared
+   (PROJECT_DESIGN §7.2).
 
 All model facts are `[V-src]` from `model.py` (commit 91bdd1e7). Analytic numbers are mean-field
 approximations and must be calibrated (§7).
