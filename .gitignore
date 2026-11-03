@@ -227,3 +227,8 @@ feasibility/sim_output/
 *.parquet
 !feasibility/ids/*.parquet
 sim/out/
+
+# Full texts and archive data: kept locally, not committed (copyright/size); see literature/README.md
+literature/pdfs/
+literature/text/
+data/shiu_archive/
