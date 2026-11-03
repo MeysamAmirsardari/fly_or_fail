@@ -93,21 +93,40 @@ this outcome as informative either way.
 - Shiu archive **Fig. 1F** silencing CSVs (`fig_1f_*_hz_rate.csv`). Only the Fig. 1E activation CSVs
   (50 and 175 Hz) were provided.
 
-## 8. Shiu & Sterne 2022 Fig. 1: the seven PER-eliciting second-order neurons (PI read of the figure text layer)
+## 8. Shiu & Sterne 2022 Figs. 1E and 2E (PI read of the figure IMAGES; corrects the earlier text-layer reading)
 
-| Neuron | Synapses from the 17 candidate sugar GRNs (Fig. 1A) `[V-full]` | GtACR1 at 50 mM (Fig. 1E) | GtACR1 at 100 mM (Fig. 1—S2C) `[V-full]` |
-|---|---|---|---|
-| Zorro | 325 | reduced (***) | no effect |
-| Clavicle | 210 | reduced (***) | no effect |
-| G2N-1 | 165 | mixed across two lines (* / ns): ambiguous in the text layer | no effect |
-| Rattle | 110 | reduced (***) | **reduced** |
-| Usnea | 75 | reduced (***) | **reduced** |
-| FMIn | 75 | mixed across two lines (*** / ns): ambiguous in the text layer | no effect |
-| Phantom | 65 | reduced (***) | no effect |
+**Correction (2026-11-03).** An earlier version of this table, read from the PDF text layer, marked
+Phantom as "reduced" at 50 mM. That was **wrong**: those asterisks belonged to the activation panel.
+The table below was read from the rendered figure image (Figure 1, panels A and E; Figure 2, panels A
+and E) `[V-full, image]`.
 
-- **Caveat.** The per-neuron significance at 50 mM was read from the PDF text layer. Where a neuron
-  was tested with two split-GAL4 lines, the marks are ambiguous. The text states "6 of 7". Read the
-  figure image or the source data before using the 50 mM labels per neuron. The 100 mM result is
-  stated in the legend text and is unambiguous.
-- **Note.** Ranking by direct GRN synapse count puts Rattle 4th and Usnea 5th–6th of 7, so the 100 mM
-  result is **not** explained by direct sensory input. That makes the f-ranking test non-trivial.
+| Second-order neuron | GRN synapses (Fig. 1A) | GtACR1 at 50 mM, per split-GAL4 line (Fig. 1E) | Counted in "6 of 7"? | GtACR1 at 100 mM (Fig. 1—S2C legend) |
+|---|---|---|---|---|
+| Zorro | 325 | SS67405 *** ↓; SS67406 *** ↓ | yes | no effect |
+| Clavicle | 210 | SS48947 *** ↓ | yes | no effect |
+| G2N-1 | 165 | SS47082 * ↓; SS56399 ns | yes (one of two lines) | no effect |
+| Rattle | 110 | SS50091 *** ↓ | yes | **↓** |
+| Usnea | 75 | SS37122 *** ↓ | yes | **↓** |
+| FMIn | 75 | SS48944 *** ↓; SS48949 ns | yes (one of two lines) | no effect |
+| Phantom | 65 | SS44877 ns; SS44879 ns | **no**: the one of seven without a 50 mM phenotype | no effect |
+
+**Third-order and premotor neurons** (Fig. 2A circuit schematic; Fig. 2E, GtACR1 at 50 mM, n = 40–70):
+- Circuit: third-order = Sternum, Bract 1, Bract 2, Fdg; premotor = Roundup, Roundtree, Rounddown.
+- Tested by inhibition: **Bract** (SS31320, SS31386), **Fdg** (SS31333, SS46913) and **Roundup**
+  (SS47744, SS47745). **All had no effect** at 50 mM.
+
+**Resulting ordinal labels** (frozen here, before any f is computed):
+
+| Tier | Types | Meaning |
+|---|---|---|
+| 2 | Rattle, Usnea | necessary at 50 **and** 100 mM |
+| 1 | Zorro, Clavicle, G2N-1, FMIn | necessary at 50 mM only (G2N-1 and FMIn in one of two lines) |
+| 0 | Phantom | no phenotype at 50 or 100 mM |
+| Layer comparison | Bract, Fdg, Roundup | third-order and premotor: no effect at 50 mM |
+
+**Notes:**
+- Usnea and Phantom are predicted GABAergic.
+- Ranking by direct GRN synapse count puts Rattle 4th and Usnea 5th–6th of 7, so the 100 mM result
+  is **not** explained by direct sensory input.
+- **Sensitivity labelling (pre-registered):** G2N-1 and FMIn are moved to tier 0.5, because only one
+  line was significant.
