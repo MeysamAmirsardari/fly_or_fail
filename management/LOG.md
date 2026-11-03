@@ -144,3 +144,25 @@ _Append-only, newest entries at the bottom. Times are 2026-11-03 session times (
   - RED (Fable/high): review, now including the full-text facts and an external-validation design for
     the two-concentration data.
 - **CPU split:** ENG ≤ 2 processes, SIM ≤ 2 cores while ENG is running.
+
+## 2026-11-03: SIM interim result; STRUCT launched
+
+- **SIM interim** (agent message):
+  - G0: the original Brian2 objects, with SIM's common-random-number (CRN) input trains injected,
+    reproduce fastlif spike-for-spike in 9 of 9 cases (v630 and v783; 100/200/400 Hz; silencing
+    included).
+  - G3: the closure network (v630: 9,237 neurons, 995k synapses) is bit-identical to the full
+    network in 116 jobs.
+  - G4: CRN passes.
+  - G5: 0.05 s per trial-condition at 2 threads, about 100× faster than Brian2.
+  - G1 at 100 Hz: r = 0.9993. MN9_L 67.1 vs ENG 70.0 [68.1, 71.9] is a strict failure. The 60 pooled
+    Brian2 trials give 68.2 [66.7, 69.6], which contains fastlif's 67.1. Diagnosed as sampling noise
+    in the reference; accepted provisionally given G0.
+  - Brian2 semantics confirmed: synaptic and Poisson input is dropped while a neuron is refractory and
+    in its spike step.
+- **Consequence.** Compute is no longer binding: the full single-neuron screen takes about 11–22 min.
+  The design can afford more trials, a finer λ grid, all active neurons and more pairs, with the
+  same plan and higher power.
+- **STRUCT launched** (Opus/high): the structural-predictor pipeline (exact Sherman–Morrison and
+  Woodbury walk-sum fractions, max-flow, dominators, empirical gains) and the intact λ-curve.
+  Intact runs only.

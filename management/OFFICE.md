@@ -24,6 +24,7 @@ usage, and zero tolerance for mistakes._
 | ENG | Data and model feasibility: install, inspect FlyWire v783, run the Shiu baseline, benchmark, check other datasets | Sonnet 5.5 | high | 1 | `docs/research/feasibility_report.md`, `feasibility/` |
 | RED | Red team: novelty, circularity, confounds, statistics, feasibility | Fable 5.1 | high | 3 | `docs/research/redteam_review.md` |
 | CIT | Citation auditor: verify every reference in the final docs | Sonnet 5.5 | medium | 4 | `docs/research/citation_audit.md` |
+| STRUCT | Analysis engineer: structural predictors (L0–L2), walk-sum/Sherman–Morrison transmission fractions, max-flow, dominators, intact λ-curve | Opus 5.5 | high | 7 | `analysis/`, `analysis/PREDICTORS.md` |
 | SIM | Simulation engineer: batched numba replica of the Shiu LIF model with common random numbers, exact network reduction, validation against Brian2 | Opus 5.5 | high | 6 | `sim/`, `docs/research/sim_validation.md` |
 
 ### Why these choices
