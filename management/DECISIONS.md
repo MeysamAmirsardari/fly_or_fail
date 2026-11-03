@@ -21,3 +21,12 @@ _Each entry gives: context, decision, alternatives considered, consequences, sta
 - **Decision.** Phase 1 engineering is limited to *feasibility probes*: install, inspect data, run
   the baseline simulation and benchmarks. No perturbation screens or predictor pipelines.
 - **Status.** Accepted (2026-11-03).
+
+## D-004: Commit identity and attribution
+- **Context.** The user requires that every commit be made under the user's own identity, with no
+  third-party credit or attribution lines.
+- **Decision.** The repo-local git config uses `Meysam Amirsardari
+  <62254770+MeysamAmirsardari@users.noreply.github.com>`. Commit messages carry no
+  `Co-Authored-By` or session trailers. Earlier commits were rewritten and force-pushed with the
+  user's explicit approval (2026-11-03).
+- **Status.** Accepted (2026-11-03).
